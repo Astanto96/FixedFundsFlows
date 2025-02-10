@@ -212,6 +212,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/felixdressler/Developer/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "freezed_annotation",
       "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.4",
       "packageUri": "lib/",
@@ -228,6 +234,12 @@
       "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/glob-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "go_router",
+      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/go_router-14.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "graphs",
@@ -542,7 +554,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-02-10T02:16:26.374320Z",
+  "generated": "2025-02-10T02:28:51.947967Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///Users/felixdressler/Developer/flutter",
