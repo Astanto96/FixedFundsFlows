@@ -218,6 +218,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "freezed",
+      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/freezed-2.5.7",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "freezed_annotation",
       "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.4",
       "packageUri": "lib/",
@@ -554,7 +560,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-02-10T02:28:51.947967Z",
+  "generated": "2025-02-10T02:47:42.790729Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///Users/felixdressler/Developer/flutter",
