@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class OverviewScreen extends StatelessWidget {
-  const OverviewScreen({super.key});
+class CategorysScreen extends StatelessWidget {
+  const CategorysScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Hello World!'),
+      child: Text('Hello Categorys!'),
     );
   }
 }

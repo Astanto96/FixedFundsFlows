@@ -1,24 +1,14 @@
-import 'package:fixedfundsflows/ui/overview/widgets/overview_screen.dart';
+import 'package:fixedfundsflows/core/routing/router.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class FixedFundsFlowsApp extends StatelessWidget {
-  FixedFundsFlowsApp({super.key});
-
-  final _router = GoRouter(
-    initialLocation: '/',
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const OverviewScreen(),
-      ),
-    ],
-  );
+  const FixedFundsFlowsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: _router,
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
