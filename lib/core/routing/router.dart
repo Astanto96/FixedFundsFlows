@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/ui/auth/widgets/auth_screen.dart';
 import 'package:fixedfundsflows/ui/categorys/widgets/categorys_screen.dart';
 import 'package:fixedfundsflows/ui/overview/widgets/overview_screen.dart';
 import 'package:fixedfundsflows/ui/widgets/layout_scaffold.dart';
@@ -8,7 +9,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: '/auth',
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => Layoutscaffold(
@@ -18,7 +19,7 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/',
+              path: '/overview',
               builder: (context, state) => const OverviewScreen(),
             ),
           ],
@@ -32,6 +33,10 @@ final router = GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/auth',
+      builder: (context, state) => const AuthScreen(),
     ),
   ],
 );
