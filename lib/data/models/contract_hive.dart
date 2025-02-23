@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 part 'contract_hive.g.dart';
 
 @HiveType(typeId: 1)
-class ContractHive {
+class ContractHive extends HiveObject {
   @HiveField(0)
   String description;
   @HiveField(1)
