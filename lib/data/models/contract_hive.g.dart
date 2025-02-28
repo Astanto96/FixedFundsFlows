@@ -19,7 +19,7 @@ class ContractHiveAdapter extends TypeAdapter<ContractHive> {
     return ContractHive(
       description: fields[0] as String,
       billingPeriod: fields[1] as BillingPeriod,
-      category: fields[2] as CategoryHive,
+      categoryId: fields[2] as int,
       income: fields[3] as bool,
       amount: fields[4] as int,
     );
@@ -34,7 +34,7 @@ class ContractHiveAdapter extends TypeAdapter<ContractHive> {
       ..writeByte(1)
       ..write(obj.billingPeriod)
       ..writeByte(2)
-      ..write(obj.category)
+      ..write(obj.categoryId)
       ..writeByte(3)
       ..write(obj.income)
       ..writeByte(4)

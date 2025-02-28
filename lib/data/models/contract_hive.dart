@@ -1,5 +1,7 @@
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/models/category_hive.dart';
+import 'package:fixedfundsflows/domain/category.dart';
+import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:hive/hive.dart';
 
 part 'contract_hive.g.dart';
@@ -11,7 +13,7 @@ class ContractHive extends HiveObject {
   @HiveField(1)
   BillingPeriod billingPeriod;
   @HiveField(2)
-  CategoryHive category;
+  int categoryId;
   @HiveField(3)
   bool income;
   @HiveField(4)
@@ -20,8 +22,28 @@ class ContractHive extends HiveObject {
   ContractHive({
     required this.description,
     required this.billingPeriod,
-    required this.category,
+    required this.categoryId,
     this.income = false,
     required this.amount,
   });
+
+  factory ContractHive.fromDomain(Contract contract) {
+    return ContractHive(
+      description: contract.description,
+      billingPeriod: contract.billingPeriod,
+      categoryId: contract.category.id,
+      amount: contract.amount,
+    );
+  }
+
+  Contract toDomain(CategoryHive category) {
+    return Contract(
+      id: key as int,
+      description: description,
+      billingPeriod: billingPeriod,
+      category:
+          Category(id: category.key as int, description: category.description),
+      amount: amount,
+    );
+  }
 }

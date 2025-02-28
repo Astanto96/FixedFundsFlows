@@ -1,5 +1,4 @@
 import 'package:fixedfundsflows/data/datasource/hive_data_source.dart';
-import 'package:fixedfundsflows/data/models/contract_hive.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,13 +20,33 @@ class ContractRepository {
   ContractRepository(this.dataSource, this.categoryRepo);
 
   Future<void> addContract(Contract contract) async {
-    await dataSource.addContract(
-      ContractHive(
-        description: contract.description,
-        billingPeriod: contract.billingPeriod,
-        category: categoryRepo.getCategory(contract.id),
-        amount: contract.amount,
-      ),
+    final category = categoryRepo.getCategory(contract.category.id);
+
+    await dataSource.addContract(contract.copyWith(category: category));
+  }
+
+  List<Contract> getContracts() {
+    return dataSource.getContracts();
+  }
+
+  Contract getContract(int id) {
+    final contract = dataSource.getContract(id);
+    if (contract == null) {
+      throw Exception("Vertrag mit ID $id nicht gefunden!");
+    }
+    return contract;
+  }
+
+  Future<void> updateContract(Contract contract) async {
+    final category = categoryRepo.getCategory(contract.category.id);
+
+    await dataSource.updateContract(
+      contract.id,
+      contract.copyWith(category: category),
     );
+  }
+
+  Future<void> deleteContract(int id) async {
+    await dataSource.deleteContract(id);
   }
 }

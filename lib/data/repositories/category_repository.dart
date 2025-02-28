@@ -1,5 +1,4 @@
 import 'package:fixedfundsflows/data/datasource/hive_data_source.dart';
-import 'package:fixedfundsflows/data/models/category_hive.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -18,26 +17,19 @@ class CategoryRepository {
   CategoryRepository(this.dataSource);
 
   Future<void> addCategory(Category category) async {
-    await dataSource
-        .addCategory(CategoryHive(description: category.description));
+    await dataSource.addCategory(category);
   }
 
   List<Category> getCategories() {
-    return dataSource.getCategories().map((e) {
-      try {
-        return Category(id: e.key as int, description: e.description);
-      } catch (error) {
-        throw Exception("Fehler beim Konvertieren der ID: $error");
-      }
-    }).toList();
+    return dataSource.getCategories();
   }
 
-  CategoryHive getCategory(int key) {
-    final categoryHive = dataSource.getCategory(key);
-    if (categoryHive == null) {
+  Category getCategory(int key) {
+    final category = dataSource.getCategory(key);
+    if (category == null) {
       throw Exception("Kategorie mit ID $key nicht gefunden!");
     }
-    return categoryHive;
+    return category;
   }
 
   Future<void> deleteCategory(int key) async {
