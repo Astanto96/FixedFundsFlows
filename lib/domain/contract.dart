@@ -35,4 +35,15 @@ class Contract {
       income: income ?? this.income,
     );
   }
+
+  Contract copyWithAmount({int? amount}) {
+    return Contract(
+      id: id,
+      description: description,
+      billingPeriod: billingPeriod,
+      category: category,
+      amount: amount ?? this.amount,
+      income: income,
+    );
+  }
 }
