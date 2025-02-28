@@ -17,4 +17,22 @@ class Contract {
     this.income = false,
     required this.amount,
   });
+
+  Contract copyWith({
+    int? id,
+    String? description,
+    BillingPeriod? billingPeriod,
+    Category? category,
+    int? amount,
+    bool? income,
+  }) {
+    return Contract(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      billingPeriod: billingPeriod ?? this.billingPeriod,
+      category: category ?? this.category,
+      amount: amount ?? this.amount,
+      income: income ?? this.income,
+    );
+  }
 }
