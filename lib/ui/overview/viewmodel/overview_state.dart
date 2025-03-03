@@ -24,7 +24,7 @@ class OverviewState {
       contracts: contracts ?? this.contracts,
       selectedPeriod: selectedPeriod ?? this.selectedPeriod,
       isLoading: isLoading ?? this.isLoading,
-      error: error,
+      error: error ?? this.error,
     );
   }
 }
