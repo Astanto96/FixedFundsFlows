@@ -13,18 +13,53 @@ class Layoutscaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: navigationShell,
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: navigationShell.currentIndex,
-          onDestinationSelected: navigationShell.goBranch,
-          destinations: destinations
-              .map(
-                (destination) => NavigationDestination(
-                  icon: Icon(destination.icon),
-                  label: destination.label,
-                  selectedIcon: Icon(destination.icon, color: Colors.white),
+        bottomNavigationBar: BottomAppBar(
+          child: SizedBox(
+            height: kBottomNavigationBarHeight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: NavigationBar(
+                    labelBehavior:
+                        NavigationDestinationLabelBehavior.alwaysHide,
+                    selectedIndex: navigationShell.currentIndex,
+                    onDestinationSelected: navigationShell.goBranch,
+                    destinations: destinations
+                        .map(
+                          (destination) => NavigationDestination(
+                            icon: Icon(
+                              destination.icon,
+                            ),
+                            label: destination.label,
+                            selectedIcon: Icon(
+                              destination.icon,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-              )
-              .toList(),
+                FloatingActionButton(
+                  onPressed: () {
+                    switch (navigationShell.currentIndex) {
+                      case 0:
+                        //Contract hinzufügen
+                        break;
+                      case 1:
+                        //Category hinzufügen
+                        break;
+                      case 2:
+                        //Contract hinzufügen
+                        break;
+                    }
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 }

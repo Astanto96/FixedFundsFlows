@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Destination {
-  const Destination({required this.label, required this.icon});
+  Destination({
+    required this.label,
+    required this.icon,
+  });
 
   final String label;
   final IconData icon;
 }
 
-const destinations = [
+List<Destination> destinations = [
   Destination(label: 'Overview', icon: Icons.description_outlined),
   Destination(label: 'Categorys', icon: Icons.category_outlined),
   Destination(label: 'Statistic', icon: Icons.query_stats),
