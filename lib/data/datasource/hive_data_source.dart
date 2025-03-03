@@ -110,7 +110,7 @@ class HiveDataSource {
     return contractHive.toDomain(categoryHive);
   }
 
-  Future<void> updateContract(int key, Contract contract) async {
+  Future<void> updateContract(Contract contract) async {
     final categoryHive = categoryBox.get(contract.category.id);
     if (categoryHive == null) {
       throw Exception(
@@ -120,7 +120,7 @@ class HiveDataSource {
 
     final contractHive = ContractHive.fromDomain(contract);
 
-    await contractBox.put(key, contractHive);
+    await contractBox.put(contract.id, contractHive);
   }
 
   Future<void> deleteContract(int key) async => await contractBox.delete(key);

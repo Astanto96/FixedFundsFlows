@@ -41,7 +41,6 @@ class ContractRepository {
     final category = categoryRepo.getCategory(contract.category.id);
 
     await dataSource.updateContract(
-      contract.id,
       contract.copyWith(category: category),
     );
   }
