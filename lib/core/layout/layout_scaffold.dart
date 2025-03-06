@@ -17,12 +17,9 @@ class Layoutscaffold extends StatelessWidget {
           child: SizedBox(
             height: kBottomNavigationBarHeight,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
                   child: NavigationBar(
-                    labelBehavior:
-                        NavigationDestinationLabelBehavior.alwaysHide,
                     selectedIndex: navigationShell.currentIndex,
                     onDestinationSelected: navigationShell.goBranch,
                     destinations: destinations
@@ -32,10 +29,6 @@ class Layoutscaffold extends StatelessWidget {
                               destination.icon,
                             ),
                             label: destination.label,
-                            selectedIcon: Icon(
-                              destination.icon,
-                              color: Colors.white,
-                            ),
                           ),
                         )
                         .toList(),
