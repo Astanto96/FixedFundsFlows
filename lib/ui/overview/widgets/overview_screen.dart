@@ -1,12 +1,28 @@
+import 'package:fixedfundsflows/ui/overview/viewmodel/overview_viewmodel.dart';
+import 'package:fixedfundsflows/ui/overview/widgets/ov_header.dart';
+import 'package:fixedfundsflows/ui/overview/widgets/ov_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OverviewScreen extends StatelessWidget {
+class OverviewScreen extends ConsumerWidget {
   const OverviewScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Hello World!'),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final overviewState = ref.watch(overviewViewModelProvider);
+    final viewModel = ref.read(overviewViewModelProvider.notifier);
+
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          OvHeader(
+            selectedPeriod: overviewState.selectedPeriod,
+            onBillingPeriodChanged: viewModel.setBillingPeriod,
+          ),
+          OvList(contracts: overviewState.contracts),
+        ],
+      ),
     );
   }
 }

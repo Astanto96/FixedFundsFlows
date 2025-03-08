@@ -1,5 +1,5 @@
 import 'package:fixedfundsflows/core/routing/router.dart';
-import 'package:fixedfundsflows/core/theme/dartk_theme.dart';
+import 'package:fixedfundsflows/core/theme/dark_theme.dart';
 import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
