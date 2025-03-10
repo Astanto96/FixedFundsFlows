@@ -15,6 +15,7 @@ class OverviewScreen extends ConsumerWidget {
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
         children: [
           OvHeader(
             selectedPeriod: overviewState.selectedPeriod,

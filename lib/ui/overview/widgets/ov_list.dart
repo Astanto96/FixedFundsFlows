@@ -33,18 +33,16 @@ class OvList extends StatelessWidget {
               height: 1,
               color: Theme.of(context).colorScheme.secondary,
             ),
-            Padding(
-              padding: AppSpacing.padding16,
-              child: ListView.builder(
-                itemCount: contracts.length,
-                itemBuilder: (context, int index) {
+            SingleChildScrollView(
+              child: Column(
+                children: contracts.map((contract) {
                   return ListTile(
-                    leading: Icon(contracts[index].billingIcon),
-                    title: Text(contracts[index].description),
-                    subtitle: Text(contracts[index].category.description),
-                    trailing: Text(contracts[index].amount.toString()),
+                    leading: Icon(contract.billingIcon),
+                    title: Text(contract.description),
+                    subtitle: Text(contract.category.description),
+                    trailing: Text(contract.amount.toString()),
                   );
-                },
+                }).toList(),
               ),
             ),
           ],
