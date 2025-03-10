@@ -8,6 +8,7 @@ part 'overview_repository.g.dart';
 
 @riverpod
 OverviewRepository overviewRepository(Ref ref) {
+  print("Fange an OVRepo zu bauen");
   final contractRepo = ref.watch(contractRepositoryProvider);
   return OverviewRepository(contractRepo);
 }

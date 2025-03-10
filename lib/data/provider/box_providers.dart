@@ -7,11 +7,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'box_providers.g.dart';
 
 @riverpod
-Future<Box<ContractHive>> contractBox(Ref ref) async {
-  return await Hive.openBox<ContractHive>('contracts');
+Box<ContractHive> contractBox(Ref ref) {
+  return Hive.box<ContractHive>('contracts');
 }
 
 @riverpod
-Future<Box<CategoryHive>> categoryBox(Ref ref) async {
-  return await Hive.openBox<CategoryHive>('category');
+Box<CategoryHive> categoryBox(Ref ref) {
+  return Hive.box<CategoryHive>('categories');
 }
