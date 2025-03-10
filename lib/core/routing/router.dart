@@ -10,7 +10,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/auth',
+  initialLocation: '/overview',
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => Layoutscaffold(

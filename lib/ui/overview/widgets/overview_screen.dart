@@ -10,7 +10,7 @@ class OverviewScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final overviewState = ref.watch(overviewViewModelProvider);
-    final viewModel = ref.read(overviewViewModelProvider.notifier);
+    final viewModel = ref.watch(overviewViewModelProvider.notifier);
 
     return SafeArea(
       child: Column(
@@ -22,6 +22,11 @@ class OverviewScreen extends ConsumerWidget {
             onBillingPeriodChanged: viewModel.setBillingPeriod,
           ),
           OvList(contracts: overviewState.contracts),
+          ElevatedButton(
+              onPressed: () {
+                viewModel.loadContractsForPeriod();
+              },
+              child: const Text('Test')),
         ],
       ),
     );
