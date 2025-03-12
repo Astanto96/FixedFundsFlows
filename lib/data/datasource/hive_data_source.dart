@@ -14,10 +14,6 @@ HiveDataSource hiveDataSource(Ref ref) {
   final categoryBox = ref.watch(categoryBoxProvider);
   final contractBox = ref.watch(contractBoxProvider);
 
-  if (categoryBox == null || contractBox == null) {
-    throw Exception("Hive boxes not initialized yet!");
-  }
-
   return HiveDataSource(categoryBox: categoryBox, contractBox: contractBox);
 }
 
