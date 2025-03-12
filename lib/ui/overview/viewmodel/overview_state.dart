@@ -1,5 +1,4 @@
-
-import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 
 class OverviewState {
@@ -17,13 +16,13 @@ class OverviewState {
 
   OverviewState copyWith({
     List<Contract>? contracts,
-    BillingPeriod? selectedPeriod,
+    BillingPeriod selectedPeriod = BillingPeriod.monthly,
     bool? isLoading,
     String? error,
   }) {
     return OverviewState(
       contracts: contracts ?? this.contracts,
-      selectedPeriod: selectedPeriod ?? this.selectedPeriod,
+      selectedPeriod: selectedPeriod,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
     );

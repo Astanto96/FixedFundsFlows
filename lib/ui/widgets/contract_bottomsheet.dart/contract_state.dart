@@ -1,6 +1,4 @@
-
-
-import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 
 class ContractState {
@@ -33,7 +31,7 @@ class ContractState {
     String? error,
     int? id,
     String? description,
-    BillingPeriod? selectedPeriod,
+    BillingPeriod selectedPeriod = BillingPeriod.monthly,
     Category? selectedCategory,
     bool? income,
     int? amount,
@@ -44,7 +42,7 @@ class ContractState {
       error: error ?? this.error,
       id: id ?? this.id,
       description: description ?? this.description,
-      selectedPeriod: selectedPeriod ?? this.selectedPeriod,
+      selectedPeriod: selectedPeriod,
       selectedCategory: selectedCategory ?? this.selectedCategory,
       income: income ?? this.income,
       amount: amount ?? this.amount,

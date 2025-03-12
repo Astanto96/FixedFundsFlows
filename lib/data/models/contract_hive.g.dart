@@ -18,7 +18,7 @@ class ContractHiveAdapter extends TypeAdapter<ContractHive> {
     };
     return ContractHive(
       description: fields[0] as String,
-      billingPeriod: fields[1] as BillingPeriod,
+      billingPeriod: fields[1] as BillingPeriodHive,
       categoryId: fields[2] as int,
       income: fields[3] as bool,
       amount: fields[4] as int,

@@ -40,10 +40,6 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
               child: OvList(contracts: overviewState.contracts),
             ),
           ),
-          ElevatedButton(
-              onPressed: () {},
-              child: Text('Keine Funktion',
-                  style: TextStyle(fontSize: 24, color: Colors.red))),
         ],
       ),
     );

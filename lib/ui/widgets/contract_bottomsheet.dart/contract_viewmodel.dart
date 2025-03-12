@@ -1,5 +1,4 @@
-
-import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
 import 'package:fixedfundsflows/domain/category.dart';

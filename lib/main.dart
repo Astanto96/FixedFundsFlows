@@ -41,7 +41,7 @@ Future<void> _addDummyData() async {
       await contractBox.add(
         ContractHive(
           description: 'Vertrag $i',
-          billingPeriod: BillingPeriod.monthly,
+          billingPeriod: BillingPeriodHive.monthly,
           categoryId: catID,
           amount: 4000 * i,
         ),
@@ -51,7 +51,7 @@ Future<void> _addDummyData() async {
     await contractBox.add(
       ContractHive(
         description: 'KFZ - Vers.',
-        billingPeriod: BillingPeriod.yearly,
+        billingPeriod: BillingPeriodHive.yearly,
         categoryId:
             await categoryBox.add(CategoryHive(description: 'Versicherung')),
         amount: 17000,

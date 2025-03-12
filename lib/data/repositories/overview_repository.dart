@@ -1,5 +1,4 @@
-
-import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
