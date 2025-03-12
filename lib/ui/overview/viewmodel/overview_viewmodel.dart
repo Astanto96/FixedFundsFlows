@@ -1,4 +1,4 @@
-import 'package:fixedfundsflows/core/utils/billing_period.dart';
+import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
 import 'package:fixedfundsflows/data/repositories/overview_repository.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,7 +14,6 @@ class OverviewViewModel extends _$OverviewViewModel {
   @override
   OverviewState build() {
     _repository = ref.watch(overviewRepositoryProvider);
-    loadContractsForPeriod();
     return OverviewState();
   }
 
@@ -30,7 +29,9 @@ class OverviewViewModel extends _$OverviewViewModel {
       final contracts =
           await _repository.getContractsForPeriod(state.selectedPeriod);
       state = state.copyWith(contracts: contracts, isLoading: false);
-    } catch (e) {
+    } catch (e, st) {
+      print(e);
+      print(st);
       state = state.copyWith(isLoading: false, error: e.toString());
     }
   }

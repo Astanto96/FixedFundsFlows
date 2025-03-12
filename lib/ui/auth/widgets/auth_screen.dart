@@ -10,7 +10,7 @@ class AuthScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authViewModelProvider);
 
-// Authentifizierung nur einmal beim Start ausführen
+    // Authentifizierung nur einmal beim Start ausführen
     ref.listen<bool?>(authViewModelProvider, (previous, next) {
       if (next == true) {
         context.replace('/overview'); // Sicherer Aufruf ohne async gaps

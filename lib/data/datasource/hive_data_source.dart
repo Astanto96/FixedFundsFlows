@@ -11,8 +11,8 @@ part 'hive_data_source.g.dart';
 
 @riverpod
 HiveDataSource hiveDataSource(Ref ref) {
-  final categoryBox = ref.watch(categoryBoxProvider).value;
-  final contractBox = ref.watch(contractBoxProvider).value;
+  final categoryBox = ref.watch(categoryBoxProvider);
+  final contractBox = ref.watch(contractBoxProvider);
 
   if (categoryBox == null || contractBox == null) {
     throw Exception("Hive boxes not initialized yet!");
