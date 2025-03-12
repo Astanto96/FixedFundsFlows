@@ -1,5 +1,4 @@
-
-import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:flutter/material.dart';
 
 class OvHeader extends StatelessWidget {

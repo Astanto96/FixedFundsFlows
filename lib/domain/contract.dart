@@ -1,5 +1,4 @@
-
-import 'package:fixedfundsflows/data/models/billing_period_hive.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 
 class Contract {
@@ -22,7 +21,7 @@ class Contract {
   Contract copyWith({
     int? id,
     String? description,
-    BillingPeriod? billingPeriod,
+    BillingPeriod billingPeriod = BillingPeriod.monthly,
     Category? category,
     int? amount,
     bool? income,
@@ -30,7 +29,7 @@ class Contract {
     return Contract(
       id: id ?? this.id,
       description: description ?? this.description,
-      billingPeriod: billingPeriod ?? this.billingPeriod,
+      billingPeriod: billingPeriod,
       category: category ?? this.category,
       amount: amount ?? this.amount,
       income: income ?? this.income,

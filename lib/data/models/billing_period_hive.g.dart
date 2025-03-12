@@ -6,34 +6,34 @@ part of 'billing_period_hive.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BillingPeriodAdapter extends TypeAdapter<BillingPeriod> {
+class BillingPeriodAdapter extends TypeAdapter<BillingPeriodHive> {
   @override
   final int typeId = 2;
 
   @override
-  BillingPeriod read(BinaryReader reader) {
+  BillingPeriodHive read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return BillingPeriod.monthly;
+        return BillingPeriodHive.monthly;
       case 1:
-        return BillingPeriod.quarterly;
+        return BillingPeriodHive.quarterly;
       case 2:
-        return BillingPeriod.yearly;
+        return BillingPeriodHive.yearly;
       default:
-        return BillingPeriod.monthly;
+        return BillingPeriodHive.monthly;
     }
   }
 
   @override
-  void write(BinaryWriter writer, BillingPeriod obj) {
+  void write(BinaryWriter writer, BillingPeriodHive obj) {
     switch (obj) {
-      case BillingPeriod.monthly:
+      case BillingPeriodHive.monthly:
         writer.writeByte(0);
         break;
-      case BillingPeriod.quarterly:
+      case BillingPeriodHive.quarterly:
         writer.writeByte(1);
         break;
-      case BillingPeriod.yearly:
+      case BillingPeriodHive.yearly:
         writer.writeByte(2);
         break;
     }
