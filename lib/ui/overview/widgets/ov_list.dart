@@ -10,14 +10,13 @@ class OvList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
       padding: AppSpacing.padding24,
       child: Container(
         decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +25,7 @@ class OvList extends StatelessWidget {
               padding: AppSpacing.padding16,
               child: Text(
                 'Verträge',
-                style: TextStyle(fontSize: 24),
+                style: TextStyle(fontSize: 20),
               ),
             ),
             Container(

@@ -22,16 +22,16 @@ class DarkTheme {
         displayColor: Colors.white,
       ),
       navigationBarTheme: const NavigationBarThemeData(
-        backgroundColor: surface,
+        backgroundColor: primary,
         indicatorColor: secondary,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: primary,
+        backgroundColor: surface,
         foregroundColor: inversePrimary,
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
-        color: surface,
+        color: primary,
         elevation: 2,
       ),
       appBarTheme: const AppBarTheme(
@@ -39,6 +39,7 @@ class DarkTheme {
         foregroundColor: inversePrimary,
         elevation: 0,
       ),
+      scaffoldBackgroundColor: surface,
     );
   }
 }

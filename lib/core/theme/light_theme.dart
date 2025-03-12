@@ -22,16 +22,16 @@ class LightTheme {
         displayColor: Colors.black,
       ),
       navigationBarTheme: const NavigationBarThemeData(
-        backgroundColor: surface,
+        backgroundColor: primary,
         indicatorColor: secondary,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: primary,
+        backgroundColor: surface,
         foregroundColor: inversePrimary,
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
-        color: surface,
+        color: primary,
         elevation: 2,
       ),
       appBarTheme: const AppBarTheme(
@@ -39,7 +39,7 @@ class LightTheme {
         foregroundColor: inversePrimary,
         elevation: 0,
       ),
-      scaffoldBackgroundColor: primary,
+      scaffoldBackgroundColor: surface,
     );
   }
 }

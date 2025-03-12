@@ -19,8 +19,8 @@ class OvHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
-        border: Border.fromBorderSide(
-          BorderSide(
+        border: Border(
+          bottom: BorderSide(
             color: Theme.of(context).colorScheme.secondary,
           ),
         ),
