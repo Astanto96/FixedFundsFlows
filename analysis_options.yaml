@@ -1,5 +1,7 @@
 include: package:lint/strict.yaml
 
 analyzer:
+  errors:
+    unnecessary_breaks: ignore
   plugins:
     - custom_lint
