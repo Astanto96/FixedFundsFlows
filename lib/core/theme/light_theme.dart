@@ -39,7 +39,7 @@ class LightTheme {
         foregroundColor: inversePrimary,
         elevation: 0,
       ),
-      scaffoldBackgroundColor: surface,
+      scaffoldBackgroundColor: primary,
     );
   }
 }

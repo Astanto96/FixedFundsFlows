@@ -36,9 +36,7 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
             onBillingPeriodChanged: viewModel.setBillingPeriod,
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: OvList(contracts: overviewState.contracts),
-            ),
+            child: OvList(contracts: overviewState.contracts),
           ),
         ],
       ),
