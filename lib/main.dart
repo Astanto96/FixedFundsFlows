@@ -14,7 +14,7 @@ Future<void> main() async {
 
   Hive.registerAdapter(CategoryHiveAdapter());
   Hive.registerAdapter(ContractHiveAdapter());
-  Hive.registerAdapter(BillingPeriodAdapter());
+  Hive.registerAdapter(BillingPeriodHiveAdapter());
 
   await Hive.openBox<CategoryHive>('categories');
   await Hive.openBox<ContractHive>('contracts');
@@ -57,10 +57,5 @@ Future<void> _addDummyData() async {
         amount: 17000,
       ),
     );
-  } else {
-    print("⚡ [Hive] Daten bereits vorhanden, keine Dummy-Daten hinzugefügt.");
   }
-  print(
-    "📦 [Hive] Endgültiger Stand - Kategorien: ${categoryBox.length}, Verträge: ${contractBox.length}",
-  );
 }
