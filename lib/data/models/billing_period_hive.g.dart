@@ -6,7 +6,7 @@ part of 'billing_period_hive.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BillingPeriodAdapter extends TypeAdapter<BillingPeriodHive> {
+class BillingPeriodHiveAdapter extends TypeAdapter<BillingPeriodHive> {
   @override
   final int typeId = 2;
 
@@ -45,7 +45,7 @@ class BillingPeriodAdapter extends TypeAdapter<BillingPeriodHive> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BillingPeriodAdapter &&
+      other is BillingPeriodHiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -7,7 +7,7 @@ part of 'overview_repository.dart';
 // **************************************************************************
 
 String _$overviewRepositoryHash() =>
-    r'8c7fa1ea37459949f8311f36443e4f58556c3903';
+    r'22a4fab655e363d727b20076ae8303e7da292a04';
 
 /// See also [overviewRepository].
 @ProviderFor(overviewRepository)

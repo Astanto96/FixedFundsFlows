@@ -18,7 +18,6 @@ class Layoutscaffold extends ConsumerWidget {
 
     return hiveState.when(
       loading: () {
-        print("⏳ [LayoutScaffold] Warte auf Hive-Initialisierung...");
         return const Scaffold(
           body: Center(
             child: CircularProgressIndicator(),
@@ -26,7 +25,6 @@ class Layoutscaffold extends ConsumerWidget {
         );
       },
       error: (error, stackTrace) {
-        print("❌ [LayoutScaffold] Hive-Initialisierung fehlgeschlagen: $error");
         return Scaffold(
           body: Center(
             child: Text(
@@ -36,7 +34,6 @@ class Layoutscaffold extends ConsumerWidget {
         );
       },
       data: (_) {
-        print("✅ [LayoutScaffold] Hive ist bereit, UI wird geladen.");
         return Scaffold(
           body: navigationShell,
           bottomNavigationBar: BottomAppBar(
