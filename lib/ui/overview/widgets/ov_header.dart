@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class OvHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+      padding: AppSpacing.padding24,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         border: Border(

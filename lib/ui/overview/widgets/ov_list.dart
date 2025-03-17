@@ -13,38 +13,40 @@ class OvList extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.surface,
       padding: AppSpacing.padding24,
-      child: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: AppSpacing.padding16,
-                child: Text(
-                  'Verträge',
-                  style: TextStyle(fontSize: 20),
-                ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: AppSpacing.padding16,
+              child: Text(
+                'Verträge',
+                style: TextStyle(fontSize: 20),
               ),
-              Container(
-                height: 1,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              Column(
-                children: contracts.map((contract) {
+            ),
+            Container(
+              height: 1,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: contracts.length,
+                itemBuilder: (context, index) {
+                  final contract = contracts[index];
                   return ListTile(
                     leading: Icon(contract.billingIcon),
                     title: Text(contract.description),
                     subtitle: Text(contract.category.description),
                     trailing: Text(contract.amount.toString()),
                   );
-                }).toList(),
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
