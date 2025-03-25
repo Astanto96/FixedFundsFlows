@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/utils/bottom_sheets.dart';
 import 'package:fixedfundsflows/data/provider/hive_provider.dart';
 import 'package:fixedfundsflows/domain/destination.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class Layoutscaffold extends ConsumerWidget {
                     onPressed: () {
                       switch (navigationShell.currentIndex) {
                         case 0:
-                          //Contract hinzufügen
+                          AppBottomSheets.showCreateContract(context);
                           break;
                         case 1:
                           //Category hinzufügen
