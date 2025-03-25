@@ -17,7 +17,6 @@ class ContractViewModel extends _$ContractViewModel {
   ContractState build() {
     _contractRepo = ref.watch(contractRepositoryProvider);
     _categoryRepo = ref.watch(categoryRepositoryProvider);
-    loadCategorys();
     return ContractState();
   }
 
@@ -27,7 +26,7 @@ class ContractViewModel extends _$ContractViewModel {
     state = state.copyWith(isLoading: true);
 
     try {
-      final categories = _categoryRepo.getCategories();
+      final categories = await _categoryRepo.getCategories();
       state = state.copyWith(categories: categories, isLoading: false);
     } catch (e) {
       state = state.copyWith(error: e.toString(), isLoading: false);
@@ -80,22 +79,18 @@ class ContractViewModel extends _$ContractViewModel {
   Future<void> saveContract() async {
     state = state.copyWith(isLoading: true);
 
-    if (state.id == null) {
-      try {
+    try {
+      if (state.id == null) {
         await _contractRepo.addContract(
           Contract(
             description: state.description,
             billingPeriod: state.selectedPeriod,
             category: state.selectedCategory!,
+            income: state.income,
             amount: state.amount,
           ),
         );
-        state = state.copyWith(isLoading: false);
-      } catch (e) {
-        state = state.copyWith(error: e.toString(), isLoading: false);
-      }
-    } else {
-      try {
+      } else {
         await _contractRepo.updateContract(
           Contract(
             id: state.id,
@@ -106,10 +101,11 @@ class ContractViewModel extends _$ContractViewModel {
             amount: state.amount,
           ),
         );
-        state = state.copyWith(isLoading: false);
-      } catch (e) {
-        state = state.copyWith(error: e.toString(), isLoading: false);
       }
+    } catch (e) {
+      state = state.copyWith(error: e.toString());
+    } finally {
+      state = state.copyWith(isLoading: false); // Wird in jedem Fall ausgeführt
     }
   }
 

@@ -20,7 +20,7 @@ class CategoryRepository {
     await dataSource.addCategory(category);
   }
 
-  List<Category> getCategories() {
+  Future<List<Category>> getCategories() {
     return dataSource.getCategories();
   }
 
