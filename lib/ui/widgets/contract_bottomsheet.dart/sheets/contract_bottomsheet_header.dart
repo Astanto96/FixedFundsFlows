@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SheetHeader extends StatelessWidget {
+class ContractBottomsheetHeader extends StatelessWidget {
   final String title;
 
-  const SheetHeader({
+  const ContractBottomsheetHeader({
     super.key,
     required this.title,
   });

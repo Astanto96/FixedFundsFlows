@@ -7,18 +7,16 @@ import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/sheets/cont
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CreateContractBottomSheet extends ConsumerStatefulWidget {
-  const CreateContractBottomSheet({
+class ContractBottomsheet extends ConsumerStatefulWidget {
+  const ContractBottomsheet({
     super.key,
   });
 
   @override
-  _CreateContractBottomSheetState createState() =>
-      _CreateContractBottomSheetState();
+  _ContractBottomsheetState createState() => _ContractBottomsheetState();
 }
 
-class _CreateContractBottomSheetState
-    extends ConsumerState<CreateContractBottomSheet> {
+class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -42,7 +40,7 @@ class _CreateContractBottomSheetState
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SheetHeader(title: 'Create Contract'),
+              const ContractBottomsheetHeader(title: 'Create Contract'),
               AppSpacing.sbh16,
               TextFormField(
                 initialValue: state.description,
@@ -146,4 +144,4 @@ class _CreateContractBottomSheetState
 //oder CreateContracts verwendet wird
 //entsprechend mechanismus "wenn flag gesetzt, dann zeige das"
 //validation muss noch ins Viewmodel gezogen werden
-//und das themeemplate entsprechend angepasst werden in den Themes
+//und das themetemplate entsprechend angepasst werden in den Themes

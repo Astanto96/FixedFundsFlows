@@ -11,7 +11,7 @@ class AppBottomSheets {
       backgroundColor: Theme.of(context).colorScheme.primary,
       builder: (_) => const FractionallySizedBox(
         heightFactor: 0.91,
-        child: CreateContractBottomSheet(),
+        child: ContractBottomsheet(),
       ),
     );
   }
