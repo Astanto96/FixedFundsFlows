@@ -43,6 +43,12 @@ class DarkTheme {
         foregroundColor: inversePrimary,
         elevation: 0,
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: secondary,
+          foregroundColor: Colors.white,
+        ),
+      ),
       scaffoldBackgroundColor: primary,
     );
   }
