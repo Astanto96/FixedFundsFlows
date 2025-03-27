@@ -40,7 +40,7 @@ class HiveDataSource {
     );
   }
 
-  List<Category> getCategories() {
+  Future<List<Category>> getCategories() async {
     return categoryBox.values.map((categoryHive) {
       return Category(
         id: categoryHive.key as int,

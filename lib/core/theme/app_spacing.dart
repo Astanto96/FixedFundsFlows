@@ -47,6 +47,8 @@ abstract class AppSpacing {
   /// Extra large vertical spacing, e.g., before or after a main headline.
   static const SizedBox sbh32 = SizedBox(height: 32);
 
+  static const SizedBox sbh40 = SizedBox(height: 40);
+
   // -------------------------------------------------
   // EdgeInsets for Padding (Inside spacing)
   // -------------------------------------------------

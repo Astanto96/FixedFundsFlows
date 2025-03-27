@@ -25,6 +25,7 @@ Future<void> _addDummyData() async {
   final categoryBox = Hive.box<CategoryHive>('categories');
   final contractBox = Hive.box<ContractHive>('contracts');
 
+  if (categoryBox.isNotEmpty || contractBox.isNotEmpty) return;
   await contractBox.add(
     ContractHive(
       description: 'KFZ - Vers.',

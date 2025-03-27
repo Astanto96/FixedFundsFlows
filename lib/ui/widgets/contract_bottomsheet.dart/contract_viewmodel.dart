@@ -17,17 +17,59 @@ class ContractViewModel extends _$ContractViewModel {
   ContractState build() {
     _contractRepo = ref.watch(contractRepositoryProvider);
     _categoryRepo = ref.watch(categoryRepositoryProvider);
-    loadCategorys();
     return ContractState();
+  }
+//Validation -----------------------------------------------
+
+  String? validateDescription(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Description is required';
+    }
+    return null;
+  }
+
+  String? validateAmount(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Amount is required';
+    }
+    if (int.tryParse(value) == null) {
+      return 'Enter a valid number';
+    }
+    return null;
+  }
+
+  String? validateCategory(Category? value) {
+    if (value == null) {
+      return 'Category is required';
+    }
+    return null;
+  }
+
+  bool validateForm() {
+    final descriptionError = validateDescription(state.description);
+    final amountError = validateAmount(state.amount.toString());
+    final categoryError = validateCategory(state.selectedCategory);
+
+    // Update state with validation errors
+    state = state.copyWith(
+      descriptionError: descriptionError,
+      amountError: amountError,
+      categoryError: categoryError,
+    );
+
+    // Form is valid if there are no errors
+    return descriptionError == null &&
+        amountError == null &&
+        categoryError == null;
   }
 
 //Loading -----------------------------------------------
 
-  Future<void> loadCategorys() async {
+  Future<void> loadCategories() async {
     state = state.copyWith(isLoading: true);
 
     try {
-      final categories = _categoryRepo.getCategories();
+      final categories = await _categoryRepo.getCategories();
       state = state.copyWith(categories: categories, isLoading: false);
     } catch (e) {
       state = state.copyWith(error: e.toString(), isLoading: false);
@@ -56,7 +98,10 @@ class ContractViewModel extends _$ContractViewModel {
   //Updating -----------------------------------------
 
   void updateDescription(String value) {
-    state = state.copyWith(description: value);
+    state = state.copyWith(
+      description: value,
+      descriptionError: validateDescription(value),
+    );
   }
 
   void updatePeriod(BillingPeriod period) {
@@ -64,38 +109,40 @@ class ContractViewModel extends _$ContractViewModel {
   }
 
   void updateCategory(Category? category) {
-    state = state.copyWith(selectedCategory: category);
-  }
-
-  void updateIncome(bool income) {
-    state = state.copyWith(income: income);
+    state = state.copyWith(
+      selectedCategory: category,
+      categoryError: validateCategory(category),
+    );
   }
 
   void updateAmount(int value) {
-    state = state.copyWith(amount: value);
+    state = state.copyWith(
+      amount: value,
+      amountError: validateAmount(value.toString()),
+    );
   }
 
   //Saving-----------------------------------------
 
-  Future<void> saveContract() async {
+  Future<bool> saveContract() async {
+    if (!validateForm()) {
+      return false;
+    }
+
     state = state.copyWith(isLoading: true);
 
-    if (state.id == null) {
-      try {
+    try {
+      if (state.id == null) {
         await _contractRepo.addContract(
           Contract(
             description: state.description,
             billingPeriod: state.selectedPeriod,
             category: state.selectedCategory!,
+            income: state.income,
             amount: state.amount,
           ),
         );
-        state = state.copyWith(isLoading: false);
-      } catch (e) {
-        state = state.copyWith(error: e.toString(), isLoading: false);
-      }
-    } else {
-      try {
+      } else {
         await _contractRepo.updateContract(
           Contract(
             id: state.id,
@@ -106,22 +153,38 @@ class ContractViewModel extends _$ContractViewModel {
             amount: state.amount,
           ),
         );
-        state = state.copyWith(isLoading: false);
-      } catch (e) {
-        state = state.copyWith(error: e.toString(), isLoading: false);
       }
+      return true;
+    } catch (e) {
+      state = state.copyWith(error: e.toString());
+      return false;
+    } finally {
+      state = state.copyWith(isLoading: false);
     }
   }
 
   //Deleting----------------------------------------------
 
-  Future<void> deleteContract(int id) async {
+  Future<bool> deleteContract(int id) async {
     state = state.copyWith(isLoading: true);
     try {
       await _contractRepo.deleteContract(id);
       state = state.copyWith(isLoading: false);
+      return true;
     } catch (e) {
       state = state.copyWith(error: e.toString(), isLoading: false);
+      return false;
     }
+  }
+
+  void initializeWithContract(Contract contract) {
+    state = state.copyWith(
+      id: contract.id,
+      description: contract.description,
+      selectedPeriod: contract.billingPeriod,
+      selectedCategory: contract.category,
+      income: contract.income,
+      amount: contract.amount,
+    );
   }
 }

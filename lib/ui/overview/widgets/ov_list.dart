@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
+import 'package:fixedfundsflows/core/utils/bottom_sheets.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/domain/contract_extensions.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,10 @@ class OvList extends StatelessWidget {
                     title: Text(contract.description),
                     subtitle: Text(contract.category.description),
                     trailing: Text(contract.amount.toString()),
+                    onTap: () => AppBottomSheets.showDetailsToContract(
+                      context,
+                      contract,
+                    ),
                   );
                 },
               ),
