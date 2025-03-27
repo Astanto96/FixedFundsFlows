@@ -4,7 +4,7 @@ import 'package:fixedfundsflows/domain/category.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/contract_viewmodel.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/sheets/contract_bottomsheet_header.dart';
+import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/sheet/contract_bottomsheet_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
