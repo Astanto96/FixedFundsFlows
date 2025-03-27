@@ -103,7 +103,9 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
               ),
               AppSpacing.sbh16,
               DropdownButtonFormField<BillingPeriod>(
-                value: contractForDetails?.billingPeriod,
+                value: widget.isDetailsMode
+                    ? contractForDetails?.billingPeriod
+                    : state.selectedPeriod,
                 decoration: const InputDecoration(labelText: 'Billing Period'),
                 items: BillingPeriod.values
                     .map(
@@ -178,7 +180,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                             isItGood: true,
                             text: '${state.description} successfully created',
                           );
-                        Navigator.pop(context);
+                          Navigator.pop(context);
                         }
                       }
                     }
