@@ -3,12 +3,16 @@
 import 'package:flutter/material.dart';
 
 class DarkTheme {
-  static ThemeData get theme {
-    const surface = Color(0xFF212121);
-    const primary = Color(0xFF424242);
-    const secondary = Color(0xFF616161);
-    const inversePrimary = Color(0xFFEEEEEE);
+  static const surface = Color(0xFF212121);
+  static const primary = Color(0xFF424242);
+  static const secondary = Color(0xFF616161);
+  static const inversePrimary = Color(0xFFEEEEEE);
 
+  static const snackbarSuccess = Color.fromARGB(255, 14, 87, 16);
+  static const snackbarError = Color.fromARGB(255, 122, 30, 23);
+  static const snackbarInfo = Color.fromARGB(255, 17, 78, 128);
+
+  static ThemeData get theme {
     final base = ThemeData.dark();
     return base.copyWith(
       colorScheme: base.colorScheme.copyWith(
