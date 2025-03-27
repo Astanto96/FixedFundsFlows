@@ -6,7 +6,7 @@ part of 'contract_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$contractViewModelHash() => r'25ef7cfe812284784064bbef59d4bc2e91ea55c7';
+String _$contractViewModelHash() => r'f5cf3ca3052a34c8aee45883c956b2bb22f1c4e7';
 
 /// See also [ContractViewModel].
 @ProviderFor(ContractViewModel)

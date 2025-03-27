@@ -21,7 +21,7 @@ class Contract {
   Contract copyWith({
     int? id,
     String? description,
-    BillingPeriod billingPeriod = BillingPeriod.monthly,
+    BillingPeriod? billingPeriod,
     Category? category,
     int? amount,
     bool? income,
@@ -29,7 +29,7 @@ class Contract {
     return Contract(
       id: id ?? this.id,
       description: description ?? this.description,
-      billingPeriod: billingPeriod,
+      billingPeriod: billingPeriod ?? this.billingPeriod,
       category: category ?? this.category,
       amount: amount ?? this.amount,
       income: income ?? this.income,

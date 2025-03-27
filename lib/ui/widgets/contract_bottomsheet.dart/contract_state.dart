@@ -4,6 +4,9 @@ import 'package:fixedfundsflows/domain/category.dart';
 class ContractState {
   final bool isLoading;
   final String? error;
+  final String? descriptionError;
+  final String? amountError;
+  final String? categoryError;
 
   final int? id;
   final String description;
@@ -17,6 +20,9 @@ class ContractState {
   ContractState({
     this.isLoading = false,
     this.error,
+    this.descriptionError,
+    this.amountError,
+    this.categoryError,
     this.id,
     this.description = '',
     this.selectedPeriod = BillingPeriod.monthly,
@@ -29,9 +35,12 @@ class ContractState {
   ContractState copyWith({
     bool? isLoading,
     String? error,
+    String? descriptionError,
+    String? amountError,
+    String? categoryError,
     int? id,
     String? description,
-    BillingPeriod selectedPeriod = BillingPeriod.monthly,
+    BillingPeriod? selectedPeriod,
     Category? selectedCategory,
     bool? income,
     int? amount,
@@ -40,9 +49,12 @@ class ContractState {
     return ContractState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      descriptionError: descriptionError ?? this.descriptionError,
+      amountError: amountError ?? this.amountError,
+      categoryError: categoryError ?? this.categoryError,
       id: id ?? this.id,
       description: description ?? this.description,
-      selectedPeriod: selectedPeriod,
+      selectedPeriod: selectedPeriod ?? this.selectedPeriod,
       selectedCategory: selectedCategory ?? this.selectedCategory,
       income: income ?? this.income,
       amount: amount ?? this.amount,

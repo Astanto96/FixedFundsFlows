@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
+import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/sheets/contract_bottomsheet.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,27 @@ class AppBottomSheets {
       backgroundColor: Theme.of(context).colorScheme.primary,
       builder: (_) => const FractionallySizedBox(
         heightFactor: 0.91,
-        child: ContractBottomsheet(),
+        child: ContractBottomsheet(
+          isDetailsMode: false,
+        ),
+      ),
+    );
+  }
+
+  static Future<void> showDetailsToContract(
+    BuildContext context,
+    Contract contract,
+  ) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      builder: (_) => FractionallySizedBox(
+        heightFactor: 0.91,
+        child: ContractBottomsheet(
+          isDetailsMode: true,
+          contractForDetails: contract,
+        ),
       ),
     );
   }

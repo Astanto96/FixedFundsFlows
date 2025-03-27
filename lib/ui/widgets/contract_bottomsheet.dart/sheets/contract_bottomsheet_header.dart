@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class ContractBottomsheetHeader extends StatelessWidget {
   final String title;
+  final VoidCallback? onDelete;
 
   const ContractBottomsheetHeader({
     super.key,
     required this.title,
+    this.onDelete,
   });
 
   @override
@@ -23,13 +25,32 @@ class ContractBottomsheetHeader extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            right: 0,
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.close),
+          if (onDelete != null) ...{
+            Positioned(
+              left: 0,
+              child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.close),
+              ),
             ),
-          ),
+            Positioned(
+              right: 0,
+              child: IconButton(
+                onPressed: () {
+                  onDelete?.call();
+                },
+                icon: const Icon(Icons.delete),
+              ),
+            ),
+          } else ...{
+            Positioned(
+              right: 0,
+              child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.close),
+              ),
+            ),
+          },
         ],
       ),
     );
