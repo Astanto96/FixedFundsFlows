@@ -195,5 +195,3 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
     );
   }
 }
-
-//und das themetemplate entsprechend angepasst werden in den Themes
