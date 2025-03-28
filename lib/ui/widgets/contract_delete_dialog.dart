@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 
 class ContractDeleteDialog {
-  static Future<bool> show(
-      {required BuildContext context, required String itemName}) async {
+  static Future<bool> show({
+    required BuildContext context,
+    required String itemName,
+  }) async {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
