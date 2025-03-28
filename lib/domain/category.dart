@@ -1,8 +1,8 @@
 class Category {
-  int id;
+  int? id;
   String description;
 
-  Category({required this.id, required this.description});
+  Category({this.id, required this.description});
 
   Category copyWith({
     int? id,

@@ -32,7 +32,7 @@ class ContractHive extends HiveObject {
     return ContractHive(
       description: contract.description,
       billingPeriod: BillingPeriodMapper.toHive(contract.billingPeriod),
-      categoryId: contract.category.id,
+      categoryId: contract.category.id!,
       amount: contract.amount,
     );
   }
