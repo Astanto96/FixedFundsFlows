@@ -63,6 +63,12 @@ class HiveDataSource {
   Future<void> deleteCategory(int key) async => await categoryBox.delete(key);
 
   // Contract Funktionen
+
+  Future<bool> isCategoryInUse(int categoryId) async {
+    return contractBox.values
+        .any((contractHive) => contractHive.categoryId == categoryId);
+  }
+
   Future<Contract> addContract(Contract contract) async {
     final key = await contractBox.add(ContractHive.fromDomain(contract));
     final savedContractHive = contractBox.get(key);
