@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
 import 'package:fixedfundsflows/domain/contract.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/sheet/contract_bottomsheet.dart';
+import 'package:fixedfundsflows/ui/overview/widgets/contract_bottomsheet.dart';
 import 'package:flutter/material.dart';
 
 class AppBottomSheets {
