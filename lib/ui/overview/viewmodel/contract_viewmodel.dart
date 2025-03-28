@@ -3,7 +3,7 @@ import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/contract_state.dart';
+import 'package:fixedfundsflows/ui/overview/viewmodel/contract_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'contract_viewmodel.g.dart';
