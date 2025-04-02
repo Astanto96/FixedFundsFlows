@@ -65,10 +65,10 @@ class Layoutscaffold extends ConsumerWidget {
                           AppBottomSheets.showCreateContract(context);
                           break;
                         case 1:
-                          //Category hinzufügen
+                          AppBottomSheets.showCreateCategory(context);
                           break;
                         case 2:
-                          //Contract hinzufügen
+                          AppBottomSheets.showCreateContract(context);
                           break;
                       }
                     },
