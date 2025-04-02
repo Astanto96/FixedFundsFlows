@@ -46,7 +46,7 @@ class ContractRepository {
   }
 
   Future<bool> isCategoryInUse(int categoryId) async {
-    return dataSource.isCategoryInUse(categoryId);
+    return await dataSource.isCategoryInUse(categoryId);
   }
 
   Future<void> deleteContract(int id) async {
