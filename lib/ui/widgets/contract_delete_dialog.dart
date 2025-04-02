@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-class ContractDeleteDialog {
+class DeleteDialog {
   static Future<bool> show({
     required BuildContext context,
     required String itemName,

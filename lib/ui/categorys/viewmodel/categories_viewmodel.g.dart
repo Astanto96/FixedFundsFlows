@@ -1,29 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_repository.dart';
+part of 'categories_viewmodel.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoryRepositoryHash() =>
-    r'3ccd56ed4152bdea79c1f18a71b40c48b5402fcf';
+String _$categoriesViewmodelHash() =>
+    r'1334833f9f21434a6a5bf80ae18704050e71b5b5';
 
-/// See also [categoryRepository].
-@ProviderFor(categoryRepository)
-final categoryRepositoryProvider =
-    AutoDisposeProvider<CategoryRepository>.internal(
-  categoryRepository,
-  name: r'categoryRepositoryProvider',
+/// See also [CategoriesViewmodel].
+@ProviderFor(CategoriesViewmodel)
+final categoriesViewmodelProvider =
+    AutoDisposeNotifierProvider<CategoriesViewmodel, CategoriesState>.internal(
+  CategoriesViewmodel.new,
+  name: r'categoriesViewmodelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$categoryRepositoryHash,
+      : _$categoriesViewmodelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef CategoryRepositoryRef = AutoDisposeProviderRef<CategoryRepository>;
+typedef _$CategoriesViewmodel = AutoDisposeNotifier<CategoriesState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

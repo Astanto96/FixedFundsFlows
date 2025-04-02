@@ -38,7 +38,9 @@ class CustomGlobalSnackBar {
           ),
         ),
         backgroundColor: backgroundColor,
-        duration: const Duration(seconds: 2),
+        duration: (isItGood ?? false)
+            ? const Duration(seconds: 2)
+            : const Duration(seconds: 3),
       ),
     );
   }

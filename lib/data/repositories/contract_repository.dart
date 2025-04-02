@@ -20,7 +20,7 @@ class ContractRepository {
   ContractRepository(this.dataSource, this.categoryRepo);
 
   Future<void> addContract(Contract contract) async {
-    final category = categoryRepo.getCategory(contract.category.id);
+    final category = categoryRepo.getCategory(contract.category.id!);
 
     await dataSource.addContract(contract.copyWith(category: category));
   }
@@ -38,7 +38,7 @@ class ContractRepository {
   }
 
   Future<void> updateContract(Contract contract) async {
-    final category = categoryRepo.getCategory(contract.category.id);
+    final category = categoryRepo.getCategory(contract.category.id!);
 
     await dataSource.updateContract(
       contract.copyWith(category: category),

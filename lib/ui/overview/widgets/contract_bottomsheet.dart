@@ -2,9 +2,9 @@ import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
+import 'package:fixedfundsflows/ui/overview/viewmodel/contract_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_viewmodel.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/contract_viewmodel.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_bottomsheet.dart/sheet/contract_bottomsheet_header.dart';
+import 'package:fixedfundsflows/ui/overview/widgets/contract_bottomsheet_header.dart';
 import 'package:fixedfundsflows/ui/widgets/contract_delete_dialog.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                     : 'Create Contract',
                 onDelete: widget.isDetailsMode && contractForDetails?.id != null
                     ? () async {
-                        final userConsfirmed = await ContractDeleteDialog.show(
+                        final userConsfirmed = await DeleteDialog.show(
                           context: context,
                           itemName: state.description,
                         );
@@ -195,5 +195,3 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
     );
   }
 }
-
-//und das themetemplate entsprechend angepasst werden in den Themes

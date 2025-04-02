@@ -16,13 +16,13 @@ class OverviewState {
 
   OverviewState copyWith({
     List<Contract>? contracts,
-    BillingPeriod selectedPeriod = BillingPeriod.monthly,
+    BillingPeriod? selectedPeriod,
     bool? isLoading,
     String? error,
   }) {
     return OverviewState(
       contracts: contracts ?? this.contracts,
-      selectedPeriod: selectedPeriod,
+      selectedPeriod: selectedPeriod ?? this.selectedPeriod,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
     );
