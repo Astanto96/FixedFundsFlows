@@ -11,8 +11,6 @@ extension BillingIconExtension on Contract {
         return Icons.today;
       case BillingPeriod.yearly:
         return Icons.calendar_month;
-      default:
-        return Icons.error_outline;
     }
   }
 }
