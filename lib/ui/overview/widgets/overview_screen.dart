@@ -38,6 +38,10 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
           Expanded(
             child: OvList(contracts: overviewState.contracts),
           ),
+          Container(
+            height: 1,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ],
       ),
     );
