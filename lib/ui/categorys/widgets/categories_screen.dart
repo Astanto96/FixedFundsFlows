@@ -1,4 +1,3 @@
-import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/contract_delete_dialog.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
@@ -29,69 +28,74 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
     final viewModel = ref.watch(categoriesViewmodelProvider.notifier);
 
     return SafeArea(
-      child: Container(
+      child: ColoredBox(
         color: Theme.of(context).colorScheme.surface,
-        padding: AppSpacing.padding24,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: AppSpacing.padding16,
-                child: Text(
-                  'Categories',
-                  style: TextStyle(fontSize: 20),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(
+                16,
+                24,
+                16,
+                16,
               ),
-              Container(
-                height: 1,
-                color: Theme.of(context).colorScheme.secondary,
+              child: Text(
+                'Categories',
+                style: TextStyle(fontSize: 20),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    return ListTile(
-                      title: Text(category.description),
-                      trailing: IconButton(
-                        onPressed: () async {
-                          final wantToDelete = await DeleteDialog.show(
-                            context: context,
-                            itemName: category.description,
-                          );
-                          if (!wantToDelete) {
-                            return;
-                          }
-                          final success =
-                              await viewModel.deleteCategory(category.id!);
-                          if (!context.mounted) {
-                            return;
-                          }
+            ),
+            Container(
+              height: 1,
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  return ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    title: Text(category.description),
+                    trailing: IconButton(
+                      onPressed: () async {
+                        final wantToDelete = await DeleteDialog.show(
+                          context: context,
+                          itemName: category.description,
+                        );
+                        if (!wantToDelete) {
+                          return;
+                        }
+                        final success =
+                            await viewModel.deleteCategory(category.id!);
+                        if (!context.mounted) {
+                          return;
+                        }
 
-                          CustomGlobalSnackBar.show(
-                            context: context,
-                            isItGood: success,
-                            text: success
-                                ? '${category.description} successfully deleted'
-                                : 'Cannot delete category – it is still in use.',
-                          );
-                        },
-                        icon: const Icon(Icons.delete_outline),
-                      ),
-                      onTap: () {
-                        // show category details btmsheet
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: success
+                              ? '${category.description} successfully deleted'
+                              : 'Cannot delete category – it is still in use.',
+                        );
                       },
-                    );
-                  },
-                ),
+                      icon: const Icon(Icons.delete_outline),
+                    ),
+                    onTap: () {
+                      // show category details btmsheet
+                    },
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+            Container(
+              height: 1,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ],
         ),
       ),
     );

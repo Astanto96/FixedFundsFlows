@@ -1,4 +1,3 @@
-import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/bottom_sheets.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
@@ -12,49 +11,52 @@ class OvList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: Theme.of(context).colorScheme.surface,
-      padding: AppSpacing.padding24,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: AppSpacing.padding16,
-              child: Text(
-                'Verträge',
-                style: TextStyle(fontSize: 20),
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(
+              16,
+              24,
+              16,
+              16,
             ),
-            Container(
-              height: 1,
-              color: Theme.of(context).colorScheme.secondary,
+            child: Text(
+              'Contracts',
+              style: TextStyle(fontSize: 20),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: contracts.length,
-                itemBuilder: (context, index) {
-                  final contract = contracts[index];
-                  return ListTile(
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            height: 1,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: contracts.length,
+              itemBuilder: (context, index) {
+                final contract = contracts[index];
+                return Material(
+                  color: Colors.transparent,
+                  child: ListTile(
                     leading: Icon(contract.billingIcon),
                     title: Text(contract.description),
                     subtitle: Text(contract.category.description),
-                    trailing:
-                        Text(AmountFormatter.formatFromCents(contract.amount)),
+                    trailing: Text(
+                        AmountFormatter.formatFromCents(contract.amount),
+                        style: const TextStyle(fontSize: 16)),
                     onTap: () => AppBottomSheets.showDetailsToContract(
                       context,
                       contract,
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

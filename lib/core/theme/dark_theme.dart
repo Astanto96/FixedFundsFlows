@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class DarkTheme {
-  static const surface = Color(0xFF212121);
+  static const surface = Color.fromARGB(255, 42, 42, 42);
   static const primary = Color(0xFF424242);
   static const secondary = Color(0xFF616161);
   static const inversePrimary = Color(0xFFEEEEEE);
