@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
@@ -32,8 +33,9 @@ class ContractViewModel extends _$ContractViewModel {
     if (value == null || value.isEmpty) {
       return 'Amount is required';
     }
-    if (int.tryParse(value) == null) {
-      return 'Enter a valid number';
+    final parsed = AmountFormatter.tryParseToCents(value);
+    if (parsed == null) {
+      return 'Enter a valid amount';
     }
     return null;
   }
@@ -115,10 +117,13 @@ class ContractViewModel extends _$ContractViewModel {
     );
   }
 
-  void updateAmount(int value) {
+  void updateAmount(String value) {
+    final error = validateAmount(value);
+
+    final cents = AmountFormatter.tryParseToCents(value);
     state = state.copyWith(
-      amount: value,
-      amountError: validateAmount(value.toString()),
+      amount: cents,
+      amountError: error,
     );
   }
 
@@ -139,7 +144,7 @@ class ContractViewModel extends _$ContractViewModel {
             billingPeriod: state.selectedPeriod,
             category: state.selectedCategory!,
             income: state.income,
-            amount: state.amount,
+            amount: state.amount!,
           ),
         );
       } else {
@@ -150,7 +155,7 @@ class ContractViewModel extends _$ContractViewModel {
             billingPeriod: state.selectedPeriod,
             category: state.selectedCategory!,
             income: state.income,
-            amount: state.amount,
+            amount: state.amount!,
           ),
         );
       }
