@@ -50,7 +50,7 @@ class ContractState {
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       descriptionError: descriptionError ?? this.descriptionError,
-      amountError: amountError ?? this.amountError,
+      amountError: amountError,
       categoryError: categoryError ?? this.categoryError,
       id: id ?? this.id,
       description: description ?? this.description,
