@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
+import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
@@ -144,16 +145,19 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
               AppSpacing.sbh16,
               TextFormField(
                 initialValue: widget.isDetailsMode
-                    ? contractForDetails?.amount.toString()
+                    ? AmountFormatter.getPrefilledInputFromCents(
+                        contractForDetails!.amount,
+                      )
                     : null,
                 decoration: InputDecoration(
                   labelText: 'Amount',
                   helperText: '',
                   errorText: state.amountError,
+                  prefixText: '€ ',
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  viewmodel.updateAmount(int.tryParse(value) ?? 0);
+                  viewmodel.updateAmount(value);
                 },
               ),
               AppSpacing.sbh40,

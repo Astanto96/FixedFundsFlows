@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
+import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/bottom_sheets.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/domain/contract_extensions.dart';
@@ -42,7 +43,8 @@ class OvList extends StatelessWidget {
                     leading: Icon(contract.billingIcon),
                     title: Text(contract.description),
                     subtitle: Text(contract.category.description),
-                    trailing: Text(contract.amount.toString()),
+                    trailing:
+                        Text(AmountFormatter.formatFromCents(contract.amount)),
                     onTap: () => AppBottomSheets.showDetailsToContract(
                       context,
                       contract,

@@ -13,7 +13,7 @@ class ContractState {
   final BillingPeriod selectedPeriod;
   final Category? selectedCategory;
   final bool income;
-  final int amount;
+  final int? amount;
 
   final List<Category> categories;
 
@@ -28,7 +28,7 @@ class ContractState {
     this.selectedPeriod = BillingPeriod.monthly,
     this.selectedCategory,
     this.income = false,
-    this.amount = 0,
+    this.amount,
     this.categories = const [],
   });
 
