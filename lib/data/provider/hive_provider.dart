@@ -28,39 +28,38 @@ Future<void> _addDummyData() async {
   if (categoryBox.isNotEmpty || contractBox.isNotEmpty) return;
   await contractBox.add(
     ContractHive(
-      description: 'KFZ - Vers.',
+      description: 'Car Insurance',
       billingPeriod: BillingPeriodHive.yearly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Versicherung')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Insurance')),
       amount: 17000,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'Miete',
+      description: 'Rent',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Wohnen')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Housing')),
       amount: 85000,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'Handyvertrag',
+      description: 'Mobile Contract',
       billingPeriod: BillingPeriodHive.monthly,
       categoryId:
-          await categoryBox.add(CategoryHive(description: 'Kommunikation')),
+          await categoryBox.add(CategoryHive(description: 'Communication')),
       amount: 3000,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'Netflix Abo',
+      description: 'Netflix Subscription',
       billingPeriod: BillingPeriodHive.monthly,
       categoryId:
-          await categoryBox.add(CategoryHive(description: 'Unterhaltung')),
+          await categoryBox.add(CategoryHive(description: 'Entertainment')),
       amount: 1299,
     ),
   );
@@ -69,17 +68,16 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Spotify Premium',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Musik')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Music')),
       amount: 999,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'Fitnessstudio',
+      description: 'Gym Membership',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Gesundheit')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Health')),
       amount: 4500,
     ),
   );
@@ -89,7 +87,7 @@ Future<void> _addDummyData() async {
       description: 'Internet',
       billingPeriod: BillingPeriodHive.monthly,
       categoryId:
-          await categoryBox.add(CategoryHive(description: 'Kommunikation')),
+          await categoryBox.add(CategoryHive(description: 'Communication')),
       amount: 3999,
     ),
   );
@@ -99,14 +97,14 @@ Future<void> _addDummyData() async {
       description: 'Amazon Prime',
       billingPeriod: BillingPeriodHive.yearly,
       categoryId:
-          await categoryBox.add(CategoryHive(description: 'Unterhaltung')),
+          await categoryBox.add(CategoryHive(description: 'Entertainment')),
       amount: 8999,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'ÖPNV-Ticket',
+      description: 'Public Transport Ticket',
       billingPeriod: BillingPeriodHive.monthly,
       categoryId: await categoryBox.add(CategoryHive(description: 'Transport')),
       amount: 4900,
@@ -115,28 +113,27 @@ Future<void> _addDummyData() async {
 
   await contractBox.add(
     ContractHive(
-      description: 'Haftpflichtversicherung',
+      description: 'Liability Insurance',
       billingPeriod: BillingPeriodHive.yearly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Versicherung')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Insurance')),
       amount: 6000,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'Stromkosten',
+      description: 'Electricity Costs',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Wohnen')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Housing')),
       amount: 7500,
     ),
   );
 
   await contractBox.add(
     ContractHive(
-      description: 'GEZ Gebühren',
+      description: 'Broadcasting Fees',
       billingPeriod: BillingPeriodHive.quarterly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Abgaben')),
+      categoryId: await categoryBox.add(CategoryHive(description: 'Taxes')),
       amount: 5586,
     ),
   );
