@@ -34,6 +34,8 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
           OvHeader(
             selectedPeriod: overviewState.selectedPeriod,
             onBillingPeriodChanged: viewModel.setBillingPeriod,
+            totalAmountForSelectedPeriod:
+                overviewState.totalAmountForSelectedPeriod,
           ),
           Expanded(
             child: OvList(contracts: overviewState.contracts),

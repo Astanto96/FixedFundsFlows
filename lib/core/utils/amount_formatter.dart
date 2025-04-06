@@ -11,7 +11,7 @@ class AmountFormatter {
 
   /// Converts an amount in cents (int) to a formatted Euro string.
   /// Example: 1234 -> "12,34 €"
-  static String formatFromCents(int cents) {
+  static String formatToStringWithSymbol(int cents) {
     return _euroFormat.format(cents / 100);
   }
 

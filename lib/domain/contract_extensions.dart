@@ -6,11 +6,11 @@ extension BillingIconExtension on Contract {
   IconData get billingIcon {
     switch (billingPeriod) {
       case BillingPeriod.monthly:
-        return Icons.calendar_today;
+        return Icons.calendar_month;
       case BillingPeriod.quarterly:
         return Icons.today;
       case BillingPeriod.yearly:
-        return Icons.calendar_month;
+        return Icons.calendar_today;
     }
   }
 }
