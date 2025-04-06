@@ -152,3 +152,4 @@ app.*.symbols
 .gclient_previous_sync_commits
 
 **/notizen
+.dart_tool/package_config.json
