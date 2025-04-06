@@ -12,6 +12,9 @@ class LightTheme {
   static const snackbarError = Color.fromARGB(255, 231, 56, 43);
   static const snackbarInfo = Color.fromARGB(255, 30, 140, 230);
 
+  static const textBodyColor = Color.fromARGB(255, 62, 62, 62);
+  static const textDisplayColor = Colors.black;
+
   static ThemeData get theme {
     final base = ThemeData.light();
     return base.copyWith(
@@ -22,8 +25,8 @@ class LightTheme {
         inversePrimary: inversePrimary,
       ),
       textTheme: base.textTheme.apply(
-        bodyColor: Colors.grey[800],
-        displayColor: Colors.black,
+        bodyColor: textBodyColor,
+        displayColor: textDisplayColor,
       ),
       navigationBarTheme: const NavigationBarThemeData(
         backgroundColor: primary,
@@ -32,7 +35,7 @@ class LightTheme {
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: surface,
-        foregroundColor: inversePrimary,
+        foregroundColor: textBodyColor,
       ),
       bottomAppBarTheme: const BottomAppBarTheme(
         color: primary,
@@ -40,13 +43,22 @@ class LightTheme {
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: primary,
-        foregroundColor: inversePrimary,
+        foregroundColor: textBodyColor,
         elevation: 0,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: secondary,
-          foregroundColor: Colors.white,
+          foregroundColor: textBodyColor,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: base.textTheme.bodyLarge,
+        prefixStyle: base.textTheme.bodyLarge,
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: secondary,
+          ),
         ),
       ),
       scaffoldBackgroundColor: primary,

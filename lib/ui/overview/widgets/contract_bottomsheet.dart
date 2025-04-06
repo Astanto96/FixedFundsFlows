@@ -107,7 +107,8 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                 value: widget.isDetailsMode
                     ? contractForDetails?.billingPeriod
                     : state.selectedPeriod,
-                decoration: const InputDecoration(labelText: 'Billing Period'),
+                decoration: const InputDecoration(
+                    labelText: 'Billing Period', helperText: ''),
                 items: BillingPeriod.values
                     .map(
                       (period) => DropdownMenuItem(

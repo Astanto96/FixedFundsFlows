@@ -12,6 +12,9 @@ class DarkTheme {
   static const snackbarError = Color.fromARGB(255, 122, 30, 23);
   static const snackbarInfo = Color.fromARGB(255, 17, 78, 128);
 
+  static const textBodyColor = Color.fromARGB(255, 224, 224, 224);
+  static const textDisplayColor = Colors.white;
+
   static ThemeData get theme {
     final base = ThemeData.dark();
     return base.copyWith(
@@ -22,8 +25,8 @@ class DarkTheme {
         inversePrimary: inversePrimary,
       ),
       textTheme: base.textTheme.apply(
-        bodyColor: Colors.grey[300],
-        displayColor: Colors.white,
+        bodyColor: textBodyColor,
+        displayColor: textDisplayColor,
       ),
       navigationBarTheme: const NavigationBarThemeData(
         backgroundColor: primary,
@@ -46,7 +49,16 @@ class DarkTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: secondary,
-          foregroundColor: Colors.white,
+          foregroundColor: textBodyColor,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: base.textTheme.bodyLarge,
+        prefixStyle: base.textTheme.bodyLarge,
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: inversePrimary,
+          ),
         ),
       ),
       scaffoldBackgroundColor: primary,
