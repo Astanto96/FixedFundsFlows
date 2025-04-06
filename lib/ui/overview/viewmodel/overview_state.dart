@@ -6,12 +6,14 @@ class OverviewState {
   final BillingPeriod selectedPeriod;
   final bool isLoading;
   final String? error;
+  final int totalAmountForSelectedPeriod;
 
   OverviewState({
     this.contracts = const [],
     this.selectedPeriod = BillingPeriod.monthly,
     this.isLoading = false,
     this.error,
+    this.totalAmountForSelectedPeriod = 0,
   });
 
   OverviewState copyWith({
@@ -19,12 +21,15 @@ class OverviewState {
     BillingPeriod? selectedPeriod,
     bool? isLoading,
     String? error,
+    int? totalAmountForSelectedPeriod,
   }) {
     return OverviewState(
       contracts: contracts ?? this.contracts,
       selectedPeriod: selectedPeriod ?? this.selectedPeriod,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      totalAmountForSelectedPeriod:
+          totalAmountForSelectedPeriod ?? this.totalAmountForSelectedPeriod,
     );
   }
 }

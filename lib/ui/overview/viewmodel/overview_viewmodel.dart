@@ -28,9 +28,24 @@ class OverviewViewModel extends _$OverviewViewModel {
     try {
       final contracts =
           await _repository.getContractsForPeriod(state.selectedPeriod);
-      state = state.copyWith(contracts: contracts, isLoading: false);
+      state = state.copyWith(contracts: contracts);
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+        totalAmountForSelectedPeriod: 0,
+      );
     }
+    state = state.copyWith(
+        totalAmountForSelectedPeriod: _calculateTotalAmountForSelectedPeriod(),
+        isLoading: false);
+  }
+
+  int _calculateTotalAmountForSelectedPeriod() {
+    int totalAmount = 0;
+    for (final contract in state.contracts) {
+      totalAmount += contract.amount;
+    }
+    return totalAmount;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/bottom_sheets.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
@@ -17,12 +18,7 @@ class OvList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.fromLTRB(
-              16,
-              24,
-              16,
-              16,
-            ),
+            padding: AppSpacing.padding16,
             child: Text(
               'Contracts',
               style: TextStyle(fontSize: 20),
@@ -45,7 +41,8 @@ class OvList extends StatelessWidget {
                     title: Text(contract.description),
                     subtitle: Text(contract.category.description),
                     trailing: Text(
-                        AmountFormatter.formatFromCents(contract.amount),
+                        AmountFormatter.formatToStringWithSymbol(
+                            contract.amount),
                         style: const TextStyle(fontSize: 16)),
                     onTap: () => AppBottomSheets.showDetailsToContract(
                       context,

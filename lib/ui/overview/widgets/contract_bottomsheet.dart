@@ -112,7 +112,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                     .map(
                       (period) => DropdownMenuItem(
                         value: period,
-                        child: Text(period.toString().split('.').last),
+                        child: Text(period.label),
                       ),
                     )
                     .toList(),
