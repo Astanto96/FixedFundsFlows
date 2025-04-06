@@ -178,6 +178,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                             isItGood: true,
                             text: '${state.description} successfully updated',
                           );
+                          Navigator.pop(context);
                         } else {
                           CustomGlobalSnackBar.show(
                             context: context,
