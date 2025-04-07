@@ -1,9 +1,12 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
+import 'package:fixedfundsflows/core/theme/light_theme.dart';
+import 'package:fixedfundsflows/core/theme/theme_provider.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OvHeader extends StatelessWidget {
+class OvHeader extends ConsumerWidget {
   final BillingPeriod selectedPeriod;
   final void Function(BillingPeriod) onBillingPeriodChanged;
   final int totalAmountForSelectedPeriod;
@@ -16,9 +19,12 @@ class OvHeader extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(currentThemeProvider);
+    final themeMode = ref.watch(themeNotifierProvider.notifier);
+
     return Container(
-      padding: AppSpacing.padding16,
+      padding: const EdgeInsets.fromLTRB(4, 16, 16, 16),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
         border: Border(
@@ -31,10 +37,20 @@ class OvHeader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              IconButton(
+                onPressed: () {
+                  themeMode.toggleTheme();
+                },
+                icon: theme == LightTheme.theme
+                    ? const Icon(Icons.nights_stay)
+                    : const Icon(Icons.sunny),
+              ),
+              const Spacer(),
               DropdownButtonHideUnderline(
                 child: DropdownButton<BillingPeriod>(
+                  iconSize: 20,
+                  style: const TextStyle(fontSize: 14),
                   dropdownColor: Theme.of(context).colorScheme.primary,
                   value: selectedPeriod,
                   onChanged: (value) {
@@ -50,6 +66,7 @@ class OvHeader extends StatelessWidget {
                       .toList(),
                 ),
               ),
+              AppSpacing.sbw16,
               Text(
                 AmountFormatter.formatToStringWithSymbol(
                     totalAmountForSelectedPeriod),
