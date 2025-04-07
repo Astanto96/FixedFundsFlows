@@ -50,7 +50,9 @@ class OvHeader extends ConsumerWidget {
               DropdownButtonHideUnderline(
                 child: DropdownButton<BillingPeriod>(
                   iconSize: 20,
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).textTheme.bodyLarge?.color),
                   dropdownColor: Theme.of(context).colorScheme.primary,
                   value: selectedPeriod,
                   onChanged: (value) {
