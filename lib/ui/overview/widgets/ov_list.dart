@@ -1,8 +1,8 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/core/utils/bottom_sheets.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
-import 'package:fixedfundsflows/domain/contract_extensions.dart';
 import 'package:flutter/material.dart';
 
 class OvList extends StatelessWidget {
@@ -37,7 +37,7 @@ class OvList extends StatelessWidget {
                 return Material(
                   color: Colors.transparent,
                   child: ListTile(
-                    leading: Icon(contract.billingIcon),
+                    leading: Icon(contract.billingPeriod.billingIcon),
                     title: Text(contract.description),
                     subtitle: Text(contract.category.description),
                     trailing: Text(
