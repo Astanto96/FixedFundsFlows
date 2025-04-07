@@ -104,6 +104,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
               ),
               AppSpacing.sbh16,
               DropdownButtonFormField<BillingPeriod>(
+                dropdownColor: Theme.of(context).colorScheme.surface,
                 value: widget.isDetailsMode
                     ? contractForDetails?.billingPeriod
                     : state.selectedPeriod,
@@ -125,6 +126,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
               ),
               AppSpacing.sbh16,
               DropdownButtonFormField<Category>(
+                dropdownColor: Theme.of(context).colorScheme.surface,
                 value: contractForDetails?.category,
                 decoration: InputDecoration(
                   labelText: 'Category',

@@ -35,6 +35,7 @@ class OvHeader extends StatelessWidget {
             children: [
               DropdownButtonHideUnderline(
                 child: DropdownButton<BillingPeriod>(
+                  dropdownColor: Theme.of(context).colorScheme.primary,
                   value: selectedPeriod,
                   onChanged: (value) {
                     onBillingPeriodChanged(value!);
@@ -61,8 +62,3 @@ class OvHeader extends StatelessWidget {
     );
   }
 }
-
-// Text(
-//                 'monatlich',
-//                 style: TextStyle(fontSize: 16),
-//               ),
