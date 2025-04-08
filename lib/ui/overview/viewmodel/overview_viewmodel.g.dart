@@ -6,7 +6,7 @@ part of 'overview_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$overviewViewModelHash() => r'9eb64f2e1b555b325da1b5301c990e019180158e';
+String _$overviewViewModelHash() => r'4cda754c830e244b2b773ef512c78ac6866acb36';
 
 /// See also [OverviewViewModel].
 @ProviderFor(OverviewViewModel)

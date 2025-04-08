@@ -13,7 +13,7 @@ class OverviewViewModel extends _$OverviewViewModel {
 
   @override
   OverviewState build() {
-    _repository = ref.watch(overviewRepositoryProvider);
+    _repository = ref.watch(contractCalculatorRepositoryProvider);
     return OverviewState();
   }
 

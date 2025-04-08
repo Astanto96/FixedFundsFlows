@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'overview_repository.g.dart';
 
 @riverpod
-OverviewRepository overviewRepository(Ref ref) {
+OverviewRepository contractCalculatorRepository(Ref ref) {
   final contractRepo = ref.watch(contractRepositoryProvider);
   return OverviewRepository(contractRepo);
 }
