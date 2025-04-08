@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
+import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,10 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
                         }
                         final success =
                             await viewModel.deleteCategory(category.id!);
+                        ref
+                            .read(statisticViewModelProvider.notifier)
+                            .initializeStatisticState();
+
                         if (!context.mounted) {
                           return;
                         }

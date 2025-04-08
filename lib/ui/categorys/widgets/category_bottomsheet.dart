@@ -1,6 +1,7 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/categorys/viewmodel/category_viewmodel.dart';
+import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,6 +69,9 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
                     ref
                         .read(categoriesViewmodelProvider.notifier)
                         .loadCategories();
+                    ref
+                        .read(statisticViewModelProvider.notifier)
+                        .initializeStatisticState();
 
                     if (context.mounted) {
                       CustomGlobalSnackBar.show(
