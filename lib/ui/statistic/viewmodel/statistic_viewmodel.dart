@@ -1,5 +1,6 @@
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
-import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
+import 'package:fixedfundsflows/data/repositories/contract_calculator_repository.dart';
+
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:fixedfundsflows/domain/category_with_contracts.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
@@ -11,21 +12,22 @@ part 'statistic_viewmodel.g.dart';
 @riverpod
 class StatisticViewModel extends _$StatisticViewModel {
   late final CategoryRepository _categoryRepo;
-  late final ContractRepository _contractRepo;
+  late final ContractCalculatorRepository _calcRepo;
 
   @override
   StatisticState build() {
     _categoryRepo = ref.watch(categoryRepositoryProvider);
-    _contractRepo = ref.watch(contractRepositoryProvider);
+    _calcRepo = ref.watch(contractCalculatorRepositoryProvider);
     return StatisticState();
   }
 
-  Future<void> initialiseStatisticState() async {
+  Future<void> initializeStatisticState() async {
     state = state.copyWith(isLoading: true);
 
     try {
       final categories = await _categoryRepo.getCategories();
-      final contracts = await _contractRepo.getContracts();
+      final contracts =
+          await _calcRepo.getContractsForPeriod(state.selectedPeriod);
       final catWithContracts = _buildCatWithContracts(categories, contracts);
       final totalAmount = _calculateTotalAmount(catWithContracts);
 
