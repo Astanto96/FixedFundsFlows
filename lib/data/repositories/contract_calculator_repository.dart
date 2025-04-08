@@ -4,23 +4,23 @@ import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'overview_repository.g.dart';
+part 'contract_calculator_repository.g.dart';
 
 @riverpod
-OverviewRepository overviewRepository(Ref ref) {
+ContractCalculatorRepository contractCalculatorRepository(Ref ref) {
   final contractRepo = ref.watch(contractRepositoryProvider);
-  return OverviewRepository(contractRepo);
+  return ContractCalculatorRepository(contractRepo);
 }
 
-class OverviewRepository {
+class ContractCalculatorRepository {
   final ContractRepository contractRepository;
 
-  OverviewRepository(this.contractRepository);
+  ContractCalculatorRepository(this.contractRepository);
 
   Future<List<Contract>> getContractsForPeriod(
     BillingPeriod selectedPeriod,
   ) async {
-    final contracts = contractRepository.getContracts();
+    final contracts = await contractRepository.getContracts();
 
     return contracts.map((contract) {
       final adjustedAmount = _calculateAmountPerPeriod(

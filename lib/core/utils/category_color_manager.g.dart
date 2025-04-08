@@ -1,26 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'overview_viewmodel.dart';
+part of 'category_color_manager.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$overviewViewModelHash() => r'1e9a8ef288c1b41ba54d955b61356d589465d73c';
+String _$categoryColorManagerHash() =>
+    r'74f9aeadc20ae63714f4e7ff04a5781b55bbab04';
 
-/// See also [OverviewViewModel].
-@ProviderFor(OverviewViewModel)
-final overviewViewModelProvider =
-    AutoDisposeNotifierProvider<OverviewViewModel, OverviewState>.internal(
-  OverviewViewModel.new,
-  name: r'overviewViewModelProvider',
+/// See also [categoryColorManager].
+@ProviderFor(categoryColorManager)
+final categoryColorManagerProvider =
+    AutoDisposeProvider<CategoryColorManager>.internal(
+  categoryColorManager,
+  name: r'categoryColorManagerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$overviewViewModelHash,
+      : _$categoryColorManagerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$OverviewViewModel = AutoDisposeNotifier<OverviewState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CategoryColorManagerRef = AutoDisposeProviderRef<CategoryColorManager>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

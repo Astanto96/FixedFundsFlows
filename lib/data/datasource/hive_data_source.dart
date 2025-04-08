@@ -84,7 +84,7 @@ class HiveDataSource {
     return savedContractHive.toDomain(categoryHive);
   }
 
-  List<Contract> getContracts() {
+  Future<List<Contract>> getContracts() async {
     return contractBox.values.map((contractHive) {
       final categoryHive = categoryBox.get(contractHive.categoryId);
       if (categoryHive == null) {
