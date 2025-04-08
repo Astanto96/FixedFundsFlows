@@ -16,7 +16,7 @@ class StatisticPieChart extends StatelessWidget {
         borderData: FlBorderData(
           show: false,
         ),
-        sectionsSpace: 4,
+        sectionsSpace: 2,
         centerSpaceRadius: 90,
       ),
     );

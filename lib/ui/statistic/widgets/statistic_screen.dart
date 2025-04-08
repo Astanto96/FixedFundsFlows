@@ -25,13 +25,16 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
     final statisticState = ref.watch(statisticViewModelProvider);
 
     return SafeArea(
-      child: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 1.0,
-            child: StatisticPieChart(statisticState.catWithContracts),
-          ),
-        ],
+      child: ColoredBox(
+        color: Theme.of(context).colorScheme.surface,
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 1.0,
+              child: StatisticPieChart(statisticState.catWithContracts),
+            ),
+          ],
+        ),
       ),
     );
   }

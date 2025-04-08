@@ -9,9 +9,8 @@ List<PieChartSectionData> showingSections(
 
     return PieChartSectionData(
       value: amount,
-      title: '$amount €',
-      radius: 80,
-      badgePositionPercentageOffset: 1.2,
+      showTitle: false,
+      radius: 90,
     );
   }).toList();
 }
