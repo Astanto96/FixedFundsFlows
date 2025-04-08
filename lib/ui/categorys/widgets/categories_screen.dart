@@ -1,6 +1,6 @@
 import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_delete_dialog.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
+import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

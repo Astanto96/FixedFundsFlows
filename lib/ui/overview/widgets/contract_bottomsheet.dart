@@ -6,8 +6,8 @@ import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/contract_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/widgets/contract_bottomsheet_header.dart';
-import 'package:fixedfundsflows/ui/widgets/contract_delete_dialog.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
+import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
