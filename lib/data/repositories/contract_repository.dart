@@ -25,8 +25,8 @@ class ContractRepository {
     await dataSource.addContract(contract.copyWith(category: category));
   }
 
-  List<Contract> getContracts() {
-    return dataSource.getContracts();
+  Future<List<Contract>> getContracts() async {
+    return await dataSource.getContracts();
   }
 
   Contract getContract(int id) {

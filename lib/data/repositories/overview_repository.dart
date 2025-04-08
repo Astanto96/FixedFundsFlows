@@ -20,7 +20,7 @@ class OverviewRepository {
   Future<List<Contract>> getContractsForPeriod(
     BillingPeriod selectedPeriod,
   ) async {
-    final contracts = contractRepository.getContracts();
+    final contracts = await contractRepository.getContracts();
 
     return contracts.map((contract) {
       final adjustedAmount = _calculateAmountPerPeriod(
