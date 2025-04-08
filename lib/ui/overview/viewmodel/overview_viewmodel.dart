@@ -1,5 +1,5 @@
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
-import 'package:fixedfundsflows/data/repositories/overview_repository.dart';
+import 'package:fixedfundsflows/data/repositories/contract_calculator_repository.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -4,7 +4,7 @@ import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'overview_repository.g.dart';
+part 'contract_calculator_repository.g.dart';
 
 @riverpod
 ContractCalculatorRepository contractCalculatorRepository(Ref ref) {
