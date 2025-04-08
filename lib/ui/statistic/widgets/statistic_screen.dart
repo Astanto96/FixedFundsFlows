@@ -34,6 +34,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
             AspectRatio(
               aspectRatio: 1.0,
               child: StatisticPieChart(
+                statisticState.totalAmount!,
                 statisticState.catWithContracts,
                 colorManager.getColorForCategory,
               ),
