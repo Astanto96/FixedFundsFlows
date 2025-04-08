@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/utils/category_color_manager.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/widgets/statistic_pie_chart.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
   @override
   Widget build(BuildContext context) {
     final statisticState = ref.watch(statisticViewModelProvider);
+    final colorManager = ref.watch(categoryColorManagerProvider);
 
     return SafeArea(
       child: ColoredBox(
@@ -31,7 +33,10 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
           children: [
             AspectRatio(
               aspectRatio: 1.0,
-              child: StatisticPieChart(statisticState.catWithContracts),
+              child: StatisticPieChart(
+                statisticState.catWithContracts,
+                colorManager.getColorForCategory,
+              ),
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -12,28 +11,44 @@ CategoryColorManager categoryColorManager(Ref ref) {
 
 class CategoryColorManager {
   final Map<int, Color> _categoryColorMap = {};
-  final Random _random = Random();
+  final Set<Color> _usedColors = {};
 
-  /// Returns always the same color for CategoryID
+  int _hueStep = 0;
+
+  // Configuration for pastel color generation
+  static const int _hueStepSize = 30; // Degrees between hues
+  static const double _saturation = 0.45; // Soft, pastel-like saturation
+  static const double _value = 0.8; // Brightness (value)
+
+  /// Returns the color assigned to a specific category ID.
+  /// Generates a unique pastel color if not already assigned.
   Color getColorForCategory(int categoryId) {
-    if (_categoryColorMap.containsKey(categoryId)) {
-      return _categoryColorMap[categoryId]!;
-    }
+    return _categoryColorMap.putIfAbsent(categoryId, () {
+      Color color;
+      int tries = 0;
 
-    final color = _generatePastelColor();
-    _categoryColorMap[categoryId] = color;
-    return color;
+      // Ensure color uniqueness
+      do {
+        color = _generateNextPastelColor();
+        tries++;
+        if (tries > 1000) {
+          throw Exception('Too many similar colors generated');
+        }
+      } while (_usedColors.contains(color));
+
+      _usedColors.add(color);
+      return color;
+    });
   }
 
-  /// Optional: Returns complete Map of CategoryID and Color
+  /// Generates the next pastel color using stepped hue values.
+  Color _generateNextPastelColor() {
+    final hue = (_hueStep * _hueStepSize) % 360;
+    _hueStep++;
+
+    return HSVColor.fromAHSV(1, hue.toDouble(), _saturation, _value).toColor();
+  }
+
+  /// Returns the entire map of category IDs to assigned colors.
   Map<int, Color> getColorMap() => _categoryColorMap;
-
-  /// creates a random pastel color
-  Color _generatePastelColor() {
-    final hue = _random.nextDouble() * 360;
-    const saturation = 0.4; // low for pastell
-    const value = 0.9; // bright
-
-    return HSVColor.fromAHSV(1, hue, saturation, value).toColor();
-  }
 }

@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 
 class StatisticPieChart extends StatelessWidget {
   final List<CategoryWithContracts> catWithContracts;
+  final Color Function(int categoryID) getColorsForCategory;
 
-  const StatisticPieChart(this.catWithContracts, {super.key});
+  const StatisticPieChart(this.catWithContracts, this.getColorsForCategory,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
     return PieChart(
       PieChartData(
-        sections: showingSections(catWithContracts),
+        sections: showingSections(catWithContracts, getColorsForCategory),
         borderData: FlBorderData(
           show: false,
         ),
