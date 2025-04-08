@@ -9,7 +9,7 @@ part 'overview_viewmodel.g.dart';
 //it returns an Object with State
 @riverpod
 class OverviewViewModel extends _$OverviewViewModel {
-  late final OverviewRepository _repository;
+  late final ContractCalculatorRepository _repository;
 
   @override
   OverviewState build() {

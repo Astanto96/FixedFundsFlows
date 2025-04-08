@@ -7,15 +7,15 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'overview_repository.g.dart';
 
 @riverpod
-OverviewRepository contractCalculatorRepository(Ref ref) {
+ContractCalculatorRepository contractCalculatorRepository(Ref ref) {
   final contractRepo = ref.watch(contractRepositoryProvider);
-  return OverviewRepository(contractRepo);
+  return ContractCalculatorRepository(contractRepo);
 }
 
-class OverviewRepository {
+class ContractCalculatorRepository {
   final ContractRepository contractRepository;
 
-  OverviewRepository(this.contractRepository);
+  ContractCalculatorRepository(this.contractRepository);
 
   Future<List<Contract>> getContractsForPeriod(
     BillingPeriod selectedPeriod,
