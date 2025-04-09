@@ -10,14 +10,13 @@ List<PieChartSectionData> showingSections(
 ) {
   return categoriesWithContracts.map((category) {
     final amount = category.totalAmount! / 100;
-    final percentage = 100 / (totalAmountofEverything / 100) * amount;
-    ;
+    final percentage = (100 / (totalAmountofEverything / 100)) * amount;
 
     return PieChartSectionData(
       color: getColorsForCategory(category.category.id!),
       value: amount,
       title: '${percentage.toStringAsFixed(1)}%',
-      titlePositionPercentageOffset: 1.3,
+      titlePositionPercentageOffset: 1.4,
       showTitle: true,
       radius: 70,
     );

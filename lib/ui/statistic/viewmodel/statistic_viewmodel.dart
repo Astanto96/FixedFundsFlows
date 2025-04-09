@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_calculator_repository.dart';
 
@@ -19,6 +20,11 @@ class StatisticViewModel extends _$StatisticViewModel {
     _categoryRepo = ref.watch(categoryRepositoryProvider);
     _calcRepo = ref.watch(contractCalculatorRepositoryProvider);
     return StatisticState();
+  }
+
+  void setBillingPeriod(BillingPeriod period) {
+    state = state.copyWith(selectedPeriod: period);
+    initializeStatisticState();
   }
 
   Future<void> initializeStatisticState() async {
@@ -82,5 +88,25 @@ class StatisticViewModel extends _$StatisticViewModel {
         (totalAmount, categoryWithContracts) =>
             totalAmount + categoryWithContracts.totalAmount!);
     return totalAmount;
+  }
+
+  double getCategoryPercentage(int categoryTotalAmount) {
+    if (state.totalAmount == null || state.totalAmount == 0) {
+      return 0;
+    }
+    final categoryAmountInEuro = categoryTotalAmount / 100;
+    return (100 / (state.totalAmount! / 100)) * categoryAmountInEuro;
+  }
+
+  double getContractPercentage(int contractAmount) {
+    if (state.totalAmount == null || state.totalAmount == 0) {
+      return 0;
+    }
+    final contractAmountinEuro = contractAmount / 100;
+    return (100 / (state.totalAmount! / 100)) * contractAmountinEuro;
+  }
+
+  String doubleToStringPercentage(double percentage) {
+    return percentage.toStringAsFixed(1);
   }
 }
