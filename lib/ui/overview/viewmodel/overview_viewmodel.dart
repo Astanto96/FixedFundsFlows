@@ -28,6 +28,8 @@ class OverviewViewModel extends _$OverviewViewModel {
     try {
       final contracts =
           await _repository.getContractsForPeriod(state.selectedPeriod);
+      // Sort contracts by amount in descending order
+      contracts.sort((a, b) => b.amount.compareTo(a.amount));
       state = state.copyWith(contracts: contracts);
     } catch (e) {
       state = state.copyWith(
