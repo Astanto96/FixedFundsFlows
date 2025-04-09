@@ -1,0 +1,2 @@
+/Users/felixdressler/Developer/FixedFundsFlows/android/app/.cxx/Debug/1t4w3i4h/x86_64/CMakeFiles/edit_cache.dir
+/Users/felixdressler/Developer/FixedFundsFlows/android/app/.cxx/Debug/1t4w3i4h/x86_64/CMakeFiles/rebuild_cache.dir
