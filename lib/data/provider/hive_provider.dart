@@ -26,12 +26,31 @@ Future<void> _addDummyData() async {
   final contractBox = Hive.box<ContractHive>('contracts');
 
   if (categoryBox.isNotEmpty || contractBox.isNotEmpty) return;
+
+  final housing = await categoryBox.add(
+    CategoryHive(description: 'Housing'),
+  );
+  final insurance = await categoryBox.add(
+    CategoryHive(description: 'Insurance'),
+  );
+  final transport = await categoryBox.add(
+    CategoryHive(description: 'Transport'),
+  );
+  final entertainment = await categoryBox.add(
+    CategoryHive(description: 'Entertainment'),
+  );
+  final communication = await categoryBox.add(
+    CategoryHive(description: 'Communication'),
+  );
+  final health = await categoryBox.add(
+    CategoryHive(description: 'Health'),
+  );
   await contractBox.add(
     ContractHive(
       description: 'Car Insurance',
       billingPeriod: BillingPeriodHive.yearly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Insurance')),
-      amount: 17000,
+      categoryId: insurance,
+      amount: 66000,
     ),
   );
 
@@ -39,8 +58,8 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Rent',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Housing')),
-      amount: 85000,
+      categoryId: housing,
+      amount: 60500,
     ),
   );
 
@@ -48,9 +67,8 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Mobile Contract',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Communication')),
-      amount: 3000,
+      categoryId: communication,
+      amount: 7000,
     ),
   );
 
@@ -58,8 +76,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Netflix Subscription',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Entertainment')),
+      categoryId: entertainment,
       amount: 1299,
     ),
   );
@@ -68,7 +85,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Spotify Premium',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Music')),
+      categoryId: entertainment,
       amount: 999,
     ),
   );
@@ -77,7 +94,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Gym Membership',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Health')),
+      categoryId: health,
       amount: 4500,
     ),
   );
@@ -86,8 +103,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Internet',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Communication')),
+      categoryId: communication,
       amount: 3999,
     ),
   );
@@ -96,8 +112,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Amazon Prime',
       billingPeriod: BillingPeriodHive.yearly,
-      categoryId:
-          await categoryBox.add(CategoryHive(description: 'Entertainment')),
+      categoryId: entertainment,
       amount: 8999,
     ),
   );
@@ -106,7 +121,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Public Transport Ticket',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Transport')),
+      categoryId: transport,
       amount: 4900,
     ),
   );
@@ -115,7 +130,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Liability Insurance',
       billingPeriod: BillingPeriodHive.yearly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Insurance')),
+      categoryId: insurance,
       amount: 6000,
     ),
   );
@@ -124,7 +139,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Electricity Costs',
       billingPeriod: BillingPeriodHive.monthly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Housing')),
+      categoryId: housing,
       amount: 7500,
     ),
   );
@@ -133,7 +148,7 @@ Future<void> _addDummyData() async {
     ContractHive(
       description: 'Broadcasting Fees',
       billingPeriod: BillingPeriodHive.quarterly,
-      categoryId: await categoryBox.add(CategoryHive(description: 'Taxes')),
+      categoryId: entertainment,
       amount: 5586,
     ),
   );
