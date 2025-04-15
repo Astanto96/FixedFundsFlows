@@ -1,6 +1,6 @@
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
-import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_state.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/categories_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'categories_viewmodel.g.dart';

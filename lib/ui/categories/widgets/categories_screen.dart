@@ -1,4 +1,4 @@
-import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
