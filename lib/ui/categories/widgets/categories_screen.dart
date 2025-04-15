@@ -26,7 +26,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
   Widget build(BuildContext context) {
     final categoriesState = ref.watch(categoriesViewmodelProvider);
     final categories = categoriesState.categories;
-    final viewModel = ref.watch(categoriesViewmodelProvider.notifier);
+    final viewModel = ref.read(categoriesViewmodelProvider.notifier);
 
     return SafeArea(
       child: ColoredBox(
