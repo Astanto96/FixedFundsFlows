@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/core/utils/category_color_manager.dart';
@@ -44,13 +45,26 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
               height: 1,
               color: Theme.of(context).colorScheme.secondary,
             ),
-            AspectRatio(
-              aspectRatio: 1.1,
-              child: StatisticPieChart(
-                statisticState.totalAmount!,
-                statisticState.catWithContracts,
-                colorManager.getColorForCategory,
-              ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final width = constraints.maxWidth;
+                final chartHeight = width / 1.1;
+
+                return Column(
+                  children: [
+                    AppSpacing.sbh16,
+                    SizedBox(
+                      width: width,
+                      height: chartHeight,
+                      child: StatisticPieChart(
+                        statisticState.totalAmount!,
+                        statisticState.catWithContracts,
+                        colorManager.getColorForCategory,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16),
@@ -187,5 +201,3 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
     );
   }
 }
-
-//jetzt noch hier die Tabelle eintragen -> Notizen
