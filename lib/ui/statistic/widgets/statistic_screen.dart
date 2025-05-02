@@ -2,6 +2,7 @@ import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/core/utils/category_color_manager.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/widgets/statistic_pie_chart.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
     // Schedule the load after the widget is built
     Future.microtask(() {
       ref.read(statisticViewModelProvider.notifier).initializeStatisticState();
+      ref.read(categoriesViewmodelProvider.notifier).loadCategories();
     });
   }
 

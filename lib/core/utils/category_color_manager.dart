@@ -13,42 +13,46 @@ class CategoryColorManager {
   final Map<int, Color> _categoryColorMap = {};
   final Set<Color> _usedColors = {};
 
-  int _hueStep = 0;
-
   // Configuration for pastel color generation
-  static const int _hueStepSize = 30; // Degrees between hues
-  static const double _saturation = 0.45; // Soft, pastel-like saturation
-  static const double _value = 0.8; // Brightness (value)
+  static const int _hueStepSize = 30; // More distinct hue spacing
+  static const double _saturation = 0.45; // Slightly more vivid pastels
+  static const int maxSupportedColors = 24;
+
+  /// Reassigns colors to the given list of category IDs.
+  /// Alternates brightness to improve distinguishability.
+  void updateCategories(List<int> categoryIds) {
+    _categoryColorMap.clear();
+    _usedColors.clear();
+
+    int hueStep = 0;
+
+    for (final id in categoryIds) {
+      final hue = (hueStep * _hueStepSize) % 360;
+
+      // Alternate brightness (value): 0.8, 0.65, 0.8, ...
+      final double value = hueStep.isEven ? 0.75 : 0.88;
+
+      final color =
+          HSVColor.fromAHSV(1, hue.toDouble(), _saturation, value).toColor();
+
+      _categoryColorMap[id] = color;
+      _usedColors.add(color);
+      hueStep++;
+    }
+  }
 
   /// Returns the color assigned to a specific category ID.
-  /// Generates a unique pastel color if not already assigned.
+  /// `updateCategories` must be called before using this.
   Color getColorForCategory(int categoryId) {
-    return _categoryColorMap.putIfAbsent(categoryId, () {
-      Color color;
-      int tries = 0;
-
-      // Ensure color uniqueness
-      do {
-        color = _generateNextPastelColor();
-        tries++;
-        if (tries > 1000) {
-          throw Exception('Too many similar colors generated');
-        }
-      } while (_usedColors.contains(color));
-
-      _usedColors.add(color);
-      return color;
-    });
+    final color = _categoryColorMap[categoryId];
+    if (color == null) {
+      throw Exception(
+        'Category ID $categoryId not registered. Call updateCategories() first.',
+      );
+    }
+    return color;
   }
 
-  /// Generates the next pastel color using stepped hue values.
-  Color _generateNextPastelColor() {
-    final hue = (_hueStep * _hueStepSize) % 360;
-    _hueStep++;
-
-    return HSVColor.fromAHSV(1, hue.toDouble(), _saturation, _value).toColor();
-  }
-
-  /// Returns the entire map of category IDs to assigned colors.
+  /// Returns the full map of assigned category IDs and their colors.
   Map<int, Color> getColorMap() => _categoryColorMap;
 }
