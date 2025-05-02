@@ -169,7 +169,8 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                   errorText: state.amountError,
                   prefixText: '€ ',
                 ),
-                keyboardType: TextInputType.number,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
                   viewmodel.updateAmount(value);
                 },
