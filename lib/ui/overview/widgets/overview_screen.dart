@@ -24,7 +24,7 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     final overviewState = ref.watch(overviewViewModelProvider);
-    final viewModel = ref.watch(overviewViewModelProvider.notifier);
+    final viewModel = ref.read(overviewViewModelProvider.notifier);
 
     return SafeArea(
       child: Column(

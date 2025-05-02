@@ -1,4 +1,4 @@
-import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
@@ -26,7 +26,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
   Widget build(BuildContext context) {
     final categoriesState = ref.watch(categoriesViewmodelProvider);
     final categories = categoriesState.categories;
-    final viewModel = ref.watch(categoriesViewmodelProvider.notifier);
+    final viewModel = ref.read(categoriesViewmodelProvider.notifier);
 
     return SafeArea(
       child: ColoredBox(

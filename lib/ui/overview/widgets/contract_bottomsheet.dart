@@ -45,7 +45,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(contractViewModelProvider);
-    final viewmodel = ref.watch(contractViewModelProvider.notifier);
+    final viewmodel = ref.read(contractViewModelProvider.notifier);
     final contractForDetails = widget.contractForDetails;
 
     return Padding(

@@ -21,7 +21,7 @@ class OvHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(currentThemeProvider);
-    final themeMode = ref.watch(themeNotifierProvider.notifier);
+    final themeMode = ref.read(themeNotifierProvider.notifier);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(4, 16, 16, 16),

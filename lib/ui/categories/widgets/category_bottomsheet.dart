@@ -1,6 +1,6 @@
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
-import 'package:fixedfundsflows/ui/categorys/viewmodel/categories_viewmodel.dart';
-import 'package:fixedfundsflows/ui/categorys/viewmodel/category_viewmodel.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/category_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(categoryViewModelProvider);
-    final viewmodel = ref.watch(categoryViewModelProvider.notifier);
+    final viewmodel = ref.read(categoryViewModelProvider.notifier);
 
     return Padding(
       padding: AppSpacing.padding24,
