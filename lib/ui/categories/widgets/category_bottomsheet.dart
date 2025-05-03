@@ -60,6 +60,20 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
               onChanged: (value) => viewmodel.updateDescription(value),
             ),
             AppSpacing.sbh40,
+            Row(
+              children: [
+                Icon(
+                  Icons.info_outline_rounded,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                  size: 14,
+                ),
+                AppSpacing.sbw8,
+                const Text("You can create up to 24 categories.",
+                    style: TextStyle(
+                      fontSize: 12,
+                    )),
+              ],
+            ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
