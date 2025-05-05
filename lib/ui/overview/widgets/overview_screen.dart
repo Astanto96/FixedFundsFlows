@@ -1,6 +1,8 @@
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/widgets/ov_header.dart';
 import 'package:fixedfundsflows/ui/overview/widgets/ov_list.dart';
+import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
+import 'package:fixedfundsflows/ui/widgets/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,23 +28,40 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
     final overviewState = ref.watch(overviewViewModelProvider);
     final viewModel = ref.read(overviewViewModelProvider.notifier);
 
+    if (overviewState.error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        CustomGlobalSnackBar.show(
+          context: context,
+          isItGood: false,
+          text: overviewState.error!,
+        );
+      });
+    }
+
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
+      child: Stack(
         children: [
-          OvHeader(
-            selectedPeriod: overviewState.selectedPeriod,
-            onBillingPeriodChanged: viewModel.setBillingPeriod,
-            totalAmountForSelectedPeriod:
-                overviewState.totalAmountForSelectedPeriod,
-          ),
-          Expanded(
-            child: OvList(contracts: overviewState.contracts),
-          ),
-          Container(
-            height: 1,
-            color: Theme.of(context).colorScheme.secondary,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              OvHeader(
+                selectedPeriod: overviewState.selectedPeriod,
+                onBillingPeriodChanged: viewModel.setBillingPeriod,
+                totalAmountForSelectedPeriod:
+                    overviewState.totalAmountForSelectedPeriod,
+              ),
+              Expanded(
+                child: LoadingOverlay(
+                  isLoading: overviewState.isLoading,
+                  child: OvList(contracts: overviewState.contracts),
+                ),
+              ),
+              Container(
+                height: 1,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ],
           ),
         ],
       ),
