@@ -13,10 +13,12 @@ class LoadingOverlay extends StatelessWidget {
       children: [
         child,
         if (isLoading)
-          const SizedBox.expand(
+          SizedBox.expand(
             child: ColoredBox(
-              color: Colors.black38,
-              child: Center(
+              color: Theme.of(context).colorScheme.surface.withAlpha(153),
+              //153 is 60% opacity
+              //255 is 100% opacity
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),
