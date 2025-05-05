@@ -27,7 +27,6 @@ class OverviewViewModel extends _$OverviewViewModel {
     state = state.copyWith(isLoading: true);
 
     try {
-      await Future.delayed(const Duration(seconds: 5));
       final contracts =
           await _repository.getContractsForPeriod(state.selectedPeriod);
       // Sort contracts by amount in descending order
