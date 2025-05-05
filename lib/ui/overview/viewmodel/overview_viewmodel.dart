@@ -1,5 +1,6 @@
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/repositories/contract_calculator_repository.dart';
+import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,11 +27,18 @@ class OverviewViewModel extends _$OverviewViewModel {
     state = state.copyWith(isLoading: true);
 
     try {
+      await Future.delayed(const Duration(seconds: 5));
       final contracts =
           await _repository.getContractsForPeriod(state.selectedPeriod);
       // Sort contracts by amount in descending order
       contracts.sort((a, b) => b.amount.compareTo(a.amount));
-      state = state.copyWith(contracts: contracts);
+
+      state = state.copyWith(
+        contracts: contracts,
+        totalAmountForSelectedPeriod:
+            _calculateTotalAmountForSelectedPeriod(contracts),
+        isLoading: false,
+      );
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
@@ -38,16 +46,9 @@ class OverviewViewModel extends _$OverviewViewModel {
         totalAmountForSelectedPeriod: 0,
       );
     }
-    state = state.copyWith(
-        totalAmountForSelectedPeriod: _calculateTotalAmountForSelectedPeriod(),
-        isLoading: false);
   }
 
-  int _calculateTotalAmountForSelectedPeriod() {
-    int totalAmount = 0;
-    for (final contract in state.contracts) {
-      totalAmount += contract.amount;
-    }
-    return totalAmount;
+  int _calculateTotalAmountForSelectedPeriod(List<Contract> contracts) {
+    return contracts.fold(0, (sum, contract) => sum + contract.amount);
   }
 }
