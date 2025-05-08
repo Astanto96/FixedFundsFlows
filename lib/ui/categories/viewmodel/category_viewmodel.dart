@@ -15,6 +15,11 @@ class CategoryViewModel extends _$CategoryViewModel {
     return CategoryState();
   }
 
+  Future<bool> checkIfMaxCategoriesReached() async {
+    final categories = await _categoryRepo.getCategories();
+    return categories.length >= 24;
+  }
+
   //Validation -----------------------------------------------
   String? validateDescription(String? value) {
     if (value == null || value.isEmpty) {

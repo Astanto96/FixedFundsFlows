@@ -17,6 +17,16 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref
+          .read(categoryViewModelProvider.notifier)
+          .checkIfMaxCategoriesReached();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final state = ref.watch(categoryViewModelProvider);
     final viewmodel = ref.read(categoryViewModelProvider.notifier);
@@ -64,39 +74,50 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
               children: [
                 Icon(
                   Icons.info_outline_rounded,
-                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                  color: state.isMaxCategoriesReached
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context).textTheme.bodyMedium?.color,
                   size: 14,
                 ),
                 AppSpacing.sbw8,
-                const Text("You can create up to 24 categories.",
-                    style: TextStyle(
-                      fontSize: 12,
-                    )),
+                Text(
+                  state.isMaxCategoriesReached
+                      ? 'Your reached the maximum number of 24 categories'
+                      : 'You can create up to 24 categories',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: state.isMaxCategoriesReached
+                        ? Colors.red
+                        : Theme.of(context).textTheme.bodyMedium?.color,
+                  ),
+                ),
               ],
             ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () async {
-                  final success = await viewmodel.saveCategory();
-                  if (success) {
-                    ref
-                        .read(categoriesViewmodelProvider.notifier)
-                        .loadCategories();
-                    ref
-                        .read(statisticViewModelProvider.notifier)
-                        .initializeStatisticState();
+                onPressed: state.isMaxCategoriesReached
+                    ? () async {
+                        final success = await viewmodel.saveCategory();
+                        if (success) {
+                          ref
+                              .read(categoriesViewmodelProvider.notifier)
+                              .loadCategories();
+                          ref
+                              .read(statisticViewModelProvider.notifier)
+                              .initializeStatisticState();
 
-                    if (context.mounted) {
-                      CustomGlobalSnackBar.show(
-                        context: context,
-                        isItGood: true,
-                        text: '${state.description} successfully created',
-                      );
-                      Navigator.pop(context);
-                    }
-                  }
-                },
+                          if (context.mounted) {
+                            CustomGlobalSnackBar.show(
+                              context: context,
+                              isItGood: true,
+                              text: '${state.description} successfully created',
+                            );
+                            Navigator.pop(context);
+                          }
+                        }
+                      }
+                    : null, // Disable button if max categories reached
                 child: const Text('Create'),
               ),
             ),
