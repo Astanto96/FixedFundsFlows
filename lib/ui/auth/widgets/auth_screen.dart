@@ -50,14 +50,19 @@ class AuthScreen extends ConsumerWidget {
                 fontSize: 12,
               ),
             ),
-          if (!isLoading) AppSpacing.sbh40,
-          IconButton(
-            iconSize: 50,
-            onPressed: () {
-              ref.read(authViewModelProvider.notifier).authenticate();
-            },
-            icon: const Icon(Icons.lock_open_rounded),
-          ),
+          if (!isLoading)
+            Column(
+              children: [
+                AppSpacing.sbh40,
+                IconButton(
+                  iconSize: 50,
+                  onPressed: () {
+                    ref.read(authViewModelProvider.notifier).authenticate();
+                  },
+                  icon: const Icon(Icons.lock_open_rounded),
+                ),
+              ],
+            ),
         ],
       )),
     );
