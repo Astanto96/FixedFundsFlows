@@ -2,6 +2,7 @@ import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dar
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
+import 'package:fixedfundsflows/ui/widgets/loading_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,76 +41,79 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
     return SafeArea(
       child: ColoredBox(
         color: Theme.of(context).colorScheme.surface,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(
-                16,
-                24,
-                16,
-                16,
+        child: LoadingOverlay(
+          isLoading: categoriesState.isLoading,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(
+                  16,
+                  24,
+                  16,
+                  16,
+                ),
+                child: Text(
+                  'Categories',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-              child: Text(
-                'Categories',
-                style: TextStyle(fontSize: 20),
+              Container(
+                height: 1,
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                color: Theme.of(context).colorScheme.secondary,
               ),
-            ),
-            Container(
-              height: 1,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  final category = categories[index];
-                  return ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    title: Text(category.description),
-                    trailing: IconButton(
-                      onPressed: () async {
-                        final wantToDelete = await DeleteDialog.show(
-                          context: context,
-                          itemName: category.description,
-                        );
-                        if (!wantToDelete) {
-                          return;
-                        }
-                        final success =
-                            await viewModel.deleteCategory(category.id!);
-                        ref
-                            .read(statisticViewModelProvider.notifier)
-                            .initializeStatisticState();
+              Expanded(
+                child: ListView.builder(
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
+                    return ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      title: Text(category.description),
+                      trailing: IconButton(
+                        onPressed: () async {
+                          final wantToDelete = await DeleteDialog.show(
+                            context: context,
+                            itemName: category.description,
+                          );
+                          if (!wantToDelete) {
+                            return;
+                          }
+                          final success =
+                              await viewModel.deleteCategory(category.id!);
+                          ref
+                              .read(statisticViewModelProvider.notifier)
+                              .initializeStatisticState();
 
-                        if (!context.mounted) {
-                          return;
-                        }
+                          if (!context.mounted) {
+                            return;
+                          }
 
-                        CustomGlobalSnackBar.show(
-                          context: context,
-                          isItGood: success,
-                          text: success
-                              ? '${category.description} successfully deleted'
-                              : 'Cannot delete category – it is still in use.',
-                        );
+                          CustomGlobalSnackBar.show(
+                            context: context,
+                            isItGood: success,
+                            text: success
+                                ? '${category.description} successfully deleted'
+                                : 'Cannot delete category – it is still in use.',
+                          );
+                        },
+                        icon: const Icon(Icons.delete_outline),
+                      ),
+                      onTap: () {
+                        // show category details btmsheet
                       },
-                      icon: const Icon(Icons.delete_outline),
-                    ),
-                    onTap: () {
-                      // show category details btmsheet
-                    },
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            Container(
-              height: 1,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-          ],
+              Container(
+                height: 1,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ],
+          ),
         ),
       ),
     );
