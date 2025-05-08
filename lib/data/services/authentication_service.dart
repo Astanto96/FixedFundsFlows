@@ -19,19 +19,19 @@ class AuthenticationService {
   Future<bool> authenticate() async {
     if (kDebugMode) {
       print("🚀 Debug-Modus: Authentifizierung wird übersprungen!");
-      return true; // Authentifizierung automatisch erfolgreich
+      return true; // Authentication automatically successful
     }
     try {
       return await _auth.authenticate(
-        localizedReason: "Bitte authentifizieren, um fortzufahren",
+        localizedReason: "Please authenticate to continue",
         options: const AuthenticationOptions(
-          biometricOnly: false, //Geräte-PIN als Fallback zulassen
+          biometricOnly: false, //Allow device PIN as fallback
           useErrorDialogs: true,
           stickyAuth: true,
         ),
       );
     } on PlatformException catch (e) {
-      print("Fehler bei der Authentifizierung: $e");
+      print("Authentication error: $e");
       return false;
     }
   }
@@ -40,7 +40,7 @@ class AuthenticationService {
     try {
       return _auth.isDeviceSupported();
     } on PlatformException catch (e) {
-      print("Das Gerät unterstützt keine Biometrics. $e");
+      print("The device does not support biometrics. $e");
       return false;
     }
   }
