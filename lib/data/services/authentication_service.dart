@@ -31,7 +31,6 @@ class AuthenticationService {
         ),
       );
     } on PlatformException catch (e) {
-      //TODO: Logging hier einfügen
       print("Fehler bei der Authentifizierung: $e");
       return false;
     }
@@ -41,7 +40,6 @@ class AuthenticationService {
     try {
       return _auth.isDeviceSupported();
     } on PlatformException catch (e) {
-      //TODO: Logging hier einfügen
       print("Das Gerät unterstützt keine Biometrics. $e");
       return false;
     }

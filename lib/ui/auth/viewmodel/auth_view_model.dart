@@ -3,23 +3,24 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_view_model.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: false)
 class AuthViewModel extends _$AuthViewModel {
   @override
-  //wieso "bool?"?
-  //build() ist die Initialisierungsmethode der Riverpod Generator Klasse
-  //den wert den build() zurück gibt, ist der Anfangswert von "state"
-  //er kann "null" sein, wenn das Gerät noch nicht authentifiziert wurde
-  //true wenn erfolgreich auth
-  //false wenn auth fehlgeschlagen
-  //beim setzen von state, werden alle Views die watchen, aktualisiert
-  bool? build() {
-    return null; //Startwert: "Noch keine Authentifizierung"
-  }
-
-  Future<void> authenticate() async {
+  Future<bool?> build() async {
     final authService = ref.read(authenticationServiceProvider);
     final bool success = await authService.authenticate();
-    state = success;
+    return success;
+  }
+
+  Future<bool?> authenticate() async {
+    try {
+      final authService = ref.read(authenticationServiceProvider);
+      final success = await authService.authenticate();
+      state = AsyncValue.data(success);
+      return success;
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      return null;
+    }
   }
 }
