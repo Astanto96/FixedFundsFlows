@@ -7,7 +7,7 @@ part of 'categories_viewmodel.dart';
 // **************************************************************************
 
 String _$categoriesViewmodelHash() =>
-    r'1334833f9f21434a6a5bf80ae18704050e71b5b5';
+    r'9318e552f2b5e89e221bce3d7c066bf9404af2d4';
 
 /// See also [CategoriesViewmodel].
 @ProviderFor(CategoriesViewmodel)
