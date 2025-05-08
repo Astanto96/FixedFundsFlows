@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_redundant_argument_values, avoid_print
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
@@ -17,22 +16,17 @@ class AuthenticationService {
   final LocalAuthentication _auth = LocalAuthentication();
 
   Future<bool> authenticate() async {
-    if (kDebugMode) {
-      print("🚀 Debug-Modus: Authentifizierung wird übersprungen!");
-      return true; // Authentifizierung automatisch erfolgreich
-    }
     try {
       return await _auth.authenticate(
-        localizedReason: "Bitte authentifizieren, um fortzufahren",
+        localizedReason: "Please authenticate to continue",
         options: const AuthenticationOptions(
-          biometricOnly: false, //Geräte-PIN als Fallback zulassen
+          biometricOnly: false, //Allow device PIN as fallback
           useErrorDialogs: true,
           stickyAuth: true,
         ),
       );
     } on PlatformException catch (e) {
-      //TODO: Logging hier einfügen
-      print("Fehler bei der Authentifizierung: $e");
+      print("Authentication error: $e");
       return false;
     }
   }
@@ -41,8 +35,7 @@ class AuthenticationService {
     try {
       return _auth.isDeviceSupported();
     } on PlatformException catch (e) {
-      //TODO: Logging hier einfügen
-      print("Das Gerät unterstützt keine Biometrics. $e");
+      print("The device does not support biometrics. $e");
       return false;
     }
   }

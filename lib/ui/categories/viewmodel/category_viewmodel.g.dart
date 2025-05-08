@@ -6,7 +6,7 @@ part of 'category_viewmodel.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoryViewModelHash() => r'6bcaf89d55e8221bfc30cb8fbbc991d50066ed3a';
+String _$categoryViewModelHash() => r'3e3e58bae2878d8f8e9ded33e0a10ac849c96f19';
 
 /// See also [CategoryViewModel].
 @ProviderFor(CategoryViewModel)
