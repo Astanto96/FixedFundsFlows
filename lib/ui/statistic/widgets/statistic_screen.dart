@@ -22,8 +22,11 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
   void initState() {
     super.initState();
     // Schedule the load after the widget is built
-    Future.microtask(() {
-      ref.read(categoriesViewmodelProvider.notifier).loadCategories();
+    Future.microtask(() async {
+      //Load cateogories will be finished before initializing the statistic state
+      //Neccesary because [CategoryColorManager] needs the actual categories to
+      //assign the colors for the PieChart
+      await ref.read(categoriesViewmodelProvider.notifier).loadCategories();
       ref.read(statisticViewModelProvider.notifier).initializeStatisticState();
     });
   }
