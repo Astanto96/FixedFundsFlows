@@ -28,6 +28,15 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
     final categories = categoriesState.categories;
     final viewModel = ref.read(categoriesViewmodelProvider.notifier);
 
+    if (categoriesState.error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        CustomGlobalSnackBar.show(
+          context: context,
+          isItGood: false,
+          text: categoriesState.error!,
+        );
+      });
+    }
     return SafeArea(
       child: ColoredBox(
         color: Theme.of(context).colorScheme.surface,

@@ -5,6 +5,7 @@ import 'package:fixedfundsflows/core/utils/category_color_manager.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/widgets/statistic_pie_chart.dart';
+import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,6 +36,16 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
     if (statisticState.totalAmount == null ||
         statisticState.catWithContracts.isEmpty) {
       return const Center(child: CircularProgressIndicator());
+    }
+
+    if (statisticState.error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        CustomGlobalSnackBar.show(
+          context: context,
+          isItGood: false,
+          text: statisticState.error!,
+        );
+      });
     }
 
     return SafeArea(
