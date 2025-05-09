@@ -27,7 +27,7 @@ class CategoryRepository {
   Category getCategory(int key) {
     final category = dataSource.getCategory(key);
     if (category == null) {
-      throw Exception("Kategorie mit ID $key nicht gefunden!");
+      throw Exception("Category with ID $key not found!");
     }
     return category;
   }
