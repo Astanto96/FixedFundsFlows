@@ -18,50 +18,62 @@ class LightTheme {
   static ThemeData get theme {
     final base = ThemeData.light();
     return base.copyWith(
-      colorScheme: base.colorScheme.copyWith(
-        surface: surface,
-        primary: primary,
-        secondary: secondary,
-        inversePrimary: inversePrimary,
-      ),
-      textTheme: base.textTheme.apply(
-        bodyColor: textBodyColor,
-        displayColor: textDisplayColor,
-      ),
-      navigationBarTheme: const NavigationBarThemeData(
-        backgroundColor: primary,
-        indicatorColor: secondary,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: surface,
-        foregroundColor: textBodyColor,
-      ),
-      bottomAppBarTheme: const BottomAppBarTheme(
-        color: primary,
-        elevation: 2,
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: primary,
-        foregroundColor: textBodyColor,
-        elevation: 0,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: secondary,
+        colorScheme: base.colorScheme.copyWith(
+          surface: surface,
+          primary: primary,
+          secondary: secondary,
+          inversePrimary: inversePrimary,
+        ),
+        textTheme: base.textTheme.apply(
+          bodyColor: textBodyColor,
+          displayColor: textDisplayColor,
+        ),
+        navigationBarTheme: const NavigationBarThemeData(
+          backgroundColor: primary,
+          indicatorColor: secondary,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: surface,
           foregroundColor: textBodyColor,
         ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: base.textTheme.bodyLarge,
-        prefixStyle: base.textTheme.bodyLarge,
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: secondary,
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: primary,
+          elevation: 2,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: primary,
+          foregroundColor: textBodyColor,
+          elevation: 0,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: secondary,
+            foregroundColor: textBodyColor,
           ),
         ),
-      ),
-      scaffoldBackgroundColor: primary,
-    );
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: base.textTheme.bodyLarge,
+          prefixStyle: base.textTheme.bodyLarge,
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: secondary,
+            ),
+          ),
+        ),
+        scaffoldBackgroundColor: primary,
+        menuTheme: MenuThemeData(
+          style: MenuStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(primary),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: const BorderSide(
+                  color: secondary,
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
