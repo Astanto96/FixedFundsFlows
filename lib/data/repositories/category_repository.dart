@@ -35,4 +35,24 @@ class CategoryRepository {
   Future<void> deleteCategory(int key) async {
     await dataSource.deleteCategory(key);
   }
+
+  Future<List<Category>> insertDefaultCategories() async {
+    final List<Category> defaultCategories = [];
+
+    defaultCategories
+        .add(await dataSource.addCategory(Category(description: 'Housing')));
+
+    defaultCategories
+        .add(await dataSource.addCategory(Category(description: 'Insurance')));
+
+    defaultCategories
+        .add(await dataSource.addCategory(Category(description: 'Mobility')));
+
+    defaultCategories.add(await dataSource
+        .addCategory(Category(description: 'Telecommunication')));
+
+    defaultCategories.add(
+        await dataSource.addCategory(Category(description: 'Entertainment')));
+    return defaultCategories;
+  }
 }
