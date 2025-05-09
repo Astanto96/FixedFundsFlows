@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/application/services/app_start_service.dart';
 import 'package:fixedfundsflows/core/routing/router.dart';
 import 'package:fixedfundsflows/core/theme/dark_theme.dart';
 import 'package:fixedfundsflows/core/theme/light_theme.dart';
@@ -10,6 +11,9 @@ class FixedFundsFlowsApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(appStartServiceProvider).initializeHive();
+    ref.read(appStartServiceProvider).initializeAppIfNeeded();
+
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,

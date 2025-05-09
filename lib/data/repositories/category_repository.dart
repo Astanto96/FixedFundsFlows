@@ -27,12 +27,32 @@ class CategoryRepository {
   Category getCategory(int key) {
     final category = dataSource.getCategory(key);
     if (category == null) {
-      throw Exception("Kategorie mit ID $key nicht gefunden!");
+      throw Exception("Category with ID $key not found!");
     }
     return category;
   }
 
   Future<void> deleteCategory(int key) async {
     await dataSource.deleteCategory(key);
+  }
+
+  Future<List<Category>> insertDefaultCategories() async {
+    final descriptions = [
+      'Housing',
+      'Insurance',
+      'Mobility',
+      'Telecommunication',
+      'Entertainment',
+    ];
+
+    final List<Category> defaultCategories = [];
+
+    for (final desc in descriptions) {
+      final category = Category(description: desc);
+      final saved = await dataSource.addCategory(category);
+      defaultCategories.add(saved);
+    }
+
+    return defaultCategories;
   }
 }
