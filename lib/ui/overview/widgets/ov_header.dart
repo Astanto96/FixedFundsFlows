@@ -38,13 +38,50 @@ class OvHeader extends ConsumerWidget {
         children: [
           Row(
             children: [
-              IconButton(
-                onPressed: () {
-                  themeMode.toggleTheme();
-                },
-                icon: theme == LightTheme.theme
-                    ? const Icon(Icons.nights_stay)
-                    : const Icon(Icons.sunny),
+              MenuAnchor(
+                builder: (context, controller, child) => IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                ),
+                menuChildren: [
+                  MenuItemButton(
+                    closeOnActivate: false,
+                    leadingIcon: theme == LightTheme.theme
+                        ? const Icon(Icons.nights_stay)
+                        : const Icon(Icons.sunny),
+                    onPressed: () {
+                      themeMode.toggleTheme();
+                    },
+                    child: theme == LightTheme.theme
+                        ? const Text('Dark Mode')
+                        : const Text('Light Mode'),
+                  ),
+                  MenuItemButton(
+                    closeOnActivate: false,
+                    leadingIcon: Text(theme == LightTheme.theme ? 'DE' : 'EN',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    onPressed: () {
+                      themeMode.toggleTheme();
+                    },
+                    child: theme == LightTheme.theme
+                        ? const Text('Deutsch')
+                        : const Text('English'),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const Icon(Icons.ios_share_rounded),
+                    child: const Text('JSON Export'),
+                    onPressed: () {},
+                  )
+                ],
               ),
               const Spacer(),
               DropdownButtonHideUnderline(
