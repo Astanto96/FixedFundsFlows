@@ -37,22 +37,22 @@ class CategoryRepository {
   }
 
   Future<List<Category>> insertDefaultCategories() async {
+    final descriptions = [
+      'Housing',
+      'Insurance',
+      'Mobility',
+      'Telecommunication',
+      'Entertainment',
+    ];
+
     final List<Category> defaultCategories = [];
 
-    defaultCategories
-        .add(await dataSource.addCategory(Category(description: 'Housing')));
+    for (final desc in descriptions) {
+      final category = Category(description: desc);
+      final saved = await dataSource.addCategory(category);
+      defaultCategories.add(saved);
+    }
 
-    defaultCategories
-        .add(await dataSource.addCategory(Category(description: 'Insurance')));
-
-    defaultCategories
-        .add(await dataSource.addCategory(Category(description: 'Mobility')));
-
-    defaultCategories.add(await dataSource
-        .addCategory(Category(description: 'Telecommunication')));
-
-    defaultCategories.add(
-        await dataSource.addCategory(Category(description: 'Entertainment')));
     return defaultCategories;
   }
 }
