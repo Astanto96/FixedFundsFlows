@@ -19,7 +19,40 @@ class AppLocalizations {
 
   bool get isGerman => locale.languageCode == 'de';
 
-  String get appTitle => isGerman ? 'Meine App' : 'My App';
+//Bottomsheets
+  String get createContract =>
+      isGerman ? 'Erstelle Vertrag' : 'Create Contract';
+  String get detailsContract =>
+      isGerman ? 'Vertragsdetails' : 'Contract details';
+  String get descripction => isGerman ? 'Beschreibung' : 'Description';
+  String get billingPeriod =>
+      isGerman ? 'Abrechnungszeitraum' : 'billing period';
+  String get category => isGerman ? 'Kategorie' : 'Category';
+  String get amount => isGerman ? 'Betrag' : 'Amount';
+  String get currency => isGerman ? '€' : '\$';
+  String get submit => isGerman ? 'Aktualisieren' : 'Submit';
+  String get create => isGerman ? 'Erstellen' : 'Create';
+
+//snackbar
+  String sncSuccDeleted(String name) {
+    return isGerman
+        ? '$name erfolgreich gelöscht'
+        : '$name successfully deleted';
+  }
+
+  String sncSuccUpdated(String name) {
+    return isGerman
+        ? '$name erfolgreich aktualisiert'
+        : '$name successfully updated';
+  }
+
+  String sncSuccCreated(String name) {
+    return isGerman
+        ? '$name erfolgreich erstellt'
+        : '$name successfully created';
+  }
+
+  //Ohters
   String get welcome => isGerman ? 'Willkommen!' : 'Welcome!';
   String get toggleLang => isGerman ? 'Sprache wechseln' : 'Toggle Language';
   String get logout => isGerman ? 'Abmelden' : 'Logout';

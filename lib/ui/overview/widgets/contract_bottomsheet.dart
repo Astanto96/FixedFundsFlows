@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
@@ -46,6 +47,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
   Widget build(BuildContext context) {
     final state = ref.watch(contractViewModelProvider);
     final viewmodel = ref.read(contractViewModelProvider.notifier);
+    final loc = ref.watch(appLocationsProvider);
     final contractForDetails = widget.contractForDetails;
 
     return Padding(
@@ -58,8 +60,8 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
             children: [
               ContractBottomsheetHeader(
                 title: widget.isDetailsMode
-                    ? 'Contract Details'
-                    : 'Create Contract',
+                    ? loc.detailsContract
+                    : loc.createContract,
                 onDelete: widget.isDetailsMode && contractForDetails?.id != null
                     ? () async {
                         final userConsfirmed = await DeleteDialog.show(
@@ -83,8 +85,8 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                             CustomGlobalSnackBar.show(
                               context: context,
                               isItGood: true,
-                              text:
-                                  '${contractForDetails.description} successfully deleted',
+                              text: loc.sncSuccDeleted(
+                                  contractForDetails.description),
                             );
                             Navigator.pop(context);
                           }
@@ -98,7 +100,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                     ? contractForDetails?.description
                     : null,
                 decoration: InputDecoration(
-                  labelText: 'Description',
+                  labelText: loc.descripction,
                   helperText: '',
                   errorText: state.descriptionError,
                 ),
@@ -112,8 +114,8 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                 value: widget.isDetailsMode
                     ? contractForDetails?.billingPeriod
                     : state.selectedPeriod,
-                decoration: const InputDecoration(
-                    labelText: 'Billing Period', helperText: ''),
+                decoration: InputDecoration(
+                    labelText: loc.billingPeriod, helperText: ''),
                 items: BillingPeriod.values
                     .map(
                       (period) => DropdownMenuItem(
@@ -123,7 +125,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                           children: [
                             Icon(period.billingIcon),
                             AppSpacing.sbw8,
-                            Text(period.label),
+                            Text(loc.billingLabel(period)),
                           ],
                         ),
                       ),
@@ -140,7 +142,7 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                 dropdownColor: Theme.of(context).colorScheme.surface,
                 value: contractForDetails?.category,
                 decoration: InputDecoration(
-                  labelText: 'Category',
+                  labelText: loc.category,
                   helperText: '',
                   errorText: state.categoryError,
                 ),
@@ -164,10 +166,10 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                       )
                     : null,
                 decoration: InputDecoration(
-                  labelText: 'Amount',
+                  labelText: loc.amount,
                   helperText: '',
                   errorText: state.amountError,
-                  prefixText: '€ ',
+                  prefixText: '${loc.currency} ',
                 ),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
@@ -194,21 +196,21 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                           CustomGlobalSnackBar.show(
                             context: context,
                             isItGood: true,
-                            text: '${state.description} successfully updated',
+                            text: loc.sncSuccUpdated(state.description),
                           );
                           Navigator.pop(context);
                         } else {
                           CustomGlobalSnackBar.show(
                             context: context,
                             isItGood: true,
-                            text: '${state.description} successfully created',
+                            text: loc.sncSuccCreated(state.description),
                           );
                           Navigator.pop(context);
                         }
                       }
                     }
                   },
-                  child: Text(widget.isDetailsMode ? 'Submit' : 'Create'),
+                  child: Text(widget.isDetailsMode ? loc.submit : loc.create),
                 ),
               ),
             ],
