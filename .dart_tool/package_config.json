@@ -207,9 +207,9 @@
     },
     {
       "name": "fl_chart",
-      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/fl_chart-0.70.2",
+      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/fl_chart-1.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.6"
     },
     {
       "name": "flutter",
@@ -261,7 +261,7 @@
     },
     {
       "name": "go_router",
-      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/go_router-14.8.1",
+      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/go_router-15.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -740,10 +740,10 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-05-09T11:52:07.392122Z",
+  "generated": "2025-05-10T12:00:36.937633Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///Users/felixdressler/Developer/flutter",
-  "flutterVersion": "3.29.2",
+  "flutterVersion": "3.29.3",
   "pubCache": "file:///Users/felixdressler/.pub-cache"
 }
