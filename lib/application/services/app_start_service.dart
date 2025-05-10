@@ -95,10 +95,10 @@ class AppStartService {
         amount: 65000,
       ),
       Contract(
-        description: 'Cellphone',
+        description: 'Spotify',
         billingPeriod: BillingPeriod.monthly,
-        category: categoryMap['Telecommunication']!,
-        amount: 3500,
+        category: categoryMap['Entertainment']!,
+        amount: 1099,
       ),
     ];
     for (final contract in contracts) {

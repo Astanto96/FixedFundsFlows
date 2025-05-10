@@ -41,7 +41,6 @@ class CategoryRepository {
       'Housing',
       'Insurance',
       'Mobility',
-      'Telecommunication',
       'Entertainment',
     ];
 
