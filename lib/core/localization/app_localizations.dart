@@ -19,6 +19,12 @@ class AppLocalizations {
 
   bool get isGerman => locale.languageCode == 'de';
 
+//Overview
+  String get contracts => isGerman ? 'Verträge' : 'Contracts';
+  String get darkmode => isGerman ? "Dunkelmodus" : "Darkmode";
+  String get lightmode => isGerman ? "Hellmodus" : "Lightmode";
+  String get german => isGerman ? "Deutsch" : "German";
+  String get english => isGerman ? "Englisch" : "English";
 //Bottomsheets
   String get createContract =>
       isGerman ? 'Erstelle Vertrag' : 'Create Contract';
@@ -53,11 +59,6 @@ class AppLocalizations {
   }
 
   //Ohters
-  String get welcome => isGerman ? 'Willkommen!' : 'Welcome!';
-  String get toggleLang => isGerman ? 'Sprache wechseln' : 'Toggle Language';
-  String get logout => isGerman ? 'Abmelden' : 'Logout';
-
-  String greeting(String name) => isGerman ? 'Hallo $name' : 'Hello $name';
 
   String billingLabel(BillingPeriod period) {
     switch (period) {

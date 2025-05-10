@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
@@ -22,6 +23,7 @@ class OvHeader extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(currentThemeProvider);
     final themeMode = ref.read(themeNotifierProvider.notifier);
+    final loc = ref.watch(appLocationsProvider);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(4, 16, 16, 16),
@@ -59,8 +61,8 @@ class OvHeader extends ConsumerWidget {
                       themeMode.toggleTheme();
                     },
                     child: theme == LightTheme.theme
-                        ? const Text('Dark Mode')
-                        : const Text('Light Mode'),
+                        ? Text(loc.darkmode)
+                        : Text(loc.lightmode),
                   ),
                   MenuItemButton(
                     closeOnActivate: false,
@@ -73,8 +75,8 @@ class OvHeader extends ConsumerWidget {
                       themeMode.toggleTheme();
                     },
                     child: theme == LightTheme.theme
-                        ? const Text('Deutsch')
-                        : const Text('English'),
+                        ? Text(loc.german)
+                        : Text(loc.english),
                   ),
                   MenuItemButton(
                     leadingIcon: const Icon(Icons.ios_share_rounded),
@@ -93,7 +95,7 @@ class OvHeader extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        selectedPeriod.label,
+                        loc.billingLabel(selectedPeriod),
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -121,7 +123,9 @@ class OvHeader extends ConsumerWidget {
                             size: 16,
                           )
                         : null,
-                    child: Text(period.label),
+                    child: Text(
+                      loc.billingLabel(period),
+                    ),
                   );
                 }).toList(),
               ),
