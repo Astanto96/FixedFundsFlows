@@ -101,9 +101,6 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
                         },
                         icon: const Icon(Icons.delete_outline),
                       ),
-                      onTap: () {
-                        // show category details btmsheet
-                      },
                     );
                   },
                 ),
