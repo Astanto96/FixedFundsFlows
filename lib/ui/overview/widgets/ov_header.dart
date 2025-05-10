@@ -84,26 +84,46 @@ class OvHeader extends ConsumerWidget {
                 ],
               ),
               const Spacer(),
-              DropdownButtonHideUnderline(
-                child: DropdownButton<BillingPeriod>(
-                  iconSize: 20,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).textTheme.bodyLarge?.color),
-                  dropdownColor: Theme.of(context).colorScheme.primary,
-                  value: selectedPeriod,
-                  onChanged: (value) {
-                    onBillingPeriodChanged(value!);
+              MenuAnchor(
+                builder: (context, controller, _) => TextButton(
+                  onPressed: () {
+                    controller.isOpen ? controller.close() : controller.open();
                   },
-                  items: BillingPeriod.values
-                      .map(
-                        (period) => DropdownMenuItem(
-                          value: period,
-                          child: Text(period.label),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        selectedPeriod.label,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
                         ),
-                      )
-                      .toList(),
+                      ),
+                      AppSpacing.sbw4,
+                      Icon(
+                          controller.isOpen
+                              ? Icons.arrow_drop_up
+                              : Icons.arrow_drop_down,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                          size: 20),
+                    ],
+                  ),
                 ),
+                menuChildren: BillingPeriod.values.map((period) {
+                  return MenuItemButton(
+                    onPressed: () {
+                      onBillingPeriodChanged(period);
+                    },
+                    trailingIcon: selectedPeriod == period
+                        ? const Icon(
+                            Icons.check,
+                            size: 16,
+                          )
+                        : null,
+                    child: Text(period.label),
+                  );
+                }).toList(),
               ),
               AppSpacing.sbw16,
               Text(
