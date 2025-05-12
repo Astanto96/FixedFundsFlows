@@ -21,14 +21,14 @@ class AppLocalizations {
 
 //Overview
   String get contracts => isGerman ? 'Verträge' : 'Contracts';
-  String get darkmode => isGerman ? "Dunkelmodus" : "Darkmode";
-  String get lightmode => isGerman ? "Hellmodus" : "Lightmode";
+  String get darkmode => isGerman ? "Dunkel Modus" : "Darkmode";
+  String get lightmode => isGerman ? "Hell Modus" : "Lightmode";
   String get german => isGerman ? "Deutsch" : "German";
   String get english => isGerman ? "Englisch" : "English";
 
 //Bottomsheet Contract
   String get createContract =>
-      isGerman ? 'Erstelle Vertrag' : 'Create Contract';
+      isGerman ? 'Vertrag erstellen' : 'Create Contract';
   String get detailsContract =>
       isGerman ? 'Vertragsdetails' : 'Contract details';
   String get descripction => isGerman ? 'Beschreibung' : 'Description';
@@ -45,7 +45,7 @@ class AppLocalizations {
       ? 'Die maximale Anzahl von 24 Kategorien wurde erreicht'
       : 'You reached the maximum number of 24 categories';
   String get maxIs24 => isGerman
-      ? 'Es können bis 24 Kategorien erstellt werden'
+      ? 'Es können bis zu 24 Kategorien erstellt werden'
       : 'You can create up to 24 categories';
 
 //Cateogries Screen

@@ -77,9 +77,9 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
                       trailing: IconButton(
                         onPressed: () async {
                           final wantToDelete = await DeleteDialog.show(
-                            context: context,
-                            itemName: category.description,
-                          );
+                              context: context,
+                              itemName: category.description,
+                              loc: loc);
                           if (!wantToDelete) {
                             return;
                           }
