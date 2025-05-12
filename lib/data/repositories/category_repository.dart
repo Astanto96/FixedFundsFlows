@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/data/datasource/hive_data_source.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,13 +9,15 @@ part 'category_repository.g.dart';
 @riverpod
 CategoryRepository categoryRepository(Ref ref) {
   final dataSource = ref.watch(hiveDataSourceProvider);
-  return CategoryRepository(dataSource);
+  final loc = ref.watch(appLocationsProvider);
+  return CategoryRepository(dataSource, loc);
 }
 
 class CategoryRepository {
   final HiveDataSource dataSource;
+  final AppLocalizations loc;
 
-  CategoryRepository(this.dataSource);
+  CategoryRepository(this.dataSource, this.loc);
 
   Future<void> addCategory(Category category) async {
     await dataSource.addCategory(category);
@@ -38,10 +41,10 @@ class CategoryRepository {
 
   Future<List<Category>> insertDefaultCategories() async {
     final descriptions = [
-      'Housing',
-      'Insurance',
-      'Mobility',
-      'Entertainment',
+      loc.housing,
+      loc.insurance,
+      loc.mobility,
+      loc.entertainment,
     ];
 
     final List<Category> defaultCategories = [];

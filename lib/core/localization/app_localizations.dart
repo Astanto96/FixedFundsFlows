@@ -21,8 +21,8 @@ class AppLocalizations {
 
 //Overview
   String get contracts => isGerman ? 'Verträge' : 'Contracts';
-  String get darkmode => isGerman ? "Dunkel Modus" : "Darkmode";
-  String get lightmode => isGerman ? "Hell Modus" : "Lightmode";
+  String get darkmode => isGerman ? "Dnkel" : "Dark";
+  String get lightmode => isGerman ? "Hell" : "Light";
   String get german => isGerman ? "Deutsch" : "German";
   String get english => isGerman ? "Englisch" : "English";
 
@@ -95,4 +95,18 @@ class AppLocalizations {
         return isGerman ? 'Jährlich' : 'Yearly';
     }
   }
+
+  //DummyData
+  //Descriptions
+  String get rent => isGerman ? 'Miete' : 'Rent';
+  String get carPayment => isGerman ? 'Autokredit' : 'Car Payment';
+  String get netflix => isGerman ? 'Netflix' : 'Netflix';
+  String get carInsurance => isGerman ? 'Autoversicherung' : 'Car Insurance';
+  String get spotify => isGerman ? 'Spotify' : 'Spotify';
+
+  //Categories
+  String get housing => isGerman ? 'Wohnen' : 'Housing';
+  String get insurance => isGerman ? 'Versicherung' : 'Insurance';
+  String get entertainment => isGerman ? 'Unterhaltung' : 'Entertainment';
+  String get mobility => isGerman ? 'Mobilität' : 'Mobility';
 }
