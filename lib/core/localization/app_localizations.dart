@@ -41,6 +41,14 @@ class AppLocalizations {
   String get create => isGerman ? 'Erstellen' : 'Create';
 
 //Bottomsheet Category
+  String get maxReached24 => isGerman
+      ? 'Die maximale Anzahl von 24 Kategorien wurde erreicht'
+      : 'You reached the maximum number of 24 categories';
+  String get maxIs24 => isGerman
+      ? 'Es können bis 24 Kategorien erstellt werden'
+      : 'You can create up to 24 categories';
+
+//Cateogries Screen
   String get categories => isGerman ? 'Kategorien' : 'Categories';
   String get cantDeleteCat => isGerman
       ? 'Kategorie kann nicht gelöscht werden - sie wird noch verwendet.'

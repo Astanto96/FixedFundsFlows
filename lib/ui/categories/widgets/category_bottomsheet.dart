@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/category_viewmodel.dart';
@@ -30,6 +31,7 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
   Widget build(BuildContext context) {
     final state = ref.watch(categoryViewModelProvider);
     final viewmodel = ref.read(categoryViewModelProvider.notifier);
+    final loc = ref.watch(appLocationsProvider);
 
     return Padding(
       padding: AppSpacing.padding24,
@@ -41,10 +43,10 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
               height: 56,
               child: Stack(
                 children: [
-                  const Center(
+                  Center(
                     child: Text(
-                      'Categories',
-                      style: TextStyle(
+                      loc.categories,
+                      style: const TextStyle(
                         fontSize: 24,
                       ),
                     ),
@@ -63,7 +65,7 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
             TextFormField(
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                labelText: 'Description',
+                labelText: loc.descripction,
                 helperText: '',
                 errorText: state.descriptionError,
               ),
@@ -81,9 +83,7 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
                 ),
                 AppSpacing.sbw8,
                 Text(
-                  state.isMaxCategoriesReached
-                      ? 'Your reached the maximum number of 24 categories'
-                      : 'You can create up to 24 categories',
+                  state.isMaxCategoriesReached ? loc.maxReached24 : loc.maxIs24,
                   style: TextStyle(
                     fontSize: 12,
                     color: state.isMaxCategoriesReached
@@ -111,14 +111,14 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
                             CustomGlobalSnackBar.show(
                               context: context,
                               isItGood: true,
-                              text: '${state.description} successfully created',
+                              text: loc.succCreated(state.description),
                             );
                             Navigator.pop(context);
                           }
                         }
                       }
                     : null, // Disable button if max categories reached
-                child: const Text('Create'),
+                child: Text(loc.create),
               ),
             ),
           ],
