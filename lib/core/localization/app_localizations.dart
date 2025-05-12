@@ -25,7 +25,8 @@ class AppLocalizations {
   String get lightmode => isGerman ? "Hellmodus" : "Lightmode";
   String get german => isGerman ? "Deutsch" : "German";
   String get english => isGerman ? "Englisch" : "English";
-//Bottomsheets
+
+//Bottomsheet Contract
   String get createContract =>
       isGerman ? 'Erstelle Vertrag' : 'Create Contract';
   String get detailsContract =>
@@ -38,6 +39,12 @@ class AppLocalizations {
   String get currency => isGerman ? '€' : '\$';
   String get submit => isGerman ? 'Aktualisieren' : 'Submit';
   String get create => isGerman ? 'Erstellen' : 'Create';
+
+//Bottomsheet Category
+  String get categories => isGerman ? 'Kategorien' : 'Categories';
+  String get cantDeleteCat => isGerman
+      ? 'Kategorie kann nicht gelöscht werden - sie wird noch verwendet.'
+      : 'Cannot delete category – it is still in use.';
 
 //snackbar
   String succDeleted(String name) {
