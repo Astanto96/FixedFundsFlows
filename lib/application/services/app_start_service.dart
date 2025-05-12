@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/models/category_hive.dart';
 import 'package:fixedfundsflows/data/models/contract_hive.dart';
@@ -54,7 +55,16 @@ class AppStartService {
     if (isInitialized) return;
 
     // 1. create Categories
-    final createdCategories = await categoryRepo.insertDefaultCategories();
+    // Using ref.read() here to access localized strings once during app initialization.
+    // This avoids making the service reactive while still supporting localization for dummy data.
+
+    final loc = ref.read(appLocationsProvider);
+    final createdCategories = await categoryRepo.insertDefaultCategories([
+      loc.housing,
+      loc.insurance,
+      loc.mobility,
+      loc.entertainment,
+    ]);
 
     // 2. Map from Description to Category
     final categoryMap = {
@@ -69,35 +79,38 @@ class AppStartService {
 
   Future<void> _insertDefaultContracts(
       Map<String, Category> categoryMap) async {
+    // Using ref.read() here to access localized strings once during app initialization.
+    // This avoids making the service reactive while still supporting localization for dummy data.
+    final loc = ref.read(appLocationsProvider);
     final contracts = [
       Contract(
-        description: 'Rent',
+        description: loc.rent,
         billingPeriod: BillingPeriod.monthly,
-        category: categoryMap['Housing']!,
+        category: categoryMap[loc.housing]!,
         amount: 72000,
       ),
       Contract(
-        description: 'Car Payment',
+        description: loc.carPayment,
         billingPeriod: BillingPeriod.monthly,
-        category: categoryMap['Mobility']!,
+        category: categoryMap[loc.mobility]!,
         amount: 27000,
       ),
       Contract(
-        description: 'Netflix',
+        description: loc.netflix,
         billingPeriod: BillingPeriod.monthly,
-        category: categoryMap['Entertainment']!,
+        category: categoryMap[loc.entertainment]!,
         amount: 1399,
       ),
       Contract(
-        description: 'Car Insurance',
+        description: loc.carInsurance,
         billingPeriod: BillingPeriod.yearly,
-        category: categoryMap['Insurance']!,
+        category: categoryMap[loc.insurance]!,
         amount: 65000,
       ),
       Contract(
-        description: 'Spotify',
+        description: loc.spotify,
         billingPeriod: BillingPeriod.monthly,
-        category: categoryMap['Entertainment']!,
+        category: categoryMap[loc.entertainment]!,
         amount: 1099,
       ),
     ];

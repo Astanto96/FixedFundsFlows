@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/widgets/ov_header.dart';
 import 'package:fixedfundsflows/ui/overview/widgets/ov_list.dart';
@@ -27,6 +28,7 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
   Widget build(BuildContext context) {
     final overviewState = ref.watch(overviewViewModelProvider);
     final viewModel = ref.read(overviewViewModelProvider.notifier);
+    final loc = ref.watch(appLocationsProvider);
 
     if (overviewState.error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -54,7 +56,10 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
               Expanded(
                 child: LoadingOverlay(
                   isLoading: overviewState.isLoading,
-                  child: OvList(contracts: overviewState.contracts),
+                  child: OvList(
+                    contracts: overviewState.contracts,
+                    loc: loc,
+                  ),
                 ),
               ),
               Container(

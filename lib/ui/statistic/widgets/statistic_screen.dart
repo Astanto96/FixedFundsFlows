@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
@@ -36,6 +37,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
     final statisticState = ref.watch(statisticViewModelProvider);
     final viewmodel = ref.read(statisticViewModelProvider.notifier);
     final colorManager = ref.watch(categoryColorManagerProvider);
+    final loc = ref.watch(appLocationsProvider);
 
     if (statisticState.error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -105,7 +107,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
                               .map(
                                 (period) => DropdownMenuItem(
                                   value: period,
-                                  child: Text(period.label),
+                                  child: Text(period.label(loc)),
                                 ),
                               )
                               .toList(),

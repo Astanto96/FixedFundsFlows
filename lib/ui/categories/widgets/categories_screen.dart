@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
@@ -28,6 +29,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
     final categoriesState = ref.watch(categoriesViewmodelProvider);
     final categories = categoriesState.categories;
     final viewModel = ref.read(categoriesViewmodelProvider.notifier);
+    final loc = ref.watch(appLocationsProvider);
 
     if (categoriesState.error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -46,16 +48,16 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.fromLTRB(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
                   16,
                   24,
                   16,
                   16,
                 ),
                 child: Text(
-                  'Categories',
-                  style: TextStyle(fontSize: 20),
+                  loc.categories,
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
               Container(
@@ -75,9 +77,9 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
                       trailing: IconButton(
                         onPressed: () async {
                           final wantToDelete = await DeleteDialog.show(
-                            context: context,
-                            itemName: category.description,
-                          );
+                              context: context,
+                              itemName: category.description,
+                              loc: loc);
                           if (!wantToDelete) {
                             return;
                           }
@@ -95,8 +97,8 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
                             context: context,
                             isItGood: success,
                             text: success
-                                ? '${category.description} successfully deleted'
-                                : 'Cannot delete category – it is still in use.',
+                                ? loc.succDeleted(category.description)
+                                : loc.cantDeleteCat,
                           );
                         },
                         icon: const Icon(Icons.delete_outline),

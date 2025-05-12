@@ -8,6 +8,7 @@ part 'category_repository.g.dart';
 @riverpod
 CategoryRepository categoryRepository(Ref ref) {
   final dataSource = ref.watch(hiveDataSourceProvider);
+
   return CategoryRepository(dataSource);
 }
 
@@ -36,14 +37,8 @@ class CategoryRepository {
     await dataSource.deleteCategory(key);
   }
 
-  Future<List<Category>> insertDefaultCategories() async {
-    final descriptions = [
-      'Housing',
-      'Insurance',
-      'Mobility',
-      'Entertainment',
-    ];
-
+  Future<List<Category>> insertDefaultCategories(
+      List<String> descriptions) async {
     final List<Category> defaultCategories = [];
 
     for (final desc in descriptions) {

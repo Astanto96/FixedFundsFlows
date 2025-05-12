@@ -1,3 +1,4 @@
+import 'package:fixedfundsflows/core/localization/app_localizations.dart';
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
@@ -7,8 +8,9 @@ import 'package:flutter/material.dart';
 
 class OvList extends StatelessWidget {
   final List<Contract> contracts;
+  final AppLocalizations loc;
 
-  const OvList({super.key, required this.contracts});
+  const OvList({super.key, required this.contracts, required this.loc});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,11 @@ class OvList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: AppSpacing.padding16,
             child: Text(
-              'Contracts',
-              style: TextStyle(fontSize: 20),
+              loc.contracts,
+              style: const TextStyle(fontSize: 20),
             ),
           ),
           Container(
