@@ -19,9 +19,8 @@ AppStartService appStartService(Ref ref) {
   final settingsRepo = ref.watch(settingsRepositoryProvider);
   final categoryRepo = ref.watch(categoryRepositoryProvider);
   final contractRepo = ref.watch(contractRepositoryProvider);
-  final loc = ref.watch(appLocationsProvider);
 
-  return AppStartService(ref, settingsRepo, categoryRepo, contractRepo, loc);
+  return AppStartService(ref, settingsRepo, categoryRepo, contractRepo);
 }
 
 class AppStartService {
@@ -29,14 +28,12 @@ class AppStartService {
   final SettingsRepository settingsRepo;
   final CategoryRepository categoryRepo;
   final ContractRepository contractRepo;
-  final AppLocalizations loc;
 
   AppStartService(
     this.ref,
     this.settingsRepo,
     this.categoryRepo,
     this.contractRepo,
-    this.loc,
   );
 
   static const boxCategories = 'categories';
@@ -58,7 +55,16 @@ class AppStartService {
     if (isInitialized) return;
 
     // 1. create Categories
-    final createdCategories = await categoryRepo.insertDefaultCategories();
+    // Using ref.read() here to access localized strings once during app initialization.
+    // This avoids making the service reactive while still supporting localization for dummy data.
+
+    final loc = ref.read(appLocationsProvider);
+    final createdCategories = await categoryRepo.insertDefaultCategories([
+      loc.housing,
+      loc.insurance,
+      loc.mobility,
+      loc.entertainment,
+    ]);
 
     // 2. Map from Description to Category
     final categoryMap = {
@@ -73,6 +79,9 @@ class AppStartService {
 
   Future<void> _insertDefaultContracts(
       Map<String, Category> categoryMap) async {
+    // Using ref.read() here to access localized strings once during app initialization.
+    // This avoids making the service reactive while still supporting localization for dummy data.
+    final loc = ref.read(appLocationsProvider);
     final contracts = [
       Contract(
         description: loc.rent,

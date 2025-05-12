@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/core/localization/app_localizations.dart';
+import 'package:fixedfundsflows/core/localization/locale_provider.dart';
 import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
@@ -24,6 +25,7 @@ class OvHeader extends ConsumerWidget {
     final theme = ref.watch(currentThemeProvider);
     final themeMode = ref.read(themeNotifierProvider.notifier);
     final loc = ref.watch(appLocationsProvider);
+    final locMode = ref.read(localeNotifierProvider.notifier);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(4, 16, 16, 16),
@@ -66,17 +68,15 @@ class OvHeader extends ConsumerWidget {
                   ),
                   MenuItemButton(
                     closeOnActivate: false,
-                    leadingIcon: Text(theme == LightTheme.theme ? 'DE' : 'EN',
+                    leadingIcon: Text(loc.isGerman ? 'EN' : 'DE',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         )),
                     onPressed: () {
-                      themeMode.toggleTheme();
+                      locMode.toggleLocale();
                     },
-                    child: theme == LightTheme.theme
-                        ? Text(loc.german)
-                        : Text(loc.english),
+                    child: loc.isGerman ? Text(loc.english) : Text(loc.german),
                   ),
                   MenuItemButton(
                     leadingIcon: const Icon(Icons.ios_share_rounded),

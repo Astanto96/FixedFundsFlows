@@ -18,8 +18,4 @@ class LocaleNotifier extends _$LocaleNotifier {
     state =
         state.languageCode == 'de' ? const Locale('en') : const Locale('de');
   }
-
-  void setLocale(Locale locale) {
-    state = locale;
-  }
 }

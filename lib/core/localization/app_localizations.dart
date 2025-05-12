@@ -21,7 +21,7 @@ class AppLocalizations {
 
 //Overview
   String get contracts => isGerman ? 'Verträge' : 'Contracts';
-  String get darkmode => isGerman ? "Dnkel" : "Dark";
+  String get darkmode => isGerman ? "Dunkel" : "Dark";
   String get lightmode => isGerman ? "Hell" : "Light";
   String get german => isGerman ? "Deutsch" : "German";
   String get english => isGerman ? "Englisch" : "English";
