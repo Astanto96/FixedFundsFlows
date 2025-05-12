@@ -64,6 +64,16 @@ class HiveDataSource {
     }
   }
 
+  Future<List<CategoryHive>> getHiveCategories() async {
+    try {
+      return categoryBox.values.toList();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error retrieving categories: $e",
+      );
+    }
+  }
+
   Category? getCategory(int key) {
     try {
       final categoryHive = categoryBox.get(key);
@@ -136,6 +146,16 @@ class HiveDataSource {
         }
         return contractHive.toDomain(categoryHive);
       }).toList();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error retrieving contracts: $e",
+      );
+    }
+  }
+
+  Future<List<ContractHive>> getHiveContracts() async {
+    try {
+      return contractBox.values.toList();
     } catch (e) {
       throw HiveDataSourceException(
         "Error retrieving contracts: $e",

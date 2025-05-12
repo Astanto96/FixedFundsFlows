@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/data/datasource/hive_data_source.dart';
+import 'package:fixedfundsflows/data/models/category_hive.dart';
 import 'package:fixedfundsflows/domain/category.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -23,6 +24,10 @@ class CategoryRepository {
 
   Future<List<Category>> getCategories() {
     return dataSource.getCategories();
+  }
+
+  Future<List<CategoryHive>> getHiveCategories() {
+    return dataSource.getHiveCategories();
   }
 
   Category getCategory(int key) {

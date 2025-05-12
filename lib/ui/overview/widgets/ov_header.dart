@@ -5,6 +5,7 @@ import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
+import 'package:fixedfundsflows/data/repositories/backup_data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,6 +27,7 @@ class OvHeader extends ConsumerWidget {
     final themeMode = ref.read(themeNotifierProvider.notifier);
     final loc = ref.watch(appLocationsProvider);
     final locMode = ref.read(localeNotifierProvider.notifier);
+    final backup = ref.watch(backupDataRepositoryProvider);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(4, 16, 16, 16),
@@ -83,7 +85,8 @@ class OvHeader extends ConsumerWidget {
                     leadingIcon: const Icon(Icons.file_download_outlined,
                         color: Colors.grey),
                     onPressed: () {
-                      //TODO comming soon
+                      backup.loadBackupData();
+                      //TODO: Dialog & so on
                     },
                     child: Row(
                       children: [
@@ -116,7 +119,8 @@ class OvHeader extends ConsumerWidget {
                     leadingIcon:
                         const Icon(Icons.ios_share_rounded, color: Colors.grey),
                     onPressed: () {
-                      //TODO comming soon
+                      backup.saveBackupData();
+                      //TODO: Dialog & so on
                     },
                     child: Row(
                       children: [

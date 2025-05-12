@@ -47,4 +47,26 @@ class ContractHive extends HiveObject {
       amount: amount,
     );
   }
+
+  factory ContractHive.fromJson(Map<String, dynamic> json) {
+    return ContractHive(
+      description: json['description'] as String,
+      billingPeriod: BillingPeriodHive.values.firstWhere(
+        (e) => e.toString().split('.').last == json['billingPeriod'],
+      ),
+      categoryId: json['categoryId'] as int,
+      income: json['income'] as bool,
+      amount: json['amount'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'description': description,
+      'billingPeriod': billingPeriod.toString().split('.').last,
+      'categoryId': categoryId,
+      'income': income,
+      'amount': amount,
+    };
+  }
 }

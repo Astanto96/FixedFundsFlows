@@ -17,4 +17,12 @@ class CategoryHive extends HiveObject {
   Category toDomain() {
     return Category(id: key as int, description: description);
   }
+
+  factory CategoryHive.fromJson(Map<String, dynamic> json) {
+    return CategoryHive(description: json['description'] as String);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'description': description};
+  }
 }
