@@ -65,9 +65,9 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                 onDelete: widget.isDetailsMode && contractForDetails?.id != null
                     ? () async {
                         final userConsfirmed = await DeleteDialog.show(
-                          context: context,
-                          itemName: state.description,
-                        );
+                            context: context,
+                            itemName: state.description,
+                            loc: loc);
                         if (!userConsfirmed) {
                           return;
                         }

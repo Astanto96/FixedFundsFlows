@@ -54,7 +54,19 @@ class AppLocalizations {
       ? 'Kategorie kann nicht gelöscht werden - sie wird noch verwendet.'
       : 'Cannot delete category – it is still in use.';
 
-//snackbar
+//showDeleteDialog
+  String get deleteConfirm =>
+      isGerman ? 'Löschen bestätigen' : 'Delete confirmation';
+  String get delete => isGerman ? 'Löschen' : 'Delete';
+  String get cancel => isGerman ? 'Abbrechen' : 'Cancel';
+
+  String uRlyWantToDelete(String name) {
+    return isGerman
+        ? 'Sind Sie sicher, dass Sie $name löschen möchten?'
+        : 'Are you sure you want to delete $name';
+  }
+
+//others
   String succDeleted(String name) {
     return isGerman
         ? '$name erfolgreich gelöscht'
@@ -72,8 +84,6 @@ class AppLocalizations {
         ? '$name erfolgreich erstellt'
         : '$name successfully created';
   }
-
-  //Ohters
 
   String billingLabel(BillingPeriod period) {
     switch (period) {
