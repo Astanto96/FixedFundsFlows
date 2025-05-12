@@ -79,6 +79,7 @@ class OvHeader extends ConsumerWidget {
                     child: loc.isGerman ? Text(loc.english) : Text(loc.german),
                   ),
                   MenuItemButton(
+                    closeOnActivate: false,
                     leadingIcon: const Icon(Icons.file_download_outlined,
                         color: Colors.grey),
                     onPressed: () {
@@ -111,6 +112,7 @@ class OvHeader extends ConsumerWidget {
                     ),
                   ),
                   MenuItemButton(
+                    closeOnActivate: false,
                     leadingIcon:
                         const Icon(Icons.ios_share_rounded, color: Colors.grey),
                     onPressed: () {
