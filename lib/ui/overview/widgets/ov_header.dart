@@ -79,10 +79,69 @@ class OvHeader extends ConsumerWidget {
                     child: loc.isGerman ? Text(loc.english) : Text(loc.german),
                   ),
                   MenuItemButton(
-                    leadingIcon: const Icon(Icons.ios_share_rounded),
-                    child: const Text('JSON Export'),
-                    onPressed: () {},
-                  )
+                    leadingIcon: const Icon(Icons.file_download_outlined,
+                        color: Colors.grey),
+                    onPressed: () {
+                      //TODO comming soon
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Import',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Text(
+                            'soon',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  MenuItemButton(
+                    leadingIcon:
+                        const Icon(Icons.ios_share_rounded, color: Colors.grey),
+                    onPressed: () {
+                      //TODO comming soon
+                    },
+                    child: Row(
+                      children: [
+                        const Text(
+                          'Export',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Text(
+                            'soon',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               const Spacer(),
