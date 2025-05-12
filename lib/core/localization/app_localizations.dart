@@ -40,19 +40,19 @@ class AppLocalizations {
   String get create => isGerman ? 'Erstellen' : 'Create';
 
 //snackbar
-  String sncSuccDeleted(String name) {
+  String succDeleted(String name) {
     return isGerman
         ? '$name erfolgreich gelöscht'
         : '$name successfully deleted';
   }
 
-  String sncSuccUpdated(String name) {
+  String succUpdated(String name) {
     return isGerman
         ? '$name erfolgreich aktualisiert'
         : '$name successfully updated';
   }
 
-  String sncSuccCreated(String name) {
+  String succCreated(String name) {
     return isGerman
         ? '$name erfolgreich erstellt'
         : '$name successfully created';

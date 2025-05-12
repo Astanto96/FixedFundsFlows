@@ -85,8 +85,8 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                             CustomGlobalSnackBar.show(
                               context: context,
                               isItGood: true,
-                              text: loc.sncSuccDeleted(
-                                  contractForDetails.description),
+                              text: loc
+                                  .succDeleted(contractForDetails.description),
                             );
                             Navigator.pop(context);
                           }
@@ -196,14 +196,14 @@ class _ContractBottomsheetState extends ConsumerState<ContractBottomsheet> {
                           CustomGlobalSnackBar.show(
                             context: context,
                             isItGood: true,
-                            text: loc.sncSuccUpdated(state.description),
+                            text: loc.succUpdated(state.description),
                           );
                           Navigator.pop(context);
                         } else {
                           CustomGlobalSnackBar.show(
                             context: context,
                             isItGood: true,
-                            text: loc.sncSuccCreated(state.description),
+                            text: loc.succCreated(state.description),
                           );
                           Navigator.pop(context);
                         }
