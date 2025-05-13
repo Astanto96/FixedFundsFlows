@@ -115,6 +115,16 @@ class HiveDataSource {
     }
   }
 
+  Future<void> deleteAllCategories() async {
+    try {
+      await categoryBox.clear();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error deleting all categories: $e",
+      );
+    }
+  }
+
   // Contract Funktionen
 
   Future<bool> isCategoryInUse(int categoryId) async {
@@ -222,6 +232,16 @@ class HiveDataSource {
     } catch (e) {
       throw HiveDataSourceException(
         "Error deleting contract: $e",
+      );
+    }
+  }
+
+  Future<void> deleteAllContracts() async {
+    try {
+      await contractBox.clear();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error deleting all contracts: $e",
       );
     }
   }

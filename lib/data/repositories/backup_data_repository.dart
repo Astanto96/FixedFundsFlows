@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:fixedfundsflows/data/datasource/local_json_data_source.dart';
 import 'package:fixedfundsflows/data/models/backup_data_dto.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'backup_data_repository.g.dart';
@@ -24,15 +29,28 @@ class BackupDataRepository {
   BackupDataRepository(
       this.jsonDataSource, this.categoryRepo, this.contractRepo);
 
-  Future<void> saveBackupData() async {
+  Future<File> createBackupDataForExport() async {
     final backupDto = BackupDataDto(
       categories: await categoryRepo.getHiveCategories(),
       contracts: await contractRepo.getHiveContracts(),
     );
     await jsonDataSource.saveToFile(backupDto);
+
+    final tempDir = await getTemporaryDirectory();
+    final fileName = _generateBackupFileName();
+    final file = File('${tempDir.path}/$fileName');
+    await file.writeAsString(jsonEncode(backupDto.toJson()));
+    return file;
   }
 
-  Future<void> loadBackupData() async {
+  String _generateBackupFileName() {
+    final now = DateTime.now();
+    final formatter = DateFormat('yyyy-MM-dd_HH-mm-ss');
+    final formattedDate = formatter.format(now);
+    return 'fffbackup_$formattedDate.json';
+  }
+
+  Future<void> importBackupData() async {
     try {
       //get all the Data from the json file
       final backupDto = await jsonDataSource.loadFromFile();

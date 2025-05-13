@@ -6,6 +6,7 @@ import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dar
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:share_plus/share_plus.dart';
 
 part 'overview_viewmodel.g.dart';
 
@@ -28,11 +29,30 @@ class OverviewViewModel extends _$OverviewViewModel {
     loadContractsForPeriod();
   }
 
-  Future<void> loadBackupData() async {
+  Future<void> deleteAllDataEntries() async {
     state = state.copyWith(isLoading: true);
 
     try {
-      await _backupRepo.loadBackupData();
+      await _backupRepo.deleteAllDataEntries();
+      state = state.copyWith(isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+    }
+  }
+
+  Future<void> exportBackupData() async {
+    state = state.copyWith(isLoading: true);
+
+    try {
+      final file = await _backupRepo.createBackupDataForExport();
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+        ),
+      );
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(
@@ -41,15 +61,13 @@ class OverviewViewModel extends _$OverviewViewModel {
       );
       debugPrint(e.toString());
     }
-    loadContractsForPeriod();
-    ref.read(categoriesViewmodelProvider.notifier).loadCategories();
   }
 
-  Future<void> saveBackupData() async {
+  Future<void> importBackupData() async {
     state = state.copyWith(isLoading: true);
 
     try {
-      await _backupRepo.saveBackupData();
+      await _backupRepo.importBackupData();
       state = state.copyWith(isLoading: false);
     } catch (e) {
       state = state.copyWith(

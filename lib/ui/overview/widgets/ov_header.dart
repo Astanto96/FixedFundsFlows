@@ -11,16 +11,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class OvHeader extends ConsumerWidget {
   final BillingPeriod selectedPeriod;
   final void Function(BillingPeriod) onBillingPeriodChanged;
-  final void Function() loadBackupData;
-  final void Function() saveBackupData;
+  final void Function() importBackupData;
+  final void Function() exportBackupData;
+
   final int totalAmountForSelectedPeriod;
 
   const OvHeader({
     super.key,
     required this.selectedPeriod,
     required this.onBillingPeriodChanged,
-    required this.loadBackupData,
-    required this.saveBackupData,
+    required this.importBackupData,
+    required this.exportBackupData,
     required this.totalAmountForSelectedPeriod,
   });
 
@@ -83,20 +84,17 @@ class OvHeader extends ConsumerWidget {
                     child: loc.isGerman ? Text(loc.english) : Text(loc.german),
                   ),
                   MenuItemButton(
-                    closeOnActivate: false,
                     leadingIcon: const Icon(Icons.file_download_outlined),
                     onPressed: () {
-                      loadBackupData();
+                      importBackupData();
                       //TODO: Dialog & so on
                     },
                     child: const Text('Import'),
                   ),
                   MenuItemButton(
-                    closeOnActivate: false,
                     leadingIcon: const Icon(Icons.ios_share_rounded),
                     onPressed: () {
-                      saveBackupData();
-                      //TODO: Dialog & so on
+                      exportBackupData();
                     },
                     child: const Text('Export'),
                   ),

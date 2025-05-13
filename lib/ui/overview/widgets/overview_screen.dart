@@ -52,8 +52,8 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
                 onBillingPeriodChanged: viewModel.setBillingPeriod,
                 totalAmountForSelectedPeriod:
                     overviewState.totalAmountForSelectedPeriod,
-                loadBackupData: viewModel.loadBackupData,
-                saveBackupData: viewModel.saveBackupData,
+                importBackupData: viewModel.importBackupData,
+                exportBackupData: viewModel.exportBackupData,
               ),
               Expanded(
                 child: LoadingOverlay(
