@@ -14,7 +14,7 @@ LocalJsonDataSource localJsonDataSource(Ref ref) {
 }
 
 class LocalJsonDataSource {
-  static const _fileName = 'backup.json';
+  static const _fileName = 'fffbackup.json';
 
   Future<File> _getBackupFile() async {
     final dir = await getApplicationDocumentsDirectory();
@@ -25,6 +25,9 @@ class LocalJsonDataSource {
     final file = await _getBackupFile();
     final jsonString = jsonEncode(data.toJson());
     await file.writeAsString(jsonString);
+
+    print('✅ Backup gespeichert unter: ${file.path}');
+    print('📦 Existiert Datei? ${await file.exists()}');
   }
 
   Future<BackupDataDto> loadFromFile() async {

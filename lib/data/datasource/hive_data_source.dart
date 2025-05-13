@@ -74,6 +74,20 @@ class HiveDataSource {
     }
   }
 
+  CategoryHive? getHiveCategory(int key) {
+    try {
+      final categoryHive = categoryBox.get(key);
+      if (categoryHive == null) {
+        return null;
+      }
+      return categoryHive;
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error retrieving category: $e",
+      );
+    }
+  }
+
   Category? getCategory(int key) {
     try {
       final categoryHive = categoryBox.get(key);

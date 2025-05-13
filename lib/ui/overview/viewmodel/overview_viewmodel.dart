@@ -1,7 +1,10 @@
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
+import 'package:fixedfundsflows/data/repositories/backup_data_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_calculator_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
+import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'overview_viewmodel.g.dart';
@@ -11,16 +14,51 @@ part 'overview_viewmodel.g.dart';
 @riverpod
 class OverviewViewModel extends _$OverviewViewModel {
   late final ContractCalculatorRepository _repository;
+  late final BackupDataRepository _backupRepo;
 
   @override
   OverviewState build() {
     _repository = ref.watch(contractCalculatorRepositoryProvider);
+    _backupRepo = ref.watch(backupDataRepositoryProvider);
     return OverviewState();
   }
 
   void setBillingPeriod(BillingPeriod period) {
     state = state.copyWith(selectedPeriod: period);
     loadContractsForPeriod();
+  }
+
+  Future<void> loadBackupData() async {
+    state = state.copyWith(isLoading: true);
+
+    try {
+      await _backupRepo.loadBackupData();
+      state = state.copyWith(isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+      debugPrint(e.toString());
+    }
+    loadContractsForPeriod();
+    ref.read(categoriesViewmodelProvider.notifier).loadCategories();
+  }
+
+  Future<void> saveBackupData() async {
+    state = state.copyWith(isLoading: true);
+
+    try {
+      await _backupRepo.saveBackupData();
+      state = state.copyWith(isLoading: false);
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: e.toString(),
+      );
+    }
+    loadContractsForPeriod();
+    ref.read(categoriesViewmodelProvider.notifier).loadCategories();
   }
 
   Future<void> loadContractsForPeriod() async {

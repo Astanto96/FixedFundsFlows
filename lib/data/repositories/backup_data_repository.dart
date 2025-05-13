@@ -32,7 +32,22 @@ class BackupDataRepository {
     await jsonDataSource.saveToFile(backupDto);
   }
 
-  Future loadBackupData() async {
-    return await jsonDataSource.loadFromFile();
+  Future<void> loadBackupData() async {
+    try {
+      //get all the Data from the json file
+      final backupDto = await jsonDataSource.loadFromFile();
+      //add all the categories in the json file to the hive database
+      for (final hivecategory in backupDto.categories) {
+        categoryRepo.addCategory(hivecategory.toDomain());
+      }
+      //add all the contracts in the json file to the hive database
+      for (final hivecontract in backupDto.contracts) {
+        final category =
+            await categoryRepo.getHiveCategory(hivecontract.categoryId);
+        contractRepo.addContract(hivecontract.toDomain(category));
+      }
+    } catch (e) {
+      throw Exception("Something went wrong while loading the backup data: $e");
+    }
   }
 }

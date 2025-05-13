@@ -5,19 +5,22 @@ import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
-import 'package:fixedfundsflows/data/repositories/backup_data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OvHeader extends ConsumerWidget {
   final BillingPeriod selectedPeriod;
   final void Function(BillingPeriod) onBillingPeriodChanged;
+  final void Function() loadBackupData;
+  final void Function() saveBackupData;
   final int totalAmountForSelectedPeriod;
 
   const OvHeader({
     super.key,
     required this.selectedPeriod,
     required this.onBillingPeriodChanged,
+    required this.loadBackupData,
+    required this.saveBackupData,
     required this.totalAmountForSelectedPeriod,
   });
 
@@ -27,7 +30,6 @@ class OvHeader extends ConsumerWidget {
     final themeMode = ref.read(themeNotifierProvider.notifier);
     final loc = ref.watch(appLocationsProvider);
     final locMode = ref.read(localeNotifierProvider.notifier);
-    final backup = ref.watch(backupDataRepositoryProvider);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(4, 16, 16, 16),
@@ -82,71 +84,21 @@ class OvHeader extends ConsumerWidget {
                   ),
                   MenuItemButton(
                     closeOnActivate: false,
-                    leadingIcon: const Icon(Icons.file_download_outlined,
-                        color: Colors.grey),
+                    leadingIcon: const Icon(Icons.file_download_outlined),
                     onPressed: () {
-                      backup.loadBackupData();
+                      loadBackupData();
                       //TODO: Dialog & so on
                     },
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Import',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Text(
-                            'soon',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: const Text('Import'),
                   ),
                   MenuItemButton(
                     closeOnActivate: false,
-                    leadingIcon:
-                        const Icon(Icons.ios_share_rounded, color: Colors.grey),
+                    leadingIcon: const Icon(Icons.ios_share_rounded),
                     onPressed: () {
-                      backup.saveBackupData();
+                      saveBackupData();
                       //TODO: Dialog & so on
                     },
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Export',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Text(
-                            'soon',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: const Text('Export'),
                   ),
                 ],
               ),

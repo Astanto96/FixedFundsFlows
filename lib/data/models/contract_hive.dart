@@ -39,7 +39,7 @@ class ContractHive extends HiveObject {
 
   Contract toDomain(CategoryHive category) {
     return Contract(
-      id: key as int,
+      id: key as int?,
       description: description,
       billingPeriod: BillingPeriodMapper.toDomain(billingPeriod),
       category:
@@ -69,4 +69,25 @@ class ContractHive extends HiveObject {
       'amount': amount,
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ContractHive &&
+        other.description == description &&
+        other.billingPeriod == billingPeriod &&
+        other.categoryId == categoryId &&
+        other.income == income &&
+        other.amount == amount;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        description,
+        billingPeriod,
+        categoryId,
+        income,
+        amount,
+      );
 }
