@@ -33,7 +33,7 @@ class AppLocalizations {
       isGerman ? 'Vertragsdetails' : 'Contract details';
   String get descripction => isGerman ? 'Beschreibung' : 'Description';
   String get billingPeriod =>
-      isGerman ? 'Abrechnungszeitraum' : 'billing period';
+      isGerman ? 'Abrechnungszeitraum' : 'Billing period';
   String get category => isGerman ? 'Kategorie' : 'Category';
   String get amount => isGerman ? 'Betrag' : 'Amount';
   String get currency => isGerman ? '€' : '\$';
