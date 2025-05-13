@@ -57,4 +57,8 @@ class ContractRepository {
   Future<void> deleteContract(int id) async {
     await dataSource.deleteContract(id);
   }
+
+  Future<void> deleteAllContracts() async {
+    await dataSource.deleteAllContracts();
+  }
 }

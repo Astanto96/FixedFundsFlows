@@ -68,4 +68,13 @@ class BackupDataRepository {
       throw Exception("Something went wrong while loading the backup data: $e");
     }
   }
+
+  Future<void> deleteAllDataEntries() async {
+    try {
+      await categoryRepo.deleteAllCategories();
+      await contractRepo.deleteAllContracts();
+    } catch (e) {
+      throw Exception("Something went wrong while deleting the data: $e");
+    }
+  }
 }

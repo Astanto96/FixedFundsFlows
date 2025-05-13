@@ -20,7 +20,7 @@ class DeleteDialog {
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: Text(loc.delete),
+                child: Text(loc.ok),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(false),

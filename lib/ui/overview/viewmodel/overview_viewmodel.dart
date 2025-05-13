@@ -29,17 +29,19 @@ class OverviewViewModel extends _$OverviewViewModel {
     loadContractsForPeriod();
   }
 
-  Future<void> deleteAllDataEntries() async {
+  Future<bool> deleteAllDataEntries() async {
     state = state.copyWith(isLoading: true);
 
     try {
       await _backupRepo.deleteAllDataEntries();
       state = state.copyWith(isLoading: false);
+      return true;
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
+      return false;
     }
   }
 
@@ -63,20 +65,24 @@ class OverviewViewModel extends _$OverviewViewModel {
     }
   }
 
-  Future<void> importBackupData() async {
+  Future<bool> importBackupData() async {
     state = state.copyWith(isLoading: true);
 
     try {
       await _backupRepo.importBackupData();
       state = state.copyWith(isLoading: false);
+      loadContractsForPeriod();
+      ref.read(categoriesViewmodelProvider.notifier).loadCategories();
+      return true;
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
+      loadContractsForPeriod();
+      ref.read(categoriesViewmodelProvider.notifier).loadCategories();
+      return false;
     }
-    loadContractsForPeriod();
-    ref.read(categoriesViewmodelProvider.notifier).loadCategories();
   }
 
   Future<void> loadContractsForPeriod() async {

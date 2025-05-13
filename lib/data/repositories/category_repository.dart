@@ -50,6 +50,10 @@ class CategoryRepository {
     await dataSource.deleteCategory(key);
   }
 
+  Future<void> deleteAllCategories() async {
+    await dataSource.deleteAllCategories();
+  }
+
   Future<List<Category>> insertDefaultCategories(
       List<String> descriptions) async {
     final List<Category> defaultCategories = [];

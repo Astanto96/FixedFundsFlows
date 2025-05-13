@@ -5,14 +5,17 @@ import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
+import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
+import 'package:fixedfundsflows/ui/widgets/delete_all_data_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OvHeader extends ConsumerWidget {
   final BillingPeriod selectedPeriod;
   final void Function(BillingPeriod) onBillingPeriodChanged;
-  final void Function() importBackupData;
+  final Future<bool> Function() importBackupData;
   final void Function() exportBackupData;
+  final Future<bool> Function() deleteAllData;
 
   final int totalAmountForSelectedPeriod;
 
@@ -23,6 +26,7 @@ class OvHeader extends ConsumerWidget {
     required this.importBackupData,
     required this.exportBackupData,
     required this.totalAmountForSelectedPeriod,
+    required this.deleteAllData,
   });
 
   @override
@@ -85,9 +89,47 @@ class OvHeader extends ConsumerWidget {
                   ),
                   MenuItemButton(
                     leadingIcon: const Icon(Icons.file_download_outlined),
-                    onPressed: () {
-                      importBackupData();
-                      //TODO: Dialog & so on
+                    onPressed: () async {
+                      final wantToDeleteAll = await DeleteAllDataDialog.show(
+                          context: context, loc: loc);
+                      if (wantToDeleteAll == null) {
+                        return;
+                      }
+                      if (!wantToDeleteAll) {
+                        final success = await importBackupData();
+
+                        if (!context.mounted) {
+                          return;
+                        }
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: success ? loc.succImport : loc.cantImport,
+                        );
+                        return;
+                      }
+
+                      final successDel = await deleteAllData();
+                      if (!context.mounted) {
+                        return;
+                      }
+                      CustomGlobalSnackBar.show(
+                        context: context,
+                        isItGood: successDel,
+                        text: successDel
+                            ? loc.succDeletedAllData
+                            : loc.cantDeleteAllData,
+                      );
+
+                      final successImport = await importBackupData();
+                      if (!context.mounted) {
+                        return;
+                      }
+                      CustomGlobalSnackBar.show(
+                        context: context,
+                        isItGood: successImport,
+                        text: successImport ? loc.succImport : loc.cantImport,
+                      );
                     },
                     child: const Text('Import'),
                   ),

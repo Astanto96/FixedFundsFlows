@@ -57,7 +57,8 @@ class AppLocalizations {
 //showDeleteDialog
   String get deleteConfirm =>
       isGerman ? 'Löschen bestätigen' : 'Delete confirmation';
-  String get delete => isGerman ? 'Löschen' : 'Delete';
+  String get ok => isGerman ? 'OK' : 'OK';
+
   String get cancel => isGerman ? 'Abbrechen' : 'Cancel';
 
   String uRlyWantToDelete(String name) {
@@ -66,7 +67,33 @@ class AppLocalizations {
         : 'Are you sure you want to delete $name';
   }
 
-//others
+//showDeleteAllDataDialog
+  String get beforeUWipeAllData =>
+      isGerman ? 'Bevor Sie importieren...' : 'Before you import...';
+  String get uWantDeleteAllData1 =>
+      isGerman ? 'Möchten Sie ' : 'Do you want to ';
+  String get uWantDeleteAllData2 => isGerman
+      ? 'alle bisher erstellen Verträge & Kategorien löschen'
+      : 'delete all contracts & categories ';
+  String get uWantDeleteAllData3 => isGerman ? '?' : 'created so far?';
+  String get dataWillBeAdded => isGerman
+      ? 'Wenn nicht, werden alle importierte Daten zu den bestehenden hinzugefügt'
+      : 'If not, all imported data will be added to the existing ones';
+  String get succImport =>
+      isGerman ? 'Daten erfolgreich importiert' : 'Data successfully imported';
+  String get cantImport => isGerman
+      ? 'Daten konnten nicht importiert werden'
+      : 'Data could not be imported';
+  String get succDeletedAllData => isGerman
+      ? 'Alle Verträge & Kategorien erfolgreich gelöscht'
+      : 'All contracts & categories successfully deleted';
+  String get cantDeleteAllData => isGerman
+      ? 'Es konnten nicht alle Verträge & Kategorien gelöscht werden'
+      : 'Could not delete all contracts & categories';
+
+  String get okDelete => isGerman ? 'OK, löschen' : 'OK, delete';
+  String get no => isGerman ? 'Nein' : 'No';
+  //others
   String succDeleted(String name) {
     return isGerman
         ? '$name erfolgreich gelöscht'
