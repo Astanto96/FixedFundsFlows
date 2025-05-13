@@ -25,9 +25,6 @@ class LocalJsonDataSource {
     final file = await _getBackupFile();
     final jsonString = jsonEncode(data.toJson());
     await file.writeAsString(jsonString);
-
-    print('✅ Backup gespeichert unter: ${file.path}');
-    print('📦 Existiert Datei? ${await file.exists()}');
   }
 
   Future<BackupDataDto> loadFromFile() async {
