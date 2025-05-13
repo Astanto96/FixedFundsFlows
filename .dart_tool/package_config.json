@@ -206,6 +206,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "file_picker",
+      "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/file_picker-10.1.8",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "fixnum",
       "rootUri": "file:///Users/felixdressler/.pub-cache/hosted/pub.dev/fixnum-1.1.1",
       "packageUri": "lib/",
@@ -794,7 +800,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-05-13T11:26:31.809120Z",
+  "generated": "2025-05-13T11:27:17.490514Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///Users/felixdressler/Developer/flutter",
