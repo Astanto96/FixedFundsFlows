@@ -62,12 +62,12 @@ class BackupDataRepository {
             await categoryRepo.getHiveCategory(hivecontract.categoryId);
         if (category == null) {
           throw Exception(
-              "Kategorie mit ID ${hivecontract.categoryId} nicht gefunden.");
+              "category with ID ${hivecontract.categoryId} could not be found");
         }
         await contractRepo.addContract(hivecontract.toDomain(category));
       }
     } catch (e) {
-      throw BackupImportException("Fehler beim Import: $e");
+      throw BackupImportException("Error importing backup data: $e");
     }
   }
 
