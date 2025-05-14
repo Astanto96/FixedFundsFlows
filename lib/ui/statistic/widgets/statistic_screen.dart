@@ -46,6 +46,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
           isItGood: false,
           text: statisticState.error!,
         );
+        viewmodel.clearError();
       });
     }
 

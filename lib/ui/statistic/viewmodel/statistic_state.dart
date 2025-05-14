@@ -22,11 +22,12 @@ class StatisticState {
     String? error,
     int? totalAmount,
     BillingPeriod? selectedPeriod,
+    bool clearError = false,
   }) {
     return StatisticState(
       catWithContracts: catWithContracts ?? this.catWithContracts,
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : error ?? this.error,
       totalAmount: totalAmount ?? this.totalAmount,
       selectedPeriod: selectedPeriod ?? this.selectedPeriod,
     );

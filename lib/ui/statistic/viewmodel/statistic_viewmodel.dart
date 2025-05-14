@@ -106,6 +106,13 @@ class StatisticViewModel extends _$StatisticViewModel {
     return (100 / (state.totalAmount! / 100)) * contractAmountinEuro;
   }
 
+  void clearError() {
+    if (state.error != null) {
+      // ignore: avoid_redundant_argument_values
+      state = state.copyWith(clearError: true);
+    }
+  }
+
   String doubleToStringPercentage(double percentage) {
     return percentage.toStringAsFixed(1);
   }
