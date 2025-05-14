@@ -20,7 +20,6 @@ class ContractHiveAdapter extends TypeAdapter<ContractHive> {
       description: fields[0] as String,
       billingPeriod: fields[1] as BillingPeriodHive,
       categoryId: fields[2] as int,
-      income: fields[3] as bool,
       amount: fields[4] as int,
     );
   }
@@ -28,15 +27,13 @@ class ContractHiveAdapter extends TypeAdapter<ContractHive> {
   @override
   void write(BinaryWriter writer, ContractHive obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.description)
       ..writeByte(1)
       ..write(obj.billingPeriod)
       ..writeByte(2)
       ..write(obj.categoryId)
-      ..writeByte(3)
-      ..write(obj.income)
       ..writeByte(4)
       ..write(obj.amount);
   }

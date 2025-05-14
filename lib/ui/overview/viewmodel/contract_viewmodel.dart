@@ -88,7 +88,6 @@ class ContractViewModel extends _$ContractViewModel {
         description: contract.description,
         selectedPeriod: contract.billingPeriod,
         selectedCategory: contract.category,
-        income: contract.income,
         amount: contract.amount,
         isLoading: false,
       );
@@ -143,7 +142,6 @@ class ContractViewModel extends _$ContractViewModel {
             description: state.description,
             billingPeriod: state.selectedPeriod,
             category: state.selectedCategory!,
-            income: state.income,
             amount: state.amount!,
           ),
         );
@@ -154,7 +152,6 @@ class ContractViewModel extends _$ContractViewModel {
             description: state.description,
             billingPeriod: state.selectedPeriod,
             category: state.selectedCategory!,
-            income: state.income,
             amount: state.amount!,
           ),
         );
@@ -188,7 +185,6 @@ class ContractViewModel extends _$ContractViewModel {
       description: contract.description,
       selectedPeriod: contract.billingPeriod,
       selectedCategory: contract.category,
-      income: contract.income,
       amount: contract.amount,
     );
   }

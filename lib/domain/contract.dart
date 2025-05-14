@@ -6,7 +6,7 @@ class Contract {
   String description;
   BillingPeriod billingPeriod;
   Category category;
-  bool income;
+
   int amount;
 
   Contract({
@@ -14,7 +14,6 @@ class Contract {
     required this.description,
     required this.billingPeriod,
     required this.category,
-    this.income = false,
     required this.amount,
   });
 
@@ -24,7 +23,6 @@ class Contract {
     BillingPeriod? billingPeriod,
     Category? category,
     int? amount,
-    bool? income,
   }) {
     return Contract(
       id: id ?? this.id,
@@ -32,7 +30,6 @@ class Contract {
       billingPeriod: billingPeriod ?? this.billingPeriod,
       category: category ?? this.category,
       amount: amount ?? this.amount,
-      income: income ?? this.income,
     );
   }
 
@@ -43,7 +40,6 @@ class Contract {
       billingPeriod: billingPeriod,
       category: category,
       amount: amount ?? this.amount,
-      income: income,
     );
   }
 }

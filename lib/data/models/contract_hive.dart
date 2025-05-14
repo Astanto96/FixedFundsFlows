@@ -15,8 +15,7 @@ class ContractHive extends HiveObject {
   BillingPeriodHive billingPeriod;
   @HiveField(2)
   int categoryId;
-  @HiveField(3)
-  bool income;
+
   @HiveField(4)
   int amount;
 
@@ -24,7 +23,6 @@ class ContractHive extends HiveObject {
     required this.description,
     required this.billingPeriod,
     required this.categoryId,
-    this.income = false,
     required this.amount,
   });
 
@@ -55,7 +53,6 @@ class ContractHive extends HiveObject {
         (e) => e.toString().split('.').last == json['billingPeriod'],
       ),
       categoryId: json['categoryId'] as int,
-      income: json['income'] as bool,
       amount: json['amount'] as int,
     );
   }
@@ -65,7 +62,6 @@ class ContractHive extends HiveObject {
       'description': description,
       'billingPeriod': billingPeriod.toString().split('.').last,
       'categoryId': categoryId,
-      'income': income,
       'amount': amount,
     };
   }
@@ -78,7 +74,6 @@ class ContractHive extends HiveObject {
         other.description == description &&
         other.billingPeriod == billingPeriod &&
         other.categoryId == categoryId &&
-        other.income == income &&
         other.amount == amount;
   }
 
@@ -87,7 +82,6 @@ class ContractHive extends HiveObject {
         description,
         billingPeriod,
         categoryId,
-        income,
         amount,
       );
 }

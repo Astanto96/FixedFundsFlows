@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -106,10 +108,10 @@ class OverviewViewModel extends _$OverviewViewModel {
         // update the categories in the app
         await ref.read(categoriesViewmodelProvider.notifier).loadCategories();
         await loadContractsForPeriod();
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, error: null);
         return true;
       } else {
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, error: null);
         return false;
       }
     } catch (e) {
