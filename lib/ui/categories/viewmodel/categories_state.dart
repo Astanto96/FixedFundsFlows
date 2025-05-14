@@ -15,11 +15,12 @@ class CategoriesState {
     List<Category>? categories,
     bool? isLoading,
     String? error,
+    bool clearError = false,
   }) {
     return CategoriesState(
       categories: categories ?? this.categories,
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : error ?? this.error,
     );
   }
 }

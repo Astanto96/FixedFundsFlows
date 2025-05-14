@@ -32,6 +32,14 @@ class CategoriesViewmodel extends _$CategoriesViewmodel {
     }
   }
 
+  void clearError() {
+    if (state.error != null) {
+      // ignore: avoid_redundant_argument_values
+
+      state = state.copyWith(clearError: true);
+    }
+  }
+
   Future<bool> deleteCategory(int key) async {
     final isInUse = await _conRepo.isCategoryInUse(key);
     if (isInUse) {

@@ -38,6 +38,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
           isItGood: false,
           text: categoriesState.error!,
         );
+        viewModel.clearError();
       });
     }
     return SafeArea(
