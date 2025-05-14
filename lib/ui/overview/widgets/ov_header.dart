@@ -162,13 +162,13 @@ class OvHeader extends ConsumerWidget {
                         CustomGlobalSnackBar.show(
                           context: context,
                           isItGood: success,
-                          text: loc.succDeletedAllData,
+                          text: loc.succDeletedContracts,
                         );
                       } else {
                         CustomGlobalSnackBar.show(
                           context: context,
                           isItGood: success,
-                          text: loc.cantDeleteAllData,
+                          text: loc.cantDeleteContracts,
                         );
                       }
                     },

@@ -37,7 +37,13 @@ class OverviewViewModel extends _$OverviewViewModel {
 
   Future<bool> deleteAllContracts() async {
     state = state.copyWith(isLoading: true);
-
+    if (state.contracts.isEmpty) {
+      state = state.copyWith(
+        isLoading: false,
+        error: 'No contracts to delete',
+      );
+      return false;
+    }
     try {
       await _contractRepo.deleteAllContracts();
       state = state.copyWith(isLoading: false);

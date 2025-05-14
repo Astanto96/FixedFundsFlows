@@ -93,6 +93,12 @@ class AppLocalizations {
   String get cantDeleteAllData => isGerman
       ? 'Es konnten nicht alle Verträge & Kategorien gelöscht werden'
       : 'Could not delete all contracts & categories';
+  String get succDeletedContracts => isGerman
+      ? 'Alle Verträge erfolgreich gelöscht'
+      : 'All contracts successfully deleted';
+  String get cantDeleteContracts => isGerman
+      ? 'Die Verträge konnten nicht gelöscht werden'
+      : 'Could not delete contracts';
 
   String get okDelete => isGerman ? 'OK, löschen' : 'OK, delete';
   String get no => isGerman ? 'Nein' : 'No';
