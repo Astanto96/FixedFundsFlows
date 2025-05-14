@@ -30,16 +30,28 @@ class BackupDataRepository {
       this.jsonDataSource, this.categoryRepo, this.contractRepo);
 
   Future<File> createBackupDataForExport() async {
-    final backupDto = BackupDataDto(
-      categories: await categoryRepo.getHiveCategories(),
-      contracts: await contractRepo.getHiveContracts(),
-    );
+    try {
+      final categories = await categoryRepo.getHiveCategories();
+      final contracts = await contractRepo.getHiveContracts();
 
-    final tempDir = await getTemporaryDirectory();
-    final fileName = _generateBackupFileName();
-    final filePath = '${tempDir.path}/$fileName';
-    final file = await jsonDataSource.saveBackupToFile(backupDto, filePath);
-    return file;
+      if (categories.isEmpty && contracts.isEmpty) {
+        throw Exception('No Categories or Contracts found to backup.');
+      }
+
+      final backupDto = BackupDataDto(
+        categories: categories,
+        contracts: contracts,
+      );
+
+      final tempDir = await getTemporaryDirectory();
+      final fileName = _generateBackupFileName();
+      final filePath = '${tempDir.path}/$fileName';
+
+      final file = await jsonDataSource.saveBackupToFile(backupDto, filePath);
+      return file;
+    } catch (e) {
+      throw Exception('Error creating backup data: $e');
+    }
   }
 
   String _generateBackupFileName() {
