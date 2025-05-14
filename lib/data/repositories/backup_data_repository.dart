@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:fixedfundsflows/data/datasource/backup_import_exception.dart';
 import 'package:fixedfundsflows/data/datasource/local_json_data_source.dart';
 import 'package:fixedfundsflows/data/models/backup_data_dto.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
@@ -34,12 +34,11 @@ class BackupDataRepository {
       categories: await categoryRepo.getHiveCategories(),
       contracts: await contractRepo.getHiveContracts(),
     );
-    await jsonDataSource.saveToFile(backupDto);
 
     final tempDir = await getTemporaryDirectory();
     final fileName = _generateBackupFileName();
-    final file = File('${tempDir.path}/$fileName');
-    await file.writeAsString(jsonEncode(backupDto.toJson()));
+    final filePath = '${tempDir.path}/$fileName';
+    final file = await jsonDataSource.saveBackupToFile(backupDto, filePath);
     return file;
   }
 
@@ -50,22 +49,30 @@ class BackupDataRepository {
     return 'fffbackup_$formattedDate.json';
   }
 
-  Future<void> importBackupData() async {
+  Future<void> importBackupDataFromFile(File file) async {
     try {
-      //get all the Data from the json file
-      final backupDto = await jsonDataSource.loadFromFile();
-      //add all the categories in the json file to the hive database
+      final backupDto = await jsonDataSource.loadFromCustomFile(file);
+
       for (final hivecategory in backupDto.categories) {
-        categoryRepo.addCategory(hivecategory.toDomain());
+        await categoryRepo.addCategory(hivecategory.toDomain());
       }
-      //add all the contracts in the json file to the hive database
+
       for (final hivecontract in backupDto.contracts) {
         final category =
             await categoryRepo.getHiveCategory(hivecontract.categoryId);
-        contractRepo.addContract(hivecontract.toDomain(category));
+        if (category == null) {
+          throw Exception(
+              "Kategorie mit ID ${hivecontract.categoryId} nicht gefunden.");
+        }
+        await contractRepo.addContract(hivecontract.toDomain(category));
       }
+    } on FormatException catch (e) {
+      throw BackupImportException("JSON ungültig: ${e.message}");
+    } on FileSystemException catch (e) {
+      throw BackupImportException(
+          "Datei konnte nicht gelesen werden: ${e.message}");
     } catch (e) {
-      throw Exception("Something went wrong while loading the backup data: $e");
+      throw BackupImportException("Unbekannter Fehler beim Import: $e");
     }
   }
 

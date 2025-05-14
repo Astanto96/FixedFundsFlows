@@ -1,10 +1,12 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/data/repositories/backup_data_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_calculator_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -35,12 +37,14 @@ class OverviewViewModel extends _$OverviewViewModel {
     try {
       await _backupRepo.deleteAllDataEntries();
       state = state.copyWith(isLoading: false);
+      await loadContractsForPeriod();
       return true;
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
+      await loadContractsForPeriod();
       return false;
     }
   }
@@ -61,7 +65,6 @@ class OverviewViewModel extends _$OverviewViewModel {
         isLoading: false,
         error: e.toString(),
       );
-      debugPrint(e.toString());
     }
   }
 
@@ -69,18 +72,30 @@ class OverviewViewModel extends _$OverviewViewModel {
     state = state.copyWith(isLoading: true);
 
     try {
-      await _backupRepo.importBackupData();
-      state = state.copyWith(isLoading: false);
-      loadContractsForPeriod();
-      ref.read(categoriesViewmodelProvider.notifier).loadCategories();
-      return true;
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+      );
+
+      if (result != null && result.files.single.path != null) {
+        final file = File(result.files.single.path!);
+
+        await _backupRepo.importBackupDataFromFile(file);
+
+        // update the categories in the app
+        await ref.read(categoriesViewmodelProvider.notifier).loadCategories();
+        await loadContractsForPeriod();
+        state = state.copyWith(isLoading: false);
+        return true;
+      } else {
+        state = state.copyWith(isLoading: false);
+        return false;
+      }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
-      loadContractsForPeriod();
-      ref.read(categoriesViewmodelProvider.notifier).loadCategories();
       return false;
     }
   }

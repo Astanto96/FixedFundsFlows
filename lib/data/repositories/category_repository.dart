@@ -30,7 +30,7 @@ class CategoryRepository {
     return dataSource.getHiveCategories();
   }
 
-  Future<CategoryHive> getHiveCategory(int key) async {
+  Future<CategoryHive?> getHiveCategory(int key) async {
     final category = dataSource.getHiveCategory(key);
     if (category == null) {
       throw Exception("Category with ID $key not found!");
