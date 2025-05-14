@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/core/localization/app_localizations.dart';
+import 'package:fixedfundsflows/core/theme/app_spacing.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
@@ -49,13 +50,12 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                height: 1,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  16,
-                  24,
-                  16,
-                  16,
-                ),
+                padding: AppSpacing.padding16,
                 child: Text(
                   loc.categories,
                   style: const TextStyle(fontSize: 20),
