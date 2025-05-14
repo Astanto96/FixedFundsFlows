@@ -25,6 +25,9 @@ class AppLocalizations {
   String get lightmode => isGerman ? "Hell" : "Light";
   String get german => isGerman ? "Deutsch" : "German";
   String get english => isGerman ? "Englisch" : "English";
+  String get deleteContracts =>
+      isGerman ? 'Verträge löschen' : 'Delete contracts';
+  String get addDeleteAllData => isGerman ? 'alle Verträge' : 'all contracts';
 
 //Bottomsheet Contract
   String get createContract =>

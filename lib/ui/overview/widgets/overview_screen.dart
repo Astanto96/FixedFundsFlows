@@ -54,7 +54,8 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
                     overviewState.totalAmountForSelectedPeriod,
                 importBackupData: viewModel.importBackupData,
                 exportBackupData: viewModel.exportBackupData,
-                deleteAllData: viewModel.deleteAllDataEntries,
+                deleteAllDataEntries: viewModel.deleteAllDataEntries,
+                deleteAllContracts: viewModel.deleteAllContracts,
               ),
               Expanded(
                 child: LoadingOverlay(

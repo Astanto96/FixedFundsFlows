@@ -7,6 +7,7 @@ import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
 import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
 import 'package:fixedfundsflows/ui/widgets/delete_all_data_dialog.dart';
+import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +16,8 @@ class OvHeader extends ConsumerWidget {
   final void Function(BillingPeriod) onBillingPeriodChanged;
   final Future<bool> Function() importBackupData;
   final void Function() exportBackupData;
-  final Future<bool> Function() deleteAllData;
+  final Future<bool> Function() deleteAllDataEntries;
+  final Future<bool> Function() deleteAllContracts;
 
   final int totalAmountForSelectedPeriod;
 
@@ -26,7 +28,8 @@ class OvHeader extends ConsumerWidget {
     required this.importBackupData,
     required this.exportBackupData,
     required this.totalAmountForSelectedPeriod,
-    required this.deleteAllData,
+    required this.deleteAllDataEntries,
+    required this.deleteAllContracts,
   });
 
   @override
@@ -109,7 +112,7 @@ class OvHeader extends ConsumerWidget {
                         return;
                       }
 
-                      final successDel = await deleteAllData();
+                      final successDel = await deleteAllDataEntries();
                       if (!context.mounted) {
                         return;
                       }
@@ -139,6 +142,37 @@ class OvHeader extends ConsumerWidget {
                       exportBackupData();
                     },
                     child: const Text('Export'),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const Icon(Icons.delete_outline),
+                    onPressed: () async {
+                      final wantToDeleteAll = await DeleteDialog.show(
+                          context: context,
+                          itemName: loc.addDeleteAllData,
+                          loc: loc);
+                      if (!wantToDeleteAll) {
+                        return;
+                      }
+
+                      final success = await deleteAllContracts();
+                      if (!context.mounted) {
+                        return;
+                      }
+                      if (success) {
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: loc.succDeletedAllData,
+                        );
+                      } else {
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: loc.cantDeleteAllData,
+                        );
+                      }
+                    },
+                    child: Text(loc.deleteContracts),
                   ),
                 ],
               ),
