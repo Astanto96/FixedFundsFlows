@@ -5,19 +5,31 @@ import 'package:fixedfundsflows/core/theme/light_theme.dart';
 import 'package:fixedfundsflows/core/theme/theme_provider.dart';
 import 'package:fixedfundsflows/core/utils/amount_formatter.dart';
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
+import 'package:fixedfundsflows/ui/widgets/custom_global_snackbar.dart';
+import 'package:fixedfundsflows/ui/widgets/delete_all_data_dialog.dart';
+import 'package:fixedfundsflows/ui/widgets/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OvHeader extends ConsumerWidget {
   final BillingPeriod selectedPeriod;
   final void Function(BillingPeriod) onBillingPeriodChanged;
+  final Future<bool> Function() importBackupData;
+  final void Function() exportBackupData;
+  final Future<bool> Function() deleteAllDataEntries;
+  final Future<bool> Function() deleteAllContracts;
+
   final int totalAmountForSelectedPeriod;
 
   const OvHeader({
     super.key,
     required this.selectedPeriod,
     required this.onBillingPeriodChanged,
+    required this.importBackupData,
+    required this.exportBackupData,
     required this.totalAmountForSelectedPeriod,
+    required this.deleteAllDataEntries,
+    required this.deleteAllContracts,
   });
 
   @override
@@ -79,70 +91,88 @@ class OvHeader extends ConsumerWidget {
                     child: loc.isGerman ? Text(loc.english) : Text(loc.german),
                   ),
                   MenuItemButton(
-                    closeOnActivate: false,
-                    leadingIcon: const Icon(Icons.file_download_outlined,
-                        color: Colors.grey),
-                    onPressed: () {
-                      //TODO comming soon
+                    leadingIcon: const Icon(Icons.file_download_outlined),
+                    onPressed: () async {
+                      final wantToDeleteAll = await DeleteAllDataDialog.show(
+                          context: context, loc: loc);
+                      if (wantToDeleteAll == null) {
+                        return;
+                      }
+                      if (!wantToDeleteAll) {
+                        final success = await importBackupData();
+
+                        if (!context.mounted) {
+                          return;
+                        }
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: success ? loc.succImport : loc.cantImport,
+                        );
+                        return;
+                      }
+
+                      final successDel = await deleteAllDataEntries();
+                      if (!context.mounted) {
+                        return;
+                      }
+                      CustomGlobalSnackBar.show(
+                        context: context,
+                        isItGood: successDel,
+                        text: successDel
+                            ? loc.succDeletedAllData
+                            : loc.cantDeleteAllData,
+                      );
+
+                      final successImport = await importBackupData();
+                      if (!context.mounted) {
+                        return;
+                      }
+                      CustomGlobalSnackBar.show(
+                        context: context,
+                        isItGood: successImport,
+                        text: successImport ? loc.succImport : loc.cantImport,
+                      );
                     },
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Import',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Text(
-                            'soon',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: const Text('Import'),
                   ),
                   MenuItemButton(
-                    closeOnActivate: false,
-                    leadingIcon:
-                        const Icon(Icons.ios_share_rounded, color: Colors.grey),
+                    leadingIcon: const Icon(Icons.ios_share_rounded),
                     onPressed: () {
-                      //TODO comming soon
+                      exportBackupData();
                     },
-                    child: Row(
-                      children: [
-                        const Text(
-                          'Export',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Text(
-                            'soon',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: const Text('Export'),
+                  ),
+                  MenuItemButton(
+                    leadingIcon: const Icon(Icons.delete_outline),
+                    onPressed: () async {
+                      final wantToDeleteAll = await DeleteDialog.show(
+                          context: context,
+                          itemName: loc.addDeleteAllData,
+                          loc: loc);
+                      if (!wantToDeleteAll) {
+                        return;
+                      }
+
+                      final success = await deleteAllContracts();
+                      if (!context.mounted) {
+                        return;
+                      }
+                      if (success) {
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: loc.succDeletedAllData,
+                        );
+                      } else {
+                        CustomGlobalSnackBar.show(
+                          context: context,
+                          isItGood: success,
+                          text: loc.cantDeleteAllData,
+                        );
+                      }
+                    },
+                    child: Text(loc.deleteContracts),
                   ),
                 ],
               ),

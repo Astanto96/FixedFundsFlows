@@ -15,6 +15,24 @@ class CategoryHive extends HiveObject {
   }
 
   Category toDomain() {
-    return Category(id: key as int, description: description);
+    return Category(id: key as int?, description: description);
   }
+
+  factory CategoryHive.fromJson(Map<String, dynamic> json) {
+    return CategoryHive(description: json['description'] as String);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'description': description};
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is CategoryHive && other.description == description;
+  }
+
+  @override
+  int get hashCode => description.hashCode;
 }

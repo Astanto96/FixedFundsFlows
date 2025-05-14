@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/data/datasource/hive_data_source.dart';
+import 'package:fixedfundsflows/data/models/contract_hive.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,6 +30,10 @@ class ContractRepository {
     return await dataSource.getContracts();
   }
 
+  Future<List<ContractHive>> getHiveContracts() async {
+    return await dataSource.getHiveContracts();
+  }
+
   Contract getContract(int id) {
     final contract = dataSource.getContract(id);
     if (contract == null) {
@@ -51,5 +56,9 @@ class ContractRepository {
 
   Future<void> deleteContract(int id) async {
     await dataSource.deleteContract(id);
+  }
+
+  Future<void> deleteAllContracts() async {
+    await dataSource.deleteAllContracts();
   }
 }

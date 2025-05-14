@@ -64,6 +64,30 @@ class HiveDataSource {
     }
   }
 
+  Future<List<CategoryHive>> getHiveCategories() async {
+    try {
+      return categoryBox.values.toList();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error retrieving categories: $e",
+      );
+    }
+  }
+
+  CategoryHive? getHiveCategory(int key) {
+    try {
+      final categoryHive = categoryBox.get(key);
+      if (categoryHive == null) {
+        return null;
+      }
+      return categoryHive;
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error retrieving category: $e",
+      );
+    }
+  }
+
   Category? getCategory(int key) {
     try {
       final categoryHive = categoryBox.get(key);
@@ -87,6 +111,16 @@ class HiveDataSource {
     } catch (e) {
       throw HiveDataSourceException(
         "Error deleting category: $e",
+      );
+    }
+  }
+
+  Future<void> deleteAllCategories() async {
+    try {
+      await categoryBox.clear();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error deleting all categories: $e",
       );
     }
   }
@@ -143,6 +177,16 @@ class HiveDataSource {
     }
   }
 
+  Future<List<ContractHive>> getHiveContracts() async {
+    try {
+      return contractBox.values.toList();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error retrieving contracts: $e",
+      );
+    }
+  }
+
   Contract? getContract(int key) {
     try {
       final contractHive = contractBox.get(key);
@@ -188,6 +232,16 @@ class HiveDataSource {
     } catch (e) {
       throw HiveDataSourceException(
         "Error deleting contract: $e",
+      );
+    }
+  }
+
+  Future<void> deleteAllContracts() async {
+    try {
+      await contractBox.clear();
+    } catch (e) {
+      throw HiveDataSourceException(
+        "Error deleting all contracts: $e",
       );
     }
   }

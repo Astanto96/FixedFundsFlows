@@ -39,7 +39,7 @@ class ContractHive extends HiveObject {
 
   Contract toDomain(CategoryHive category) {
     return Contract(
-      id: key as int,
+      id: key as int?,
       description: description,
       billingPeriod: BillingPeriodMapper.toDomain(billingPeriod),
       category:
@@ -47,4 +47,47 @@ class ContractHive extends HiveObject {
       amount: amount,
     );
   }
+
+  factory ContractHive.fromJson(Map<String, dynamic> json) {
+    return ContractHive(
+      description: json['description'] as String,
+      billingPeriod: BillingPeriodHive.values.firstWhere(
+        (e) => e.toString().split('.').last == json['billingPeriod'],
+      ),
+      categoryId: json['categoryId'] as int,
+      income: json['income'] as bool,
+      amount: json['amount'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'description': description,
+      'billingPeriod': billingPeriod.toString().split('.').last,
+      'categoryId': categoryId,
+      'income': income,
+      'amount': amount,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ContractHive &&
+        other.description == description &&
+        other.billingPeriod == billingPeriod &&
+        other.categoryId == categoryId &&
+        other.income == income &&
+        other.amount == amount;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        description,
+        billingPeriod,
+        categoryId,
+        income,
+        amount,
+      );
 }
