@@ -91,7 +91,7 @@ class OverviewViewModel extends _$OverviewViewModel {
     }
   }
 
-  Future<bool> importBackupData() async {
+  Future<void> importBackupData() async {
     state = state.copyWith(isLoading: true);
 
     try {
@@ -107,19 +107,20 @@ class OverviewViewModel extends _$OverviewViewModel {
 
         // update the categories in the app
         await ref.read(categoriesViewmodelProvider.notifier).loadCategories();
+        //update the contracts in the app
         await loadContractsForPeriod();
         state = state.copyWith(isLoading: false, error: null);
-        return true;
       } else {
-        state = state.copyWith(isLoading: false, error: null);
-        return false;
+        state = state.copyWith(
+          isLoading: false,
+          error: 'No file selected',
+        );
       }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
-      return false;
     }
   }
 

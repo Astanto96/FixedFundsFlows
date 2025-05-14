@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fixedfundsflows/data/datasource/backup_import_exception.dart';
+import 'package:fixedfundsflows/data/repositories/backup_import_exception.dart';
 import 'package:fixedfundsflows/data/datasource/local_json_data_source.dart';
 import 'package:fixedfundsflows/data/models/backup_data_dto.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
@@ -51,7 +51,7 @@ class BackupDataRepository {
 
   Future<void> importBackupDataFromFile(File file) async {
     try {
-      final backupDto = await jsonDataSource.loadFromCustomFile(file);
+      final backupDto = await jsonDataSource.tryLoadBackup(file);
 
       for (final hivecategory in backupDto.categories) {
         await categoryRepo.addCategory(hivecategory.toDomain());
@@ -66,13 +66,8 @@ class BackupDataRepository {
         }
         await contractRepo.addContract(hivecontract.toDomain(category));
       }
-    } on FormatException catch (e) {
-      throw BackupImportException("JSON ungültig: ${e.message}");
-    } on FileSystemException catch (e) {
-      throw BackupImportException(
-          "Datei konnte nicht gelesen werden: ${e.message}");
     } catch (e) {
-      throw BackupImportException("Unbekannter Fehler beim Import: $e");
+      throw BackupImportException("Fehler beim Import: $e");
     }
   }
 
