@@ -117,6 +117,7 @@ class OverviewViewModel extends _$OverviewViewModel {
           isLoading: false,
           error: 'No file selected',
         );
+        return false;
       }
       return true;
     } catch (e) {
