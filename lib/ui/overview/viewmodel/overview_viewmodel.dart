@@ -91,7 +91,7 @@ class OverviewViewModel extends _$OverviewViewModel {
     }
   }
 
-  Future<void> importBackupData() async {
+  Future<bool> importBackupData() async {
     state = state.copyWith(isLoading: true);
 
     try {
@@ -116,11 +116,13 @@ class OverviewViewModel extends _$OverviewViewModel {
           error: 'No file selected',
         );
       }
+      return true;
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),
       );
+      return false;
     }
   }
 
