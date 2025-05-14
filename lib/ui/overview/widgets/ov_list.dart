@@ -32,28 +32,35 @@ class OvList extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: contracts.length,
-              itemBuilder: (context, index) {
-                final contract = contracts[index];
-                return Material(
-                  color: Colors.transparent,
-                  child: ListTile(
-                    leading: Icon(contract.billingPeriod.billingIcon),
-                    title: Text(contract.description),
-                    subtitle: Text(contract.category.description),
-                    trailing: Text(
-                        AmountFormatter.formatToStringWithSymbol(
-                            contract.amount),
-                        style: const TextStyle(fontSize: 16)),
-                    onTap: () => AppBottomSheets.showDetailsToContract(
-                      context,
-                      contract,
+            child: contracts.isEmpty
+                ? Center(
+                    child: Text(
+                      loc.noContracts,
+                      style: const TextStyle(fontSize: 16),
                     ),
+                  )
+                : ListView.builder(
+                    itemCount: contracts.length,
+                    itemBuilder: (context, index) {
+                      final contract = contracts[index];
+                      return Material(
+                        color: Colors.transparent,
+                        child: ListTile(
+                          leading: Icon(contract.billingPeriod.billingIcon),
+                          title: Text(contract.description),
+                          subtitle: Text(contract.category.description),
+                          trailing: Text(
+                              AmountFormatter.formatToStringWithSymbol(
+                                  contract.amount),
+                              style: const TextStyle(fontSize: 16)),
+                          onTap: () => AppBottomSheets.showDetailsToContract(
+                            context,
+                            contract,
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ],
       ),

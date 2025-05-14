@@ -67,46 +67,54 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
                 color: Theme.of(context).colorScheme.secondary,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    return ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16),
-                      title: Text(category.description),
-                      trailing: IconButton(
-                        onPressed: () async {
-                          final wantToDelete = await DeleteDialog.show(
-                              context: context,
-                              itemName: category.description,
-                              loc: loc);
-                          if (!wantToDelete) {
-                            return;
-                          }
-                          final success =
-                              await viewModel.deleteCategory(category.id!);
-                          ref
-                              .read(statisticViewModelProvider.notifier)
-                              .initializeStatisticState();
+                child: categories.isEmpty
+                    ? Center(
+                        child: Text(
+                          loc.noCategories,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      )
+                    // List of categories
+                    : ListView.builder(
+                        itemCount: categories.length,
+                        itemBuilder: (context, index) {
+                          final category = categories[index];
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 16),
+                            title: Text(category.description),
+                            trailing: IconButton(
+                              onPressed: () async {
+                                final wantToDelete = await DeleteDialog.show(
+                                    context: context,
+                                    itemName: category.description,
+                                    loc: loc);
+                                if (!wantToDelete) {
+                                  return;
+                                }
+                                final success = await viewModel
+                                    .deleteCategory(category.id!);
+                                ref
+                                    .read(statisticViewModelProvider.notifier)
+                                    .initializeStatisticState();
 
-                          if (!context.mounted) {
-                            return;
-                          }
+                                if (!context.mounted) {
+                                  return;
+                                }
 
-                          CustomGlobalSnackBar.show(
-                            context: context,
-                            isItGood: success,
-                            text: success
-                                ? loc.succDeleted(category.description)
-                                : loc.cantDeleteCat,
+                                CustomGlobalSnackBar.show(
+                                  context: context,
+                                  isItGood: success,
+                                  text: success
+                                      ? loc.succDeleted(category.description)
+                                      : loc.cantDeleteCat,
+                                );
+                              },
+                              icon: const Icon(Icons.delete_outline),
+                            ),
                           );
                         },
-                        icon: const Icon(Icons.delete_outline),
                       ),
-                    );
-                  },
-                ),
               ),
               Container(
                 height: 1,

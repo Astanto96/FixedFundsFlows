@@ -9,7 +9,6 @@ import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
 import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
-import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -156,7 +155,7 @@ class OverviewViewModel extends _$OverviewViewModel {
   void clearError() {
     if (state.error != null) {
       // ignore: avoid_redundant_argument_values
-      debugPrint('[ViewModel] Clearing error...');
+
       state = state.copyWith(clearError: true);
     }
   }

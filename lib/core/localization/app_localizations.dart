@@ -126,6 +126,15 @@ class AppLocalizations {
     }
   }
 
+  String get noContracts =>
+      isGerman ? 'Es sind keine Verträge vorhanden' : 'No contracts available';
+  String get noCategories => isGerman
+      ? 'Es sind keine Kategorien vorhanden'
+      : 'No categories available';
+  String get noDataforStatistic => isGerman
+      ? 'Es sind keine Daten für die Statistik vorhanden'
+      : 'No data available for statistics';
+
   //DummyData
   //Descriptions
   String get rent => isGerman ? 'Miete' : 'Rent';
