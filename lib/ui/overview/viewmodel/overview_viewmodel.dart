@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_redundant_argument_values
-
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -10,6 +8,8 @@ import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:fixedfundsflows/ui/categories/viewmodel/categories_viewmodel.dart';
 import 'package:fixedfundsflows/ui/overview/viewmodel/overview_state.dart';
+import 'package:fixedfundsflows/ui/statistic/viewmodel/statistic_viewmodel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -109,7 +109,10 @@ class OverviewViewModel extends _$OverviewViewModel {
         await ref.read(categoriesViewmodelProvider.notifier).loadCategories();
         //update the contracts in the app
         await loadContractsForPeriod();
-        state = state.copyWith(isLoading: false, error: null);
+        await ref
+            .read(statisticViewModelProvider.notifier)
+            .initializeStatisticState();
+        state = state.copyWith(isLoading: false);
       } else {
         state = state.copyWith(
           isLoading: false,
@@ -147,6 +150,14 @@ class OverviewViewModel extends _$OverviewViewModel {
         error: e.toString(),
         totalAmountForSelectedPeriod: 0,
       );
+    }
+  }
+
+  void clearError() {
+    if (state.error != null) {
+      // ignore: avoid_redundant_argument_values
+      debugPrint('[ViewModel] Clearing error...');
+      state = state.copyWith(clearError: true);
     }
   }
 

@@ -37,6 +37,7 @@ class _OverviewScreenState extends ConsumerState<OverviewScreen> {
           isItGood: false,
           text: overviewState.error!,
         );
+        viewModel.clearError();
       });
     }
 

@@ -22,12 +22,13 @@ class OverviewState {
     bool? isLoading,
     String? error,
     int? totalAmountForSelectedPeriod,
+    bool clearError = false,
   }) {
     return OverviewState(
       contracts: contracts ?? this.contracts,
       selectedPeriod: selectedPeriod ?? this.selectedPeriod,
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : error ?? this.error,
       totalAmountForSelectedPeriod:
           totalAmountForSelectedPeriod ?? this.totalAmountForSelectedPeriod,
     );
