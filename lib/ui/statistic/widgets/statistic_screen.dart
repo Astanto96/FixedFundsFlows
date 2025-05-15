@@ -83,6 +83,7 @@ class _StatisticScreenState extends ConsumerState<StatisticScreen> {
                     else
                       Expanded(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             LayoutBuilder(
                               builder: (context, constraints) {
