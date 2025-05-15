@@ -31,13 +31,21 @@ class DeleteAllDataDialog {
                 children: [
                   TextSpan(
                     text: loc.uWantDeleteAllData1,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
                   ),
                   TextSpan(
                     text: loc.uWantDeleteAllData2,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).textTheme.bodyLarge?.color),
                   ),
                   TextSpan(
                     text: loc.uWantDeleteAllData3,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
                   ),
                 ],
               ),
