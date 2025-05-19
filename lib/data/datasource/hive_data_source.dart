@@ -1,4 +1,4 @@
-import 'package:fixedfundsflows/data/datasource/hive_data_source_exception.dart';
+import 'package:fixedfundsflows/data/datasource/exceptions/hive_exceptions.dart';
 import 'package:fixedfundsflows/data/models/category_hive.dart';
 import 'package:fixedfundsflows/data/models/contract_hive.dart';
 import 'package:fixedfundsflows/data/provider/box_providers.dart';
@@ -30,11 +30,12 @@ class HiveDataSource {
       final key = await categoryBox.add(CategoryHive.fromDomain(category));
       final savedCategoryHive = categoryBox.get(key);
       if (savedCategoryHive == null) {
-        throw HiveDataSourceException("Category couldn't be saved");
+        throw HiveMissingReferenceException("Category with ID $key not found!");
       }
       return savedCategoryHive.toDomain();
-    } catch (e) {
-      throw HiveDataSourceException("Category couldn't be saved: $e");
+    } catch (e, stackTrace) {
+      throw HiveSaveException("Category couldn't be saved: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -44,8 +45,9 @@ class HiveDataSource {
         key,
         CategoryHive.fromDomain(category),
       );
-    } catch (e) {
-      throw HiveDataSourceException("Category couldn't be updated: $e");
+    } catch (e, stackTrace) {
+      throw HiveUpdateException("Category couldn't be updated: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -57,20 +59,18 @@ class HiveDataSource {
           description: categoryHive.description,
         );
       }).toList();
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error retrieving categories: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveReadException("Error retrieving categories: $e",
+          stackTrace: stackTrace);
     }
   }
 
   Future<List<CategoryHive>> getHiveCategories() async {
     try {
       return categoryBox.values.toList();
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error retrieving categories: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveReadException("Error retrieving HiveCategories: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -81,10 +81,9 @@ class HiveDataSource {
         return null;
       }
       return categoryHive;
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error retrieving category: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveReadException("Error retrieving HiveCategory: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -98,30 +97,27 @@ class HiveDataSource {
         id: key,
         description: categoryHive.description,
       );
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error retrieving category: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveReadException("Error retrieving category: $e",
+          stackTrace: stackTrace);
     }
   }
 
   Future<void> deleteCategory(int key) async {
     try {
       await categoryBox.delete(key);
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error deleting category: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveDeleteException("Error deleting category: $e",
+          stackTrace: stackTrace);
     }
   }
 
   Future<void> deleteAllCategories() async {
     try {
       await categoryBox.clear();
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error deleting all categories: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveDeleteException("Error deleting all categories: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -131,9 +127,10 @@ class HiveDataSource {
     try {
       return contractBox.values
           .any((contractHive) => contractHive.categoryId == categoryId);
-    } catch (e) {
-      throw HiveDataSourceException(
+    } catch (e, stackTrace) {
+      throw HiveReadException(
         "Error checking if category is in use: $e",
+        stackTrace: stackTrace,
       );
     }
   }
@@ -143,19 +140,18 @@ class HiveDataSource {
       final key = await contractBox.add(ContractHive.fromDomain(contract));
       final savedContractHive = contractBox.get(key);
       if (savedContractHive == null) {
-        throw HiveDataSourceException("Contract couldn't be saved");
+        throw HiveSaveException("Contract couldn't be saved");
       }
       final categoryHive = categoryBox.get(contract.category.id);
       if (categoryHive == null) {
-        throw HiveDataSourceException(
+        throw HiveMissingReferenceException(
           "Category with ID ${contract.category.id} not found!",
         );
       }
       return savedContractHive.toDomain(categoryHive);
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Contract couldn't be saved: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveSaveException("Contract couldn't be saved: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -164,15 +160,16 @@ class HiveDataSource {
       return contractBox.values.map((contractHive) {
         final categoryHive = categoryBox.get(contractHive.categoryId);
         if (categoryHive == null) {
-          throw HiveDataSourceException(
+          throw HiveMissingReferenceException(
             "Category with ID ${contractHive.categoryId} not found!",
           );
         }
         return contractHive.toDomain(categoryHive);
       }).toList();
-    } catch (e) {
-      throw HiveDataSourceException(
+    } catch (e, stackTrace) {
+      throw HiveReadException(
         "Error retrieving contracts: $e",
+        stackTrace: stackTrace,
       );
     }
   }
@@ -180,10 +177,9 @@ class HiveDataSource {
   Future<List<ContractHive>> getHiveContracts() async {
     try {
       return contractBox.values.toList();
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error retrieving contracts: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveReadException("Error retrieving HiveContracts: $e",
+          stackTrace: stackTrace);
     }
   }
 
@@ -195,14 +191,15 @@ class HiveDataSource {
       }
       final categoryHive = categoryBox.get(contractHive.categoryId);
       if (categoryHive == null) {
-        throw HiveDataSourceException(
+        throw HiveMissingReferenceException(
           "Category with ID ${contractHive.categoryId} not found!",
         );
       }
       return contractHive.toDomain(categoryHive);
-    } catch (e) {
-      throw HiveDataSourceException(
+    } catch (e, stackTrace) {
+      throw HiveReadException(
         "Error retrieving contract: $e",
+        stackTrace: stackTrace,
       );
     }
   }
@@ -211,7 +208,7 @@ class HiveDataSource {
     try {
       final categoryHive = categoryBox.get(contract.category.id);
       if (categoryHive == null) {
-        throw HiveDataSourceException(
+        throw HiveMissingReferenceException(
           "Category with ID ${contract.category.id} not found!",
         );
       }
@@ -219,9 +216,10 @@ class HiveDataSource {
       final contractHive = ContractHive.fromDomain(contract);
 
       await contractBox.put(contract.id, contractHive);
-    } catch (e) {
-      throw HiveDataSourceException(
+    } catch (e, stackTrace) {
+      throw HiveSaveException(
         "Contract couldn't be updated: $e",
+        stackTrace: stackTrace,
       );
     }
   }
@@ -229,9 +227,10 @@ class HiveDataSource {
   Future<void> deleteContract(int key) async {
     try {
       await contractBox.delete(key);
-    } catch (e) {
-      throw HiveDataSourceException(
+    } catch (e, stackTrace) {
+      throw HiveDeleteException(
         "Error deleting contract: $e",
+        stackTrace: stackTrace,
       );
     }
   }
@@ -239,10 +238,9 @@ class HiveDataSource {
   Future<void> deleteAllContracts() async {
     try {
       await contractBox.clear();
-    } catch (e) {
-      throw HiveDataSourceException(
-        "Error deleting all contracts: $e",
-      );
+    } catch (e, stackTrace) {
+      throw HiveDeleteException("Error deleting all contracts: $e",
+          stackTrace: stackTrace);
     }
   }
 }
