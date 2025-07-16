@@ -1,4 +1,5 @@
 import 'package:fixedfundsflows/core/utils/billing_period.dart';
+import 'package:fixedfundsflows/core/utils/result.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
 import 'package:fixedfundsflows/domain/contract.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,24 +14,48 @@ ContractCalculatorRepository contractCalculatorRepository(Ref ref) {
 }
 
 class ContractCalculatorRepository {
-  final ContractRepository contractRepository;
+  ContractCalculatorRepository(this._contractRepository);
 
-  ContractCalculatorRepository(this.contractRepository);
+  final ContractRepository _contractRepository;
 
-  Future<List<Contract>> getContractsForPeriod(
+  // ────────────────────────────────────────────────────────────────
+  // Public API
+  // ────────────────────────────────────────────────────────────────
+
+  Future<Result<List<Contract>>> getContractsForPeriod(
     BillingPeriod selectedPeriod,
   ) async {
-    final contracts = await contractRepository.getContracts();
+    try {
+      final contractsRes = await _contractRepository.getContracts();
+      if (contractsRes is Error<List<Contract>>) {
+        return Result.error(contractsRes.error);
+      }
+      final contracts = (contractsRes as Ok<List<Contract>>).value;
 
-    return contracts.map((contract) {
-      final adjustedAmount = _calculateAmountPerPeriod(
-        contract.amount,
-        contract.billingPeriod,
-        selectedPeriod,
-      );
-      return contract.copyWith(amount: adjustedAmount);
-    }).toList();
+      final mapped = <Contract>[];
+      for (final contract in contracts) {
+        try {
+          final adjustedAmount = _calculateAmountPerPeriod(
+            contract.amount,
+            contract.billingPeriod,
+            selectedPeriod,
+          );
+          mapped.add(contract.copyWith(amount: adjustedAmount));
+        } on Exception catch (e) {
+          // Propagate conversion errors immediately
+          return Result.error(Exception(e));
+        }
+      }
+
+      return Result.ok(mapped);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
   }
+
+  // ────────────────────────────────────────────────────────────────
+  // Helpers
+  // ────────────────────────────────────────────────────────────────
 
   int _calculateAmountPerPeriod(
     int amount,

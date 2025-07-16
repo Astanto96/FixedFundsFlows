@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:fixedfundsflows/core/utils/result.dart';
 import 'package:fixedfundsflows/data/datasource/local_json_data_source.dart';
 import 'package:fixedfundsflows/data/models/backup_data_dto.dart';
+import 'package:fixedfundsflows/data/models/category_hive.dart';
+import 'package:fixedfundsflows/data/models/contract_hive.dart';
 import 'package:fixedfundsflows/data/repositories/backup_import_exception.dart';
 import 'package:fixedfundsflows/data/repositories/category_repository.dart';
 import 'package:fixedfundsflows/data/repositories/contract_repository.dart';
@@ -22,35 +25,51 @@ BackupDataRepository backupDataRepository(Ref ref) {
 }
 
 class BackupDataRepository {
-  final LocalJsonDataSource jsonDataSource;
-  final CategoryRepository categoryRepo;
-  final ContractRepository contractRepo;
-
   BackupDataRepository(
-      this.jsonDataSource, this.categoryRepo, this.contractRepo);
+      this._jsonDataSource, this._categoryRepo, this._contractRepo);
 
-  Future<File> createBackupDataForExport() async {
+  final LocalJsonDataSource _jsonDataSource;
+  final CategoryRepository _categoryRepo;
+  final ContractRepository _contractRepo;
+
+  // ────────────────────────────────────────────────────────────────
+  // Export
+  // ────────────────────────────────────────────────────────────────
+
+  Future<Result<File>> createBackupDataForExport() async {
     try {
-      final categories = await categoryRepo.getHiveCategories();
-      final contracts = await contractRepo.getHiveContracts();
+      // Categories
+      final categoriesResult = await _categoryRepo.getHiveCategories();
+      if (categoriesResult is Error<List<CategoryHive>>) {
+        return Result.error(categoriesResult.error);
+      }
+      final categories = (categoriesResult as Ok<List<CategoryHive>>).value;
 
+      // Contracts
+      final contractsResult = await _contractRepo.getHiveContracts();
+      if (contractsResult is Error<List<ContractHive>>) {
+        return Result.error(contractsResult.error);
+      }
+      final contracts = (contractsResult as Ok<List<ContractHive>>).value;
+
+      // No categories or contracts found to backup
       if (categories.isEmpty && contracts.isEmpty) {
-        throw Exception('No Categories or Contracts found to backup.');
+        return Result.error(
+            Exception('No Categories or Contracts found to backup.'));
       }
 
-      final backupDto = BackupDataDto(
-        categories: categories,
-        contracts: contracts,
-      );
+      // DTO & File
+      final backupDto =
+          BackupDataDto(categories: categories, contracts: contracts);
 
       final tempDir = await getTemporaryDirectory();
       final fileName = _generateBackupFileName();
       final filePath = '${tempDir.path}/$fileName';
 
-      final file = await jsonDataSource.saveBackupToFile(backupDto, filePath);
-      return file;
-    } catch (e) {
-      throw Exception('Error creating backup data: $e');
+      final file = await _jsonDataSource.saveBackupToFile(backupDto, filePath);
+      return Result.ok(file);
+    } on Exception catch (e) {
+      return Result.error(e);
     }
   }
 
@@ -61,34 +80,66 @@ class BackupDataRepository {
     return 'fffbackup_$formattedDate.json';
   }
 
-  Future<void> importBackupDataFromFile(File file) async {
+  // ────────────────────────────────────────────────────────────────
+  // Import
+  // ────────────────────────────────────────────────────────────────
+
+  Future<Result<void>> importBackupDataFromFile(File file) async {
     try {
-      final backupDto = await jsonDataSource.tryLoadBackup(file);
+      final backupDto = await _jsonDataSource.tryLoadBackup(file);
 
-      for (final hivecategory in backupDto.categories) {
-        await categoryRepo.addCategory(hivecategory.toDomain());
-      }
-
-      for (final hivecontract in backupDto.contracts) {
-        final category =
-            await categoryRepo.getHiveCategory(hivecontract.categoryId);
-        if (category == null) {
-          throw Exception(
-              "category with ID ${hivecontract.categoryId} could not be found");
+      // Kategorien importieren
+      for (final hiveCategory in backupDto.categories) {
+        final catRes = await _categoryRepo.addCategory(hiveCategory.toDomain());
+        if (catRes is Error<void>) {
+          return Result.error(catRes.error);
         }
-        await contractRepo.addContract(hivecontract.toDomain(category));
       }
-    } catch (e) {
-      throw BackupImportException("Error importing backup data: $e");
+
+      // Verträge importieren
+      for (final hiveContract in backupDto.contracts) {
+        // Kategorie nachschlagen
+        final categoryRes =
+            await _categoryRepo.getHiveCategory(hiveContract.categoryId);
+        if (categoryRes is Error<CategoryHive>) {
+          return Result.error(categoryRes.error);
+        }
+        final category = (categoryRes as Ok<CategoryHive>).value;
+
+        final contractRes =
+            await _contractRepo.addContract(hiveContract.toDomain(category));
+        if (contractRes is Error<void>) {
+          return Result.error(contractRes.error);
+        }
+      }
+
+      return const Result.ok(null);
+    } on Exception catch (e) {
+      return Result.error(
+          BackupImportException('Error importing backup data: $e'));
     }
   }
 
-  Future<void> deleteAllDataEntries() async {
+  // ────────────────────────────────────────────────────────────────
+  // Delete all data
+  // ────────────────────────────────────────────────────────────────
+
+  Future<Result<void>> deleteAllDataEntries() async {
     try {
-      await categoryRepo.deleteAllCategories();
-      await contractRepo.deleteAllContracts();
-    } catch (e) {
-      throw Exception("Something went wrong while deleting the data: $e");
+      final catDelRes = await _categoryRepo.deleteAllCategories();
+      if (catDelRes is Error<void>) {
+        return Result.error(catDelRes.error);
+      }
+
+      final contractDelRes = await _contractRepo.deleteAllContracts();
+      if (contractDelRes is Error<void>) {
+        return Result.error(contractDelRes.error);
+      }
+
+      return const Result.ok(null);
+    } on Exception catch (e) {
+      return Result.error(
+          Exception('Something went wrong while deleting the data: $e'));
     }
   }
 }
