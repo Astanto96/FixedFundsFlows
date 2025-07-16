@@ -97,7 +97,8 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: state.isMaxCategoriesReached
-                    ? () async {
+                    ? null
+                    : () async {
                         final success = await viewmodel.saveCategory();
                         if (success) {
                           ref
@@ -116,8 +117,7 @@ class _CategoryBottomsheetState extends ConsumerState<CategoryBottomsheet> {
                             Navigator.pop(context);
                           }
                         }
-                      }
-                    : null, // Disable button if max categories reached
+                      },
                 child: Text(loc.create),
               ),
             ),
